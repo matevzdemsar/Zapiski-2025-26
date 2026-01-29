@@ -1,0 +1,107 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Magnetna indukcija v kvadratnem okvirju - 2. del.}
+Imamo dolga vodnika na medsebojni razdalji \(d\), ki sta nekje dale\v stran povezana - tvorita torej zunanjo zanko. Znotraj te zanke je \v se ena kvadratna zanka.
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+    \draw (-5, 2) -- (5, 2);
+    \draw[dashed] (5, 2) -- (5, 0);
+    \draw[dashed] (-5, 2) -- (-5, 0);
+    \draw (-5, 0) -- (5, 0);
+    \draw (0, 0) -- (1, 1) -- (0, 2) -- (-1, 1) -- (0, 0);
+    \end{tikzpicture}
+\end{figure}
+\[\phi_1 = L_{11} I_1\]
+\[\phi_2 = L_{21} I_1\]
+Zadnji\v c smo izra\v cunali medsebojno induktivnost kot
+\[L_{12} = L_{21} = \frac{2\ln 2}{\pi}\,\mu_0d\]
+Zdaj imejmo spreminjajo\v c se tok:
+\[I_1 = I_{1,z}\sin\omega t\]
+Vemo, da za vsak tokovni krog velja:
+\[\dot U = R \dot I + L \ddot I + \frac{I}{C}\]
+Ker ra\v cunamo, da so \v zice idealno prevodne, kondenzatorjev pa ni, velja:
+\[U_{2} = -\dot\phi_2 = -L_{21}\dot I_1 = L_{22} \dot I_2\]
+Ker je \(I_1\) sinusna funkcija, pri\v cakujemo, da je tudi \(I_2\) sinusna funkcija. Sledi:
+\[\omega L_{21}I_{10}\cos\omega t = -\omega L_{22} I_{20} \cos\omega t\]
+\[\frac{I_{20}}{I_{10}} = \frac{L_{21}}{L_{22}}\]
+Izra\v cun \(L_{22}\):
+\[B_2 = \frac{\mu_0I_2}{2\pi y} + \frac{\mu_0I_2}{2\pi(d-y)}\]
+\[\phi_2 = \int B \dif S = \frac{\mu_0 I_2 l}{2\pi}\int_{a}^{d-a}\left(\frac{1}{y} + \frac{1}{d-y}\right)\dif y\]
+\[\phi_2 = \frac{\mu_0 I_2 l}{2\pi}\left(\ln\frac{d-a}{a} - \ln\frac{a}{d-a}\right) = \frac{\mu_0 l}{\pi}\ln\frac{d-a}{a}\,I_2 = L_{22}I_2\]
+Pri predpostavki, da je \(d \gg a\), ocenimo:
+\[L_{22} \approx \frac{\mu_0 l}{\pi}\ln\frac{d}{a}\]
+\[\frac{I_{20}}{I_{10}} = -\frac{2\ln 2}{\frac{l}{d}\ln\frac{d}{a}}\]
+\paragraph{Kro\v zni pojav v prevodnem traku.} Skozi prevoden trak po\v zenemo izmeni\v cen sinusen tok.
+Pri\v cakujemo, da se bo tok po traku spreminjal po \v sirini traka (saj se naboj obi\v cajno nabere na robovih telesa).
+Poznamo \(\omega\), debelino traku \(a\) in povr\v sinsko gostota naboja \(\sigma\).
+Zzanima nas:
+\begin{itemize}
+    \item \(E_z(x)\), \(j(x)\)
+    \item \(Z(\omega)\) (impedanca), \(Z/R\)
+\end{itemize}
+Ozna\v cimo \(U = U_0e^{i\omega t}\). Za re\v sevanje bomo uporabljali Maxwellovi ena\v cbi:
+\[\nabla\times\vct{E} = -\pd{\vct{B}}{t}\]
+\[\nabla\times\vct{B} = \mu_0\vct{j} + \mu_0\varepsilon_0\pd{\vct{E}}{t}\]
+Uporabili bomo kvazistati\v cno aproksimacijo, ki pravi:
+\[\mu_0\varepsilon_0\pd{\vct{E}}{e} \approx 0\]
+Sledi:
+\[\nabla\times(\nabla\times\vct{E}) = -\pd{}{t}\nabla\times\vct{B} = -\pd{}{t}\mu_0\sigma\vct{E}\]
+Hkrati je to enako \[\nabla\cdot(\nabla\cdot\vct{E}) - \nabla^2\vct{E}\]
+Pri \v cemer je \(\nabla\cdot(\nabla\cdot\vct{E}) = 0\)
+\[\nabla^2\vct{E} - \mu_0\sigma\pd{\vct{E}}{t} = 0\]
+Ker je zaradi sinusne napetosti \(\vct{E} \propto \exp(i\omega t)\), lahko zapi\v semo:
+\[\nabla^2\vct{E} -i\omega\mu_0\sigma\vct{E} = 0\]
+Ozna\v cimo \(\kappa^2 = i\omega\mu_0\sigma\) - tedaj je \(\kappa = \frac{1}{\sqrt{2}}(1 + i)\sqrt{\omega\mu_0\sigma}\).
+\[\nabla^2\vct{E} -\kappa^2\vct{E} = 0\]
+Obravnavamo samo \(z\) komponento, za katero vemo, da je konstantna v smeri \(z\) in neodvisna od \(y\). Sledi:
+\[\pd{^2}{x^2}E_z - \kappa^2E_z = 0\]
+Z robnim pogojem \(E_z(x = \pm a/2) = E_0\)
+Tovrstno ena\v cbo re\v sijo kotne ali hiperboli\v cne funkcije. Vzemimo torej nastavek
+\[E_z = A\cosh(\kappa x)\]
+Funkcije \(\sinh\) ne uporabimo, saj je robni pogoj simetri\v cen. Ko vstavimo v robni pogoj, dobimo:
+\[E_0 = A\cosh\frac{\kappa a}{2}\]
+\[E_z(x) = \frac{E_0}{\cosh\frac{\kappa a}{2}}\cosh(\kappa x)\]
+Ker je \(\kappa\) kompleksen, je to v resnici nekak\v sen produkt funkcij \(\cos\) in \(\cosh\).
+\v Se vedno pa ta ena\v cba velja (le v hiperboli\v cni kosinus moramo vstavljati kompleksna \v stevila).
+\[\j_0 = \sigma E_{z, 0}\]
+Izra\v cun impedance:
+\[U_0 = E_0l,\qquad I_0 = \int j_0 \dif S\]
+\[I_0 = \sigma \frac{E_0}{\cosh\frac{\kappa a}{2}}\int_{-a/2}^{a/2} \cosh \kappa x b \dif x,\]
+kjer smo z \(b\) ozna\v cili vi\v sino traku (\(y\) smer).
+\[I_0 = \frac{2\sigma E_0 b}{\kappa}\tanh\frac{\kappa a}{2}\]
+\[Z = \frac{U_0}{I_0} \frac{l\kappa a}{a 2\sigma b \tanh\frac{\kappa a}{2}}\]
+Vemo, da je \[\frac{l}{\sigma a b} = \frac{\zeta l}{S} = R\]
+\[Z = R\,\frac{(\kappa a)/2}{\tanh(\kappa a/2)}\]
+Kotno hitrost \(\omega\) smo uporabili v spremenljivki \(\kappa\): \(\kappa \propto \sqrt{\omega}\). \\[2mm]
+Poglejmo si robna pogoja majhnih in velikih \(\omega\):
+\[\omega \ll 1: \tanh\frac{\kappa a}{2} \approx \frac{\kappa a}{2} \Rightarrow z \approx R\]
+\[\omega \gg 1: \tanh\frac{\kappa a}{2} \approx 1 \Rightarrow Z = R\frac{\kappa a}{2}\]
+\end{document}

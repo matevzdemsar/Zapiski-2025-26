@@ -1,0 +1,69 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Polarizacija korgle.} Krogla z radijem \(a\) je magnetno polarizirana tako, da velja:
+\[\vct{P} = k\vct{r} \propto \vct{r},~~~k > 0\]
+Poznamo \(k\), i\v s\v cemo \(\rho_v, \sigma_v, e(r), \vct{E}(\vct{r})\).
+Po definiciji:
+\[\rho_v = -\dvg\vct{P} = -k\dvg\vct{r} = -3k\]
+\[\sigma_v = \vct{P}\cdot\widehat{n} \Big|_{r=a} = k\vct{r}\cdot\widehat{{n}}\Big|_{r=a} = ka\]
+\[e_{tot} = \int_V \rho_v\dif V + \int_{\partial V}\sigma_v \dif S = -3k\frac{4\pi a^3}{3} + ka 4\pi a^2 = 0\]
+\[e(r) = \varepsilon_0\int E(r)\dif S\]
+\[-k4\pi r^2 = \varepsilon_0E(r)4\pi r^2\]
+\[E(r) = -\frac{kr}{\varepsilon_0} = -\frac{P}{\varepsilon_0}\]
+\paragraph{Homogeno polarizirana krogla.} Imamo kroglo, sestavljena iz dvek polkrogel; spodnja je nabita negativno, zgornja pa pozitivno.
+Naboj je porazdeljen tako, da velja:
+\[\vct{P} = P\widehat{e}_z\]
+Zanima nas \(U(\vct{r})\), \(\vct{E}\) v notranjosti polkrogel in \(\vct{E}\) v \v spranji med kroglama. \\
+Poi\v s\v cimo vezano gostoto naboja (\(\rho_v\) in \(\sigma_v\)).
+\[\rho_n = -\nabla P\widehat{e}_z = 0\]
+\[\sigma_n = \vct{P}\cdot\widehat{n} = P\widehat{e}_z \cdot \begin{pmatrix}
+    \sin\vartheta\cos\varphi \\ \sin\vartheta\sin\varphi \\ \cos\vartheta
+\end{pmatrix} = P\cos\vartheta\]
+Nekaj podobnega smo \v ze delali (na 1. kolokviju). Iz nastavka za Poissonovo ena\v cbo v sferi\v cnih koordinatah dobimo nastavek
+\[U(r, \vartheta) = \begin{cases}
+    A_1r\cos\vartheta & r < a \\
+    B_1r^{-2}\cos\vartheta & r > a
+\end{cases}\]
+Robni pogoj 1: Zveznost \(U\). \(B_1 = a^3A_1\)
+Robni pogoj 2: Gauss na povr\v sini. \[\frac{\sigma_v}{\varepsilon_0} = -\pd{U_{zun}}{r}\Big|_a + \pd{U_{not}}{r}\Big|_a \Rightarrow 3A_1\cos\vartheta = \frac{P\cos\vartheta}{\varepsilon_0}\]
+Kon\v cni rezultat:
+\[U(r, \vartheta) = \begin{cases}
+    \frac{P}{3\varepsilon_0}r\cos\vartheta & r \leq a \\
+    \frac{Pa^3}{3\varepsilon_0}r^{-2}\cos\vartheta & r \geq a
+\end{cases}\]
+Zdaj izra\v cunajmo \(\vct{E_{not}}\)
+\[\vct{E_{not}} = -\nabla\left(\frac{P}{3\varepsilon_0}r\cos\vartheta\right)\]
+Tu lahko dosti ra\v cunamo, vendar si precej poenostavimo delo, \v ce opazimo, da je \(r\cos\vartheta = z\):
+\[\vct{E_{not}} = -\frac{P}{3\varepsilon_0}\nabla z = -\frac{P}{3\varepsilon_0}\widehat{e}_z\]
+Elektri\v cno polje znotraj polkrogel je torej homogeno. V \v spranji imamo prispevek oboda krogle in prispevek plo\v s\v catega kondenzatorja:
+\[\vct{E_{zun}} = -\frac{P}{3\varepsilon_0} + \frac{\sigma}{\varepsilon_0}\widehat{e}_z = \frac{2}{3}\frac{\vct{P}}{\varepsilon_0}\]
+\end{document}

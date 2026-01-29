@@ -1,0 +1,78 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+Imamo vrte\v c naelektren disk, vzdol\v z osi vrtenja \v zelimo izra\v cunati jakost magnetnega polja.
+\[\vct{B}(\vct{r}) = \frac{\mu_0}{4\pi} \int \frac{\vct{j}(\vct{r}') \times (\vct{r} - \vct{r}')}{|\vct{r} - \vct{r}'|^3}\dif^3\vct{r}\]
+\(\dif^3\vct{r'}\) zapi\v semo kot \(\dif S' \cdot \dif l'\), pri \v cemer je \(\vct{j}\dif S' = I\dif\vct{t}\) in \(\dif l'= r\dif\varphi\)
+\[\vct{r} = (0, 0, z)\]
+\[\vct{r}' = (r'\cos\phi', r'\sin\phi', 0)\]
+\[\vct{t} =  (-\sin\phi', \cos\phi', 0)\]
+\[\vct{t} \times (\vct{r} - \vct{r}') = \begin{vmatrix}
+    \widehat{i} & \widehat{j} & \widehat{k} \\
+    - \sin\phi' & \cos\phi' & 0 \\
+    -r'\cos\phi' & -r'\sin\phi' & z
+\end{vmatrix} = (z\cos\phi', z\sin\phi', r'\sin^2\phi + r'\cos^2\phi)\]
+\[\vct{B}(\vct{r}) = \frac{\mu_0}{4\pi}\int_{0}^{2\pi}\int_{0}^{a}\begin{bmatrix}
+    z\cos\phi' \\ z\sin\phi' \\ r'
+\end{bmatrix}\frac{\sigma\omega r'^2\dif r'\dif\phi'}{(r'^2 + z^2)^{3/2}}\]
+Pogledamo samo \(z\) komponento (ki je po integriranju po \(\phi'\) tudi edina neni\v celna). Uporabimo substitucijo \(u = r'^2 + z^2\):
+\[B_z = ... = \frac{\mu_0\sigma\omega}{4}\int_{z^2}^{a^2 + z^2} \left(u^{-1/2} - z^2u^{-3/2}\right)\dif u = \frac{\mu_0\sigma\omega}{4}\left(2u^{1/2} + 2z^2 u^{-1/2}\right)\Big|_{z^2}^{a^2 + z^2}\]
+Dobili smo kon\v cni izraz, ki pa je dokaj kompliciran:
+\[B_z(z) = \frac{\mu_0\omega\sigma}{2}\left(\frac{a^2 + 2z^2}{\sqrt{a^2 + z^2}} - 2z\right)\]
+Oglejmo si limito \(z \gg a\):
+\[B_z(z) = \frac{\mu_0\omega\sigma}{2}\left({a^2 + 2z^2} \over {z\sqrt{1 + a^2/z^2}}\right) - 2z\]
+Ker je \(a^2/z^2 \ll 1\), lahko imenovalez razvijemo po Taylorju:
+\[B_z(z) \approx \frac{\mu_0\sigma\omega}{2}\left(\frac{1}{z}\left(a^2 - \frac{1}{2}\frac{a^4}{z^2} + \frac{3}{8}\frac{a^6}{z^4} + 2z^2 - a^2 + \frac{3}{4}\frac{a^4}{z^2}\right) - 2z\right)\]
+Ko se \v cleni med seboj pokraj\v sajo (ali jih zanemarimo), ostane:
+\[B_z(z) \approx \frac{\mu_0\sigma\omega a^4}{4z^3}\]
+To je ravno magnetno polje to\v ckastega magnetnega dipola.
+\paragraph{Koaksialni kabel.}Skozi pla\v s\v c te\v ce tok \(I\). Skozi sredico (\v zilo), te\v ce tok \(-I\) (torej v drugo smer). Zanima nas lahko, na primer, sila napetosti pla\v s\v ca.
+Za izra\v cun magnetnega polja zunaj in znotraj pla\v s\v ca uporabimo Amperov zakon:
+\[\oint \vct{B} \dif\vct{l} = \mu_0 I_{tot}\]
+Zunaj pla\v s\v ca ne te\v ce noben tok, torej je \(\vct{B} = 0\). \\[2mm]
+Znotraj pla\v s\v ca:
+\[B \cdot 2\pi r = \mu_0 I\]
+\[B = \frac{\mu_0 I}{2\pi r}\]
+Pla\v s\v c razdelimo na zunanji in notranji del. Na zunanjem delu je \(\vct{B} = 0\) in posledi\v cno navznoter ne ka\v ze nobena sila.
+Silo na pla\v s\v c opi\v semo z napetostnim tenzorjem:
+\[\vct{F_m} = \frac{1}{\mu_0}\oint\left[\vct{B}(\vct{B}\cdot\vct{n}) - \frac{1}{2}B^2\vct{n}\right]\dif S\]
+Imamo \(\dif S = al\dif \varphi\). ker je \(\vct{B} \perp \vct{n}\), velja:
+\[\vct{F} = -\frac{1}{2\mu_0}\int_{0}^{\pi}B^2\vct{n}al\dif\varphi = \frac{al}{2\mu_0}B^2\int_0^\pi\begin{bmatrix}
+    \cos\varphi \\ \sin\varphi
+\end{bmatrix} \dif \varphi\]
+\[= \frac{al}{2\mu_0}B^2\begin{bmatrix}
+    0 \\ 1
+\end{bmatrix}\]
+Dobimo, da na notranji del pla\v s\v ca deluje raztezna sila
+\[\vct{F_m}\over{l} = \frac{\mu_0 I^2}{b\pi a}\begin{bmatrix}
+    0 \\ 1
+\end{bmatrix}\]
+Ker smo ra\v cunali za zgornjo polovico pla\v s\v ca (integrirali smo od \(0\) do \(\pi\)), nam to pove, da pla\v s\v c vle\v ce narazen (dobljena sila namre\v c ka\v ze v pozitivno smer \(y\), torej navzgor).
+\paragraph{Toroidna tuljava.} Na telefonu.
+\end{document}

@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Tok po kolobarju.} Upornost prevodne plo\v s\v cice. Plo\v s\v cica je oblike polovice kolobarja z notranjim premerom \(r_1\) in zunanjim premerom \(r_2\). Na kratkih robovih naredimo elektrodi (tako, da je napetost na celotnem posameznem robu enaka) in ju priklju\v cimo na vir napetosti. Zanima nas upornost.
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+    \draw (5, 0) arc (0:180:5);
+    \draw (3, 0) arc (0:180:3);
+    \draw (-5, 0) -- (-3, 0);
+    \draw (5, 0) -- (3, 0);
+
+    \draw[dashed] (0, 0) -- (3, 0);
+    \draw[dashed] (0, 0) -- (4.2, 2.5);
+    \node (1) at (1.5, -0.5) {\Large \(r_1\)};
+    \node (2) at (2.5, 1) {\Large \(r_2\)};
+    \node (s) at (0, 4) {\Large \(\sigma\)};
+    \draw[<->] (-3, -0.2) -- (-5, -0.2);
+    \node (h) at (-4, -0.5) {\Large \(h\)};
+    \end{tikzpicture}
+\end{figure}
+Stacionarni tok opisuje ena\v cba
+\[\vct{j} = \sigma\vct{E} = -\sigma\nabla U\]
+Zakon o ohranitvi naboja:
+\[\pd{e}{t} + \nabla\cdot\vct{j} = 0\]
+V na\v sem primeru je prvi \v clen enak 0, torej nam ostane
+\[\nabla\cdot\vct{j} = -\sigma \nabla^2 U = 0\]
+Dobili smo Laplaceovo ena\v cbo. V cilindri\v cnih koordinatah ima ta re\v sitev
+\[U(r, \varphi) = \Sum[1]{n}(A_n\cos n\varphi + B_n\sin n\varphi)(C_n r^m + D_nr^{-n}) + U_0\]
+\(U_0\) izra\v cunamo z uporabo separacije:
+\[U(r, \varphi) = R(r)\phi(\varphi)\]
+To vstavimo v Laplaceovo ena\v cbo in dobimo:
+\[r^2R'' + rR' = 0 \Rightarrow R = c\ln r + d\]
+\[\phi'' = 0 \Rightarrow \phi(\varphi) = a\varphi + b\]
+\[U(r, \varphi) = \Sum[1]{n}(A_n\cos n\varphi + B_n\sin n\varphi)(C_n r^m + D_nr^{-n}) + (a\varphi + b)(c\ln r + d)\]
+Robni pogoji: Problem je nastavljen tako, da je potencial na elektrodah konstanten. Torej:
+\[U(r, 0) = 0,\quad U(r, \pi) = - U_0\]
+Sledi, da morata biti tako \(C_n\) kot \(D_n\) enaka 0, saj bi sicer pri kotu \(\varphi = 0\) dobili radialno odvisnost. Z istim argumentom dobimo \(c = 0\). Na\v sa vrsta torej postane:
+\[U(r, \varphi) = \Sum[1]{n}(A_n\cos n\varphi + B_n\sin n\varphi) \cdot 0 + (a \varphi + b) \cdot d = A_0\varphi + B_0\]
+Iz robnega pogoja \(U(r, 0) = 0\) dobimo \(B_0 = 0\), iz robnega pogoja \(U(r, \pi)\) pa izra\v cunamo \(A_0\):
+\[U(r, \varphi) = -\frac{U_0}{\pi}\varphi\]
+Izra\v cunajmo elektri\v cni tok.
+\[I = \int\vct{j}\cdot\dif\vct{S} = \int j\cdot h\dif r = \int\sigma \pd{E}{\varphi} h \dif r =\]
+Uporabimo \(\displaystyle \pd{E}{\varphi} = -\frac{1}{r}\pd{U}{\varphi}\)
+\[= -\int_{r_1}^{r_2} \sigma \frac{1}{r}\pd{U}{\varphi} h\dif r = \frac{\sigma U_0 h}{\pi}\int_{r_1}^{r_2}\frac{\dif r}{r} = \frac{\sigma U_0 h}{\pi}\ln\frac{r_2}{r_1}\]
+Iz Ohmovega zakona dobimo:
+\[R = \frac{U_0}{I} = \frac{\pi}{\sigma h \ln(r_2/r_1)}\]
+\paragraph{Cabrerov eksperiment.} Gre za eksperiment, s katerim so posku\v sali zaznati magnetne monopole. Imamo obro\v c z radijem \(A\) in induktivnostjo \(L\). Proti njemu izstrelimo magnetni monopol. Zanima nas, magnetni pretok \(\phi:\) tako \(\phi(d)\) kot \(\phi(t)\) (z \(d\) smo ozna\v cili razdaljo med monopolom in obro\v cem), nato pa \v se potek \(I(t)\). \\[2mm]
+Magnetno polje monopola:
+\[\vct{B}_M = \frac{\mu_0}{4\pi}\frac{g}{r^2}\frac{\vct{r}}{r}\]
+Kjer \(g\) ozna\v cuje magnetni naboj z enoto \(\mathrm{Am}\). Izra\v cunati moramo integral
+\[\phi = \int\vct{B}\cdot\dif\vct{S}\]
+\[\dif S = 2\pi\rho \dif \rho\]
+\[B = \frac{\mu_0}{4\pi}\frac{g}{(\rho^2 + d^2)}\]
+Zanima nas \(x\) komponenta polja, saj je vzporedna z osjo obro\v ca.
+\[B_x = B\,\frac{d}{\sqrt{\rho^2 + d^2}} = \frac{\mu_0 g}{4\pi}\frac{d}{(\rho^2 + d^2)^{3/2}}\]
+To integriramo po \(\rho\) in s substitucijo \(u = \rho^2 + d^2\) dobimo:
+\[\phi(d) = \frac{\mu_0 g d}{4}\,(-2)\left(\frac{1}{\sqrt{a^2 + d^2} - \frac{1}{d}}\right) = \frac{\mu_0g}{2}\left(1 - \frac{a}{d^2 + a^2}\right)\]
+Ozna\v cimo s \(t = 0\) \v cas, ko pride monopol v sredino obro\v ca. Tedaj je \(d = \pm vt\), kjer predznak izberemo tako, da \(d\) ni negativen.
+\[\phi(t) = \begin{cases}
+    \frac{\mu_0 g}{2}\left(1 + \frac{vt}{\sqrt{(vt)^2 + a^2}}\right) & t < 0 \\
+    - \frac{\mu_0 g}{2}\left(1 - \frac{vt}{\sqrt{(vt)^2 + a^2}}\right) & t > 0 \\
+\end{cases}\]
+Zadnji del naloge: kak\v sna je odvisnost \(I(t)\)? Uporabimo indukcijski zakon, pri katerem upo\v stevamo morebitni obstoj monopolov:
+\[\nabla\times\vct{E} = -\pd{\vct{B}}{t} - \mu_0\vct{j_m}\]
+Obe strani integriramo po \(S\) in uporabimo Stokesov zakon:
+\[\oint\vct{E}\cdot\dif\vct{l} = -\pd{}{t}\int\vct{B}\dif\vct{S} - \mu_0\int\vct{j_m}\cdot\dif\vct{S}\]
+V vseh treh integralih prepoznamo znane fizikalne spremenljivke:
+\[U_i = \pd{\phi}{t} - \mu_0 I_m\]
+Ker tok te\v ce skozi zanko samo v \v casu \(t = 0\), pi\v semo \(I_m = g\delta(t)\)
+\[U_i = -\dot{\phi} - \mu_0g \delta(t) = L\dot{I}\]
+Integriramo po \v casu od \(-\infty\) do \(t\), da dobimo \(I\).
+\[\left[\phi(t) - \phi(-\infty)\right] - \mu_0g\delta(t) = L\left[I(t) - I(-\infty)\right]\]
+S \(\theta\) smo ozna\v cili Heavyside funkcijo. \v Clene v neskon\v cnosti ozna\v cimo z \(0\) in dobimo
+\[I = -\frac{1}{L}\left(\phi(t) + \mu_0g\theta(t)\right)\]
+Cabrero se je nato spravil meriti, ali v zanki kdaj pride tdo takega toka, in dejansko dobil nekak\v sen pulz, kar bi kazalo na obstoj magnetnih monopolov, vendar eksperimenta nikomur ni uspelo uspe\v sno ponoviti.
+\paragraph{Magnetna indukcija v kvadratnem okvirju.} Imamo dolga vodnika na medsebojni razdalji \(d\), ki sta nekje dale\v stran povezana - tvorita torej zunanjo zanko. Znotraj te zanke je \v se ena kvadratna zanka. Zanima nas medsebojna induktivnost \(L_{12}\).
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+    \draw (-5, 2) -- (5, 2);
+    \draw[dashed] (5, 2) -- (5, 0);
+    \draw[dashed] (-5, 2) -- (-5, 0);
+    \draw (-5, 0) -- (5, 0);
+    \draw (0, 0) -- (1, 1) -- (0, 2) -- (-1, 1) -- (0, 0);
+    \end{tikzpicture}
+\end{figure}
+\[\phi_1 = L_{11} I_1\]
+\[\phi_2 = L_{21} I_1\]
+Stvar formalno definiramo kot:
+\[L_{ij} = \frac{\mu_0}{4\pi}\oiint \frac{\dif\vct{l_1}\cdot\dif\vct{l_2}}{|\vct{r_i} - \vct{r_j}|}\]
+Opazimo, da lahko indeksa \(i\) in \(j\) brez posledic zamenjamo, se pravi je \(L_{ij} = L_{ji}\). Te naloge ne bomo re\v sevali po definiciji, saj nam ni treba. Vemo, da lahko izra\v cunamo magnetno polje \(B\), ki ga ustvarja ena zanka, in nato primerjamo s pretokom, ki gre zavoljo tega polja skozi drugo zanko.
+\[\phi_2 = \int \vct{B} \dif \vct{S}\]
+\[B(y) = \frac{\mu_0 I}{2\pi y} + \frac{\mu_0 I}{2\pi(d - y)}\]
+\[\dif S = 2 y\dif y\]
+\[\phi_2 = \frac{\mu_0I}{\pi}\int_0^{d/2}\left(\frac{1}{y} + \frac{1}{d - y}\right)\,2y\dif y = ... = 2\ln 2 \frac{\mu_0 d I}{\pi}\]
+Sledi \(L_{12} = (2\ln 2) \mu_0 d / \pi\).
+\end{document}

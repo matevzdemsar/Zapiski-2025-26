@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+Zadnji\v c smo re\v sevali Laplaceovo ena\v cbo z robnimi pogoji
+\begin{enumerate}
+    \item \(U(x, 0) = 0\)
+    \item \(U(x, a) = 0\)
+    \item \(U(0, 0<y<a) = U_0\)
+    \item \(U(x\to\infty, y) < \infty\)
+\end{enumerate}
+Uporabili bomo separacijo spremenljivk:
+\[X''Y + XY'' = 0\]
+\[\frac{X''}{X} + \frac{Y''}{Y} = 0\]
+Sledi:
+\[\frac{X''}{X} = -\frac{Y''}{Y} = \kappa^2\]
+Dobimo splo\v sno re\v sitev \[X = Ce^{\kappa} + De^{-\kappa x}\]
+\[Y = A\sin(\kappa y) + B\cos(\kappa y)\]
+Zaradi \v cetrtega robnega pogoja je \(C = 0\), zaradi prvega pa \(B = 0\). Sledi:
+\[U(x, y) = K\sin(\kappa y) e^{-\kappa x}\]
+Iz drugega robnega pogoja je \(a\kappa = n\pi\)
+Iz tretjega pogoja dobimo, da je
+\[\sum_n K_n \sin\left(\frac{n\pi}{a}y\right) = U_0\]
+To nam pove nekaj o koeficientih \(K_n\). Izra\v cunajmo najprej skalarni produkt z neko drugo lastno funkcijo:
+\[\int_{0}^{\infty} \Sum{n} K_n\sin\left(\frac{n\pi}{a}y\right)\sin\left(\frac{m\pi}{a}y\right)\dif y
+= \Sum{n} K_n \int_{0}^{\infty}\sin\left(\frac{n\pi}{a}y\right)\sin\left(\frac{m\pi}{a}y\right)\dif y = \Sum{n} \frac{K_n a}{2}\delta_{mn} = \frac{K_ma}{2}\]
+Zdaj izra\v cunajmo \v se koeficiente \(K_n\):
+\[\int_{0}^{\infty} U_0\sin\left(\frac{m\pi}{a}y\right)y\dif y = ... = -\frac{U_0a}{m\pi}\left(\cos m\pi - 1\right) = \frac{U_0a}{m\pi}\left(1 - (-1)^m\right)\]
+Se pravi je \[K_m = \frac{2\,U_0}{m\pi}\left(1 - (-1)^m\right)\]
+Kon\v cni rezultat je tedaj:
+\[U(x, y) = \Sum[1]{m} \frac{2U_0}{m\pi}\left(1 - (-1)^m\right)\sin\left(\frac{m\pi}{a}y\right)\,e^{-\frac{m\pi}{a}x}\]
+Tega ne moremo izraziti analiti\v cno, lahko pa si ogledamo limito \(x \gg a\):
+\[U(x, y) \approx \frac{4\,U_0}{\pi}\sin\left(\frac{\pi}{a}y\right)\,e^{-\frac{\pi}{a}x}\]
+Izra\v cunamo lahko tudi \(\vct{E}(x, \frac{a}{2})\) in izrazimo le komponento \(x\):
+\[E_x(x) = -\pd{U(x, a/2)}{x}\]
+\[= \pd{}{x}\Sum[1]{n}\frac{2\,U_0}{n\pi}\left(1 - (-1)^n\right)\sin\left(\frac{n\pi}{a}\frac{a}{2}\right)\,e^{-\frac{n\pi}{a}x}\]
+\[= \frac{2\,U_0}{a}\Sum[1]{n} \left(1 - (-1)^n\right) \sin\left(\frac{m\pi}{2}\right)e^{-\frac{m\pi}{2}x}\]
+Vidimo, da velja:
+\[\left(1 - (-1)^n\right)\sin\left(\frac{n\pi}{2}\right) = \begin{cases}
+    2, & \mathrm{mod}_4~n = 1 \\
+    -2, & \mathrm{mod}_4~n = 3 \\
+    0, & \text{sicer}
+\end{cases}\]
+Se pravi je \[E_x = \frac{4\,U_0}{a}\left[e^{-\frac{\pi}{a}x} - e^{-\frac{3\pi}{a}x} + e^{-\frac{5\pi}{a}x} + ...\right]\]
+Ozna\v cimo \(\alpha = \exp\left(-\frac{2\pi}{a}x\right)\)
+\[E_x(x) = \frac{4\,U_0}{a}e^{-\frac{\pi x}{a}}\left[1 - \alpha + \alpha^2 - \alpha^3 + ...\right]\]
+Prepoznamo geometrijsko vrsto in iz dobljenega izrazimo hiperboli\v cno funkcijo:
+\[E_x(x) = \frac{2\,U_0/a}{\mathrm{cosh}\left(\pi x / a\right)}\]
+\paragraph{Naloga.} Prepolovljena prevodna cev s polmerom \(a\). Uporabimo jo kot kondenzator in ga napojimo z napetostjo \(U_0\).
+V cilindri\v cnih koordinatah \v zelimo izraziti \(U\), kar seveda naredimo z Laplaceovo ena\v cbo \(\nabla^2U(r, \varphi) = 0\).
+\[\nabla^2 = \frac{1}{r}\pd{}{r}\left(r\pd{}{r}\right) + \frac{1}{r^2}\pd{^2}{r^2}\]
+Uporabimo separacijo: \(U(r, \varphi) = R(r)\Phi(\varphi)\)
+Po nekaj ra\v cunanja dobimo ena\v cbo
+\[\frac{\frac{1}{r}R' + r^2R''}{R} = -\frac{\Phi''}{\Phi} =: m^2\]
+Dobimo dve diferencialni ena\v cbi:
+\[\Phi'' + m^2\Phi = 0\]
+\[r^2R'' + rR' -m^2R = 0\]
+Re\v sitev prve so kotne funkcije:
+\[\Phi(\varphi) = A_m\sin(m\varphi) + B_m\cos(m\varphi)\]
+Iz periodi\v cnosti dobimo pogoj, da mora biti \(m\) celo \v stevilo, in sicer \(m = 1, 2, 3, ...\) (negativna ne pridejo v po\v stev zaradi antisimetri\v cnosti sinusa?) \\
+Diferencialno ena\v cbo za \(R\) re\v sijo poten\v cne funkcije. \[R(r) = C_mr^m + D_mr^{-m}\]
+Konstante \(A_m, B_m, C_m, D_m\) dolo\v cimo z robnimi pogoji:
+\[U(a, \varphi) = \begin{cases}
+    \frac{U_0}{2}, & 0 < \varphi < \pi \\
+    -\frac{U_0}{2}, & \pi < \varphi < 2\pi \\
+\end{cases}\]
+\[U(0, \varphi) < \infty~\text{(sledi \(D_m = 0\))}\]
+Opazimo: Robni pogoj pri \(r = a\) je liha funkcija \(\varphi\), torej je tudi funkcija \(U\) liha. Sledi \(B_m = 0\).
+\[U_m(r, \varphi) = \Sum[1]{m} K_m\sin(m\varphi)r^m\]
+Skalarno mno\v zimo dve lastni funkciji:
+\[\Sum[1]{m} K_ma^m\sin(m\varphi) = \begin{cases}
+    \frac{U_0}{2} & \\
+    -\frac{U_0}{2} &
+\end{cases}\]
+Na obeh straneh skalarno pomno\v zimo z \(U_n\). Leva stran:
+\[\Sum[1]{m} K_m a^m \int_{0}^{2\pi} \sin\left(m\varphi\right) \sin\left(n\varphi\right) \dif \varphi = \pi a^nK_n\]
+Desna stran:
+\[\int_{0}^{\pi} \frac{U_0}{2}\sin(n\varphi)\dif\varphi - \int_{\pi}^{2\pi} \frac{U_0}{2}\sin(n\varphi)\dif\varphi = \frac{U_0}{2n}\left[(1-(-1)^n) + (1 - (-1)^n)\right]\]
+Sledi:
+\[U(r, \varphi) = \Sum[1]{n} \frac{U_0}{n\pi}\left(1 - (-1)^n\right)\sin(n\varphi)\left(\frac{r}{a}\right)^n\]
+\end{document}

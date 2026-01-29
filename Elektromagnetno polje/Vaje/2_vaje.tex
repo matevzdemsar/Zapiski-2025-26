@@ -1,0 +1,72 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+Dobili smo Fourierovo transformiranko funkcije, ki opisuje potencial (\(U\)) v okolici to\v ckastega naboja:
+\[U(\vct{k}) = \frac{e}{(2\pi)^3\varepsilon_0}\frac{1}{k^2}\]
+Transformiramo nazaj:
+\[U(\vct{r}) = \int U(\vct{k}) e^{i\vct{k}\cdot\vct{r}}\dif^3\vct{k}\]
+\[= \frac{e}{(2\pi)^3\varepsilon_0}\,2\pi\int_{-1}^{1}\int_{0}^{\infty}k^2\frac{e^{ikr\cos\theta}}{k^2}\dif k \dif(\cos\theta)\]
+\[= \frac{e}{(2\pi)^2\varepsilon_0}\int_{0}^{\infty}\frac{1}{ikr}\left(e^{ikr} - e^{-ikr}\right)\dif k\]
+\[= \frac{2e}{(2\pi\varepsilon_0)r}\int_{0}^{\infty}\frac{\sin(kr)}{k}\dif k\]
+Vzamemo novo spremenljivko \(u = kr\)
+\[= \frac{2e}{(2\pi)^2}\varepsilon_0r \int_{0}^{\infty}\frac{\sin u}{u}\dif u\]
+To je znan integral z vrednostjo \(\pi/2\).
+Sledi:
+\[U(\vct{r}) = \frac{e}{4\pi\varepsilon_0 r}\]
+Poljubno porazdelitev sestavimo iz to\v ckastih nabojev.
+\[e(\vct{r}) = \int \rho(\vct{r'})\delta(\vct{r} - \vct{r'})\dif^3\vct{r}\]
+\[U(\vct{r}) = \int \frac{\rho(\vct{r'})\dif^3\vct{r'}}{4\pi\varepsilon_0|\vct{r} - \vct{r'}|}\]
+\[\vct{E}(\vct{r}) = -\nabla U(\vct{r}) = -\pd{}{\vct{r}}U(\vct{r})\]
+\[E(\vct{r}) = \int \frac{\rho(\vct{r'})(\vct{r} - \vct{r'})\dif^3\vct{r}}{4\pi\varepsilon_0|\vct{r} - \vct{r'}|^3}\]
+\paragraph{Gostota naboja v vodikovem atomu} (osnovno stanje)
+\[U(\vct{r}) = \frac{e}{4\pi\varepsilon_0} \frac{e^{-\alpha r}}{r}\left(1 + \frac{\alpha r}{2}\right)\]
+Zanima nas \(\rho(r)\). \\[2mm]
+V sferi\v cnih koordinatah s sferi\v cno simetrijo velja:
+\[\nabla^2 = \frac{1}{r^2}\pd{}{r}\left(r^2\pd{}{r}\right)\]
+Vemo:
+\[\nabla^2U = -\frac{\rho(\vct{r})}{\varepsilon_0}\]
+\[\rho(\vct{r}) = -\frac{e}{4\pi}\nabla^2\left[\frac{e}{4\pi\varepsilon_0} \frac{e^{-\alpha r}}{r}\left(1 + \frac{\alpha r}{2}\right)\right]\]
+\[= -\frac{e}{4\pi}\frac{1}{r^2}\pd{}{r}\left[r^2\pd{}{r}\left\{\frac{e^{-\alpha r}}{r}\left(1 + \frac{\alpha r}{2}\right)\right\}\right]\]
+\[= -\frac{e}{4\pi}\frac{1}{r^2}\pd{}{r}\left[r^2\left(\frac{-\alpha r e^{-\alpha r} - e^{-\alpha r}}{r^2} - \alpha^2\frac{e^{-\alpha^r}}{2}\right)\right]\]
+\[= -\frac{e}{4\pi r^2}\pd{}{r}\left(-\alpha r e^{-\alpha r} - e^{-\alpha r} - \frac{\alpha^2}{2}r^2 e^{-\alpha r}\right)\]
+\[= -\frac{e}{4\pi r^2}\left[-\alpha e^{-\alpha r}\left(1 + \alpha r + \frac{\alpha^2r^2}{2}\right) + e^{-\alpha r}\left(\alpha + \alpha^2 r\right)\right]\]
+\[= -\frac{e}{4\pi r^2}\left[e^{-\alpha r} \frac{\alpha^3r^2}{2}\right] = -\frac{e_0 e^{-\alpha r} \alpha^3}{8 \pi}\]
+Ampak! V \(r = 0\) ima atom vodika singularnost (proton). Izra\v cunali smo le porazdelitev negativnega naboja. Skupna porazdelitev je torej enaka:
+\[\rho(\vct{r}) = e_0\delta(\vct{r}) - \frac{e_0\alpha^2}{8\pi}\,e^{\alpha r}\]
+\paragraph{Laplaceova ena\v cba} Bodi \(\rho(\vct{r}) = 0\) skoraj povsod (kjer ni, dobimo robne pogoje). Re\v sujemo torej Laplaceovo ena\v cbo:
+\[\nabla^2 U(\vct{r}) = 0\]
+\paragraph{Plo\v s\v cat kondenzator s pre\v cnim trakom} Imamo dve ozemljeni plo\v s\v ci, med njima je potencial enak \(0\). V ta potencial postavimo nabit trak \v sirine \(a\) - ki je enaka razdalji med plo\v s\v cama kondenzatorja.
+Vidimo, da os \(z\) ne igra nobene vloge, torej je na\v s problem omejen le na osi \(x\) in \(y\). Re\v sujemo Laplaceov problem:
+\[\nabla^2 U(x, y) = 0\]
+Z robnimi pogoji:
+\[U(x, 0) = 0~~\text{(spodnja plo\v s\v ca)}\]
+\[U(x, a) = 0~~\text{(zgornja plo\v s\v ca)}\]
+\[U(0, y) = U_0~~\text{(trak)}\]
+\[U(\infty, y) < \infty\]
+\end{document}

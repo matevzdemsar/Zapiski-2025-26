@@ -1,0 +1,1152 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\usepackage{hyperref}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\rot}{\nabla\times}
+\newcommand{\dvg}{\nabla\cdot}
+
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Elektrostatika}
+\subsection{Coulombova sila med naboji} Elektrostatika opisuje sile med mirujo\v cimi elektri\v cnimi naboji. Ker naboji mirujejo, magnetnih sil ni. Naboje imamo tu za to\v ckasta nabita telesa,
+silo med njimi pa izra\v cunamo po Coulombovem zakonu:
+\[\vct{F} = \frac{e_1e_2}{4\pi\varepsilon_0r^2}\frac{\vct{r}}{r}\]
+Recimo, da je to sila delca z nabojem \(e_1\) na delec z nabojem \(e_2\). Zaradi tretjega Newtonovega zakona deluje tudi delec 2 na delec 1 z nasprotno enako silo.
+Mimogrede: \(varepsilon_0\) je influen\v cna konstanta (znana tudi po drugih imenih, npr. permitivnost vakuuma). Njena vrednost je
+\[\varepsilon_0 = 8.85 \cdot 10^{-12}\,\mathrm{As/Vm}\]
+Opomba: Kako izpeljemo Coulombov zakon? Ga ne. Dobili smo ga iz meritev. Lahko ga matemati\v cno konstruiramo s pomo\v cjo Gaussovega zakona, ampak tudi Gaussov zakon moramo nekako utemeljiti z meritvijo, ker smo fiziki in to pa\v c po\c+v cnemo.
+\paragraph{Velikost in enota elektri\v cnega naboja.} Naboj merimo v Coulombih \(C = As\). Osnovni naboj (naboj elektrona) je enak \[e_0 = 1.6 \cdot 10^{-19}\,\mathrm{As}\]
+Nekaj vrednosti:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l l}
+        Naboj kvarka: & 1/3 \(e_0\) \\
+        Naboj elektrona: & \(e_0\) \\
+        Naboj na kondenzatorju: & \(\sim\) 10\(^{-7}\) C \\
+        Naboj pri udarcu strele: & \(\sim\) 10 C \\
+        Naboj avtomobilske baterije: & \(\sim\) 50\,000 C \\
+        Naboj Zemlje brez atmosfere: & \(\sim\) 500\,000 C \\
+        Naboj zemlje z atmosfero: & \(\sim\) 1 C \\
+        Naboj, ki ga v enem letu proizvede elektrarna: & \(\sim\) 10\(^{11}\) C \\
+    \end{tabular}
+\end{table}
+\subsection{Elektri\v cno polje} Elektri\v cno polje je posrednik elektri\v cne sile. Zaenkrat je uporabno zato, ker nam za sistem delcev ni treba re\v siti sistema \(10^{12}\) ena\v cb, bo pa dobilo tudi globlji pomen, ko se bomo za\v celi ukvarjati z Maxwellovimi ena\v cbami in relativnostjo.
+Vsak naboj okoli sebe ustvarj aelektri\v cno polje, ki nato deluje na drugi naboj. Velja:
+\[\vct{F} = e\vct{E}\]
+\v Ce se nam da ukvarjati z indeksi, je \(\vct{F_{21}} = e_1\vct{E_2}\). \\[2mm]
+Smer \(\vct{E}\) je dolo\v cena s smerjo sile na pozitiven (to\v ckast) naboj. Elektri\v cno polje to\v ckastega naboja je enako
+\[\vct{E} = \frac{e}{4\pi\varepsilon_0r^2}\frac{\vct{r}}{r}\]
+Nekaj vrednosti:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l l}
+        Kozmi\v cno sevanje: & \(10\,\mathrm{\mu V/m}\) \\
+        Polje znotraj bakrene \v zice: & \(0.5\,\mathrm{mV/m}\) \\
+        Polje v Zemljini atmosferi: & \(\sim 200\,\mathrm{V/m}\) \\
+        Prebojna jakost v atmosferi (strela): & \(\sim 2 \,\mathrm{MV/m}\) \\
+        Polje preko biolo\v ske membrane: & \(10\,\mathrm{MV/m}\) \\
+        Mo\v can laserski pulz: & \(100\,\mathrm{TV/m}\)
+    \end{tabular}
+\end{table}
+\v Cisto za vajo lahko ocenimo elektri\v cno polje znotraj telefonskega zaslona. Napetosti znotraj telefona so reda velikosti \(10\,\mathrm{V}\), debelina zaslona pa reda velikosti \(10\,\mathrm{\mu m}\). Sledi, da imamo znotraj telefona elektri\v cno polje reda velikosti \(10^6\,\mathrm{V/m}\).
+\paragraph{Elektri\v cne silnice.} S pomo\v cjo elektri\v cnih silnic lahko brez te\v zav skiciramo elektri\v cno polje raznih postavitev nabojev.
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1]
+    \filldraw (-2, 0) circle (0.03);
+    \draw[->] (-1.9, 0.1) -- (-1.5, 0.86);
+    \draw[->] (-1.9, -0.1) -- (-1.5, -0.86);
+    \draw[->] (-2.1, -0.1) -- (-2.5, -0.86);
+    \draw[->] (-2.1, 0.1) -- (-2.5, 0.86);
+    \draw[->] (-1.85, 0) -- (-1, 0);
+    \draw[->] (-2.15, 0) -- (-3, 0);
+
+    \filldraw (2, 0) circle (0.03);
+    \draw[<-] (1.9, 0.1) -- (1.5, 0.86);
+    \draw[<-] (1.9, -0.1) -- (1.5, -0.86);
+    \draw[<-] (2.1, -0.1) -- (2.5, -0.86);
+    \draw[<-] (2.1, 0.1) -- (2.5, 0.86);
+    \draw[<-] (1.85, 0) -- (1, 0);
+    \draw[<-] (2.15, 0) -- (3, 0);
+    \end{tikzpicture}
+    \caption{Silnice okoli pozitivnega (levo) in negativnega naboja (desno).}
+\end{figure}
+Opazimo lahko nekaj lastnosti silnic:
+\begin{enumerate}
+    \item Silnice so vzporedne z elektri\v cnim poljem.
+    \item Silnice se za\v cnejo v pozitivnem naboju in kon\v cajo v negativnem naboju.
+    \item Silnice samih sebe ne sekajo.
+    \item Silnice so najgostej\v se v okolici nabojev. Iz tega sodimo, da ima tudi elektri\v cno polje tam najve\v cjo vrednost.
+\end{enumerate}
+\subsection{Elektri\v cna cirkulacija.} Cirkulacija po zaklju\v ceni zanki C se uvede kot
+\[\Gamma_E = \oint_C \vct{E}\cdot\dif\vct{r}\]
+Kot primer vzemimo stati\v cno homogeno polje in pravokotno zaklju\v ceno zanko. \\
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1]
+    \draw[->] (-3, -2) -- (-3, 2);
+    \draw[->] (-2, -2) -- (-2, 2);
+    \draw[->] (-1, -2) -- (-1, 2);
+    \draw[->] (0, -2) -- (0, 2);
+    \draw[->] (1, -2) -- (1, 2);
+    \draw[->] (2, -2) -- (2, 2);
+    \draw[->] (3, -2) -- (3, 2);
+
+    \draw[dashed] (-1.25, 1) -- (-1.25, -1) -- (1.25, -1) -- (1.25, 1) -- (-1.25, 1);
+    \node (a) at (1.6, 0) {\(a\)};
+    \node (b) at (0.4, -1.4) {\(b\)};
+    \end{tikzpicture}
+    \caption{Vzdol\v stranice \(b\) je polje pravokotno na \v zico, torej je skalarni produkt \(\vct{E} \cdot \dif\vct{r} = 0\). Vzdol\v z stranice \(a\) pa imamo opravka s cirkulacijo \(\pm E \cdot a\). Ker imamo dve stranici dol\v zine \(a\), vzdol\v z katerih gre \(\dif \vct{r}\) ravno v nasprotnih smereh, je kon\v cna vrednost cirkulacije enaka 0.}
+\end{figure}
+Izka\v ze se, da je \(\Gamma_E = 0\) za vsako stati\v cno elektri\v cno polje. Po Stokesovem izreku je 
+\[0 = \oint_{C = \partial S}\vct{E}\cdot\dif\vct{r} = \iint_S\nabla\times\vct{E}\cdot\dif\vct{S}\]
+Iz tega preberemo:
+\[\nabla \times \vct{E} = 0\]
+Kar pa velja le za stacionarna elektri\v cna polja - v kvazistati\v cnih in dinami\v cnih poljih bomo namesto \(0\) dobili nekaj drugega.
+\subsection{Elektri\v cni pretok}
+Elektri\v cni pretok je definiran kot integral
+\[\phi_E = \iint_S \vct{E}\cdot\dif\vct{S}\]
+Kak\v sna je ta povr\v sina \(S\)? Kakršna koli. \v Ce je sklenjena, pa lahko zanjo zapi\v semo Gaussov zakon.
+\subsection{Elektri\v cni potencial}
+Uvedemo ga kot koli\v cino, za katero velja:
+\[\vct{E}(\vct{r}) = -\nabla\varphi(\vct{r})\]
+To je spet precej uporabno, ker imamo namesto z vektorskim poljem opravka s skalarnim. \\[2mm]
+Primer: elektri\v cni potencial okoli to\v ckastega naboja:
+\[\frac{e}{4\pi\varepsilon_0r^2}\frac{\vct{r}}{r} = -\nabla\left(\frac{e}{4\pi\varepsilon_0}\frac{1}{r} + \varphi_0\right)\]
+\[\varphi = \frac{e}{4\pi\varepsilon_0}\frac{1}{r} + \varphi_0\]
+Koli\v cini \(\varphi_0\) pravimo umeritev - pomeni, da je koli\v cina dolo\v cena le do konstante natan\v cno. Vrednost \(\varphi_0\) si lahko izberemo sami, vendar se moramo potem te vrednosti dr\v zati pri nadaljnjem ra\v cunanju. \\
+\v Ceprav potencial ni dolo\v cen bolj kot do konstante natan\v cno, nam je to zaenkrat v bistvu vseeno, saj nas tako ali tako vedno zanima odvod potenciala. Druga\v cna izbira umeritve torej nima vpliva na dinamiko sistema. Pri druga\v cnih poljih so lahko umeritve tudi funkcije in podobno, kjer postane stvar malo bolj zanimiva. Se pa s tem ne bomo ogromno ukvarjali. \\
+\subsection{Princip superpozicije}
+Imejmo sistem nabitih delcev, v katerega postavimo naboj \(e\). Tedaj je skupna sila na naboj \(e\) enaka \[\vct{F}(\vct{r}) = \frac{e}{4\pi\varepsilon_0}\left(\frac{e_1(\vct{r-r_1})}{|\vct{r-r_1}|^3} + \frac{e_2(\vct{r-r_2})}{|\vct{r-r_1}|^3} + ... + \frac{e_i(\vct{r-r_i})}{|\vct{r-r_i}|^3}\right)\]
+Skupna sila je torej vsota parskih (medsebojnih) prispevkov sil. To ni popolnoma samoumevno, vendar o\v citno velja. Temu na\v celu pravimo princip superpozicije in velja za elektri\v cno silo, polje in potencial.
+\subsection{Gostota naboja}
+Elektri\v cni naboj telesa je pogosto porazdeljen po povr\v sini ali volumnu. Breaking news: nekatera telesa niso to\v ckasta. Tedaj je uporabno, da porazdelitev naboja opi\v semo s funkcijo \(\rho(\vct{r})\). \\
+Diskretna porzdelitev:
+\[\rho(\vct{r}) = \sum_i e_i \delta^3(\vct{r} - \vct{r_i})\]
+Zvezna porazdelitev:
+\[\rho(\vct{r}) = \dd{e}{V}\]
+Vidimo, da sta definiciji kompatibilni:
+\[e = \int \rho(\vct{r}) \dif V = \int \sum_i e_i \delta^3(\vct{r} - \vct{r_i}) \dif V = \sum_i e_i\]
+\v Ce najdemo ustrezno funkcijo \(\rho\), si nam ni treba ve\v c zapopmniti, kje je vsak naboj v sistemu. Z uporabo gostote lahko nato zapi\v semo tudi ostale relevantne koli\v cine (\(\vct{F}\, \vct{E}, \varphi\)):
+\[\vct{F} = \int \rho(\vct{r})\vct{E}(\vct{r}) \dif^3\vct{r}\]
+Opomba: Tu je \(\vct{E}\) zunanje elektri\v cno polje, ki deluje na opazovano telo, \(\rho\) pa opisuje porazdelitev naboja po tem telesu.
+\[\vct{E}(\vct{r}) = \int\frac{\rho(\vct{R})}{4\pi\varepsilon_0}\frac{(\vct{r} - \vct{R})}{|\vct{r} - \vct{R}|^3}\dif^3\vct{R}\]
+\[\varphi(\vct{r}) = \int\frac{\rho(\vct{R})}{4\pi\varepsilon_0}\frac{1}{|\vct{r} - \vct{R}|}\dif^3\vct{R}\]
+\paragraph{Primeri gostote naboja.} Najpreprostej\v si primeri so:
+\begin{itemize}
+    \item To\v ckast naboj, kjer je polo\v zaj naboja \(\vct{r_0}\): \(\rho(\vct{r}) = e_0\delta^3(\vct{r}-\vct{r_0})\)
+    \item To\v ckast dipol, kjer je eden od nabojev v \(\vct{r_1}\) in drugi v \(r_2\): \[\rho(\vct{r}) = e\delta^3(\vct{r} - \vct{r_1}) - e\delta^3(\vct{r} - \vct{r_2})\]
+    V limiti, ko je razdalja med nabojema zelo  majhna, dobimo: \[\rho(\vct{r}) = - e\dif\vct{r}\cdot\nabla\delta^3(\vct{r} - \vct{r_0}) - e\dif\vct{r}\cdot\nabla\delta^3(\vct{r} - \vct{r_0}) = -2e\dif\vct{r}\cdot\nabla\delta^3(\vct{r} - \vct{r_0})\]
+    Koli\v cino \(2e\dif\vct{r}\) ozna\v cimo s \(\vct{p}\) in imenujemo dipolni moment. Mimogrede: Z \(\dif\vct{r}\) smo ozna\v cili majhno (vendar ne nujno infinitezimalno) spremembo \(r\). Pomembnej\v sa opomba pa je, da moramo izra\v cunati gradient delta funkcije.
+    Mogo\v ce bi se to dalo izraziti s kak\v sno limito, vendar imamo preprostej\v si na\v cin: Vemo, da je gradient produkta skalarnega in vektorskega polja enak: \[\nabla (\vct{p}\delta^3(\vct{r}-\vct{r_0})) = (\nabla\vct{p})\delta^3(\vct{r}-\vct{r_0}) + \vct{p}\cdot\nabla\delta^3(\vct{r}-\vct{r_0})\]
+    \((\nabla\cdot\vct{p}) = 0\), torej nam ostane
+    \[\rho(\vct{r}) = -\nabla\left[\vct{p}\delta^3(\vct{r}-\vct{r_0})\right] =: -\nabla \vct{P}\]
+    Definirali smo polarizacijo \(\vct{P}\), imenovano tudi gostota dipolnega momenta.
+    \item Povr\v sinsko porazdeljen naboj. Namesto naboja na enoto volumna imamo raje naboj na enoto povr\v sine: \[\rho(\vct{r}) = \sigma(\vct{u})\delta(z-z_0)\] Tu \(\vct{u}\) predstavlja dvo-dimenzionalni vektor, ki opisuje polo\v zaj na povr\v sini, \(z_0\) pa lego ploskve (\(z - z_0 = 0\), \v ce smo na ploskvi).
+    \item Volumsko porazdeljeni naboj - imejmo kroglo z radijem \(a\): \[\rho(\vct{r}) = \begin{cases}
+        \rho_0 & |\vct{r}| \leq a \\
+        0 & \text{sicer}
+    \end{cases}\]
+    \item Volumsko porazdeljen dipol: \[\vct{P} = \begin{cases}
+        \vct{P_0} & |\vct{r}| \leq a \\
+        0 & \text{sicer}
+    \end{cases}\]
+    \[\rho(\vct{r}) = -\nabla \cdot \vct{P} = -\nabla \cdot \left(\vct{P_0}H(a-r)\right)\]
+    \(H\) je Heavyside-ova funkcija, ki je enaka 1 le na intervalu \((-a, a)\), sicer pa 0.
+    \[\rho(\vct{r}) = (-\nabla\cdot\vct{P_0})H(a-r) - \vct{P_0}\cdot\nabla H(a-r) = \left(\vct{P_0}\cdot\frac{\vct{r}}{r}\delta(a-r)\right)\]
+    Se pravi je ves naboj porazdeljen po robu telesa. To je smiselno, saj se naboji znotraj telesa med seboj izni\v cijo.
+\end{itemize}
+\subsection{Gaussovega izreka}
+\subsection{Integralska oblika}
+Obravnavamo naboje (\(e_1\), \(e_2\), ... \(e_i\) ...). Obdali jih bomo z neko povr\v sino, ki naj bo za la\v zje ra\v cunanje sferna, nujno pa je, da je sklenjena.
+Zanima nas elektri\v cni pretok skozi to povr\v sino. Spomnimo se: \[\phi_E = \oiint_S \vct{E}\cdot\dif\vct{S}\]
+Pri Matematiki III smo tak\v sen integral izra\v cunali kot \[\oint_S \vct{E}\cdot\dif\vct{S} = \oint(\vct{E}\cdot\vct{n})\dif S = \oint E\cos\Omega\dif S = \sum_i\frac{e_i}{4\pi \varepsilon_0}\oint\frac{1}{|\vct{r} - r_i|^2}\cos\Omega_i(\vct{r})\dif\vct{r}\]
+Gauss je pokazal, da je vrednost integrala ravno \(4\pi\) in potemtakem dobimo \(\phi_E = e/\varepsilon_0\). mi tega ne bomo dokazovali, razen za simpati\v cen primer, ko je \(\vct{r_i} = 0\):
+\[\oint_S \vct{E}\cdot\dif\vct{S} = \frac{e_1}{4\pi\varepsilon_0}\oint\frac{1}{r^2}r^2\sin\vartheta\dif\vartheta\dif\varphi = \frac{e_1}{\varepsilon_0}\]
+Zaklju\v cek:
+\[\oint_{S = \partial V}\vct{E}\cdot\dif\vct{S}=\frac{1}{\varepsilon_0}\int_V\rho(\vct{r})\dif^3\vct{r}\]
+Opomba: Tu ne smemo obravnavati primera, ko je ves naboj na povr\v sini.
+\subsubsection{Diferencialna oblika}
+Uporabimo izrek Gauss-Ostrogradskega:
+\[\oint \vct{A}\cdot\dif\vct{S} = \int_V\nabla\cdot A\dif^3\vct{r}\]
+Ko namesto \(\vct{A}\) vstavimo \(\vct{E}\), dobimo
+\[\int_V\nabla\cdot\vct{E}\dif^3\vct{r} = \frac{1}{\varepsilon_0}\int_{V}\rho(\vct{r})\dif^3\vct{r}\]
+Sledi:
+\[\nabla\cdot\vct{E} = \frac{\rho}{\varepsilon_0}\]
+\subsection{Poissonova in Laplaceova ena\v cba}
+V diferencialni Gaussov izrek vstavimo \(\vct{E} = -\nabla\varphi\) in dobimo:
+\[\nabla^2\varphi(\vct{r}) = -\frac{\rho(\vct{r})}{\varepsilon_0}\]
+To je Poissonova ena\v cba. Laplaceova ena\v cba je poseben primer Poissonove, in sicer:
+\[\nabla^2\varphi(\vct{r}) = 0\]
+Ena\v cba je videti trivialna (\(\varphi = 0\) je takoj mo\v zna re\v sitev), vendar moramo zadostiti robnim pogojem, ki problem zakomplicirajo.
+\subsubsection{Greenova funkcija Poissonove ena\v cbe}
+I\v s\v cemo splo\v sno re\v sitev Poissonove ena\v cbe. Pri\v cakujemo, da je \(\varphi\) nekako odvisen od \(\rho\):
+\[\varphi(\vct{r}) = \int G(\vct{r} - \vct{R})\rho(\vct{R})\dif^3\vct{R}\]
+Predpostavili bomo, da ta re\v sitev obstaja. Zdaj se posvetimo vpra\v sanjema, kaj je Greenova funkcija in kak\v sna je. (Nikogar pa ne zanima, kako je Greenova funkcija) \\[2mm]
+Kaj je Greenova funkcija:
+Uporabimo nastavek \[\nabla^2\varphi = \nabla^2\left[\int G(\vct{r} - \vct{R})\rho(\vct{R})\dif^3\vct{R}\right]\]
+\[= \int \nabla^2 G(\vct{r} - \vct{R})\rho(\vct{R})\dif^3\vct{R} = -\frac{\rho(\vct{r})}{\varepsilon_0}\]
+To nam da zahtevo:
+\[\nabla^2G(\vct{r} - \vct{R}) = \frac{\delta^3(\vct{r} - \vct{R})}{\varepsilon_0}\]
+Torej je \(G\) re\v sitev Poissonove ena\v cbe za to\v ckast naboj v \(\vct{R}\).
+Greenova funkcija je torej re\v sitev diferencialne ena\v cbe za najbolj preprost vir polja.
+\paragraph{Re\v sitev Poissonove ena\v cbe za to\v ckast naboj.} Najbolj prikladen na\v cin, da re\v simo diferencialno ena\v cbo, je nekak\v sna transformacija. Uporabili bomo Fourierovo:
+\[\varphi(\vct{r} - \vct{R}) = \int G(\vct{k}) e^{i\vct{k}\cdot(\vct{r} - \vct{R})} \frac{\dif^3\vct{k}}{(2\pi)^3}\]
+\[\delta^3(\vct{r} - \vct{R}) = \int 1 \cdot e^{i\vct{k}\cdot(\vct{r} - \vct{R})} \frac{\dif^3\vct{k}}{(2\pi)^3}\]
+\[\nabla^2\left[\int G(\vct{k}) e^{i\vct{k}\cdot(\vct{r} - \vct{R})} \frac{\dif^3\vct{k}}{(2\pi)^3}\right] = -\frac{1}{\varepsilon_0}\int e^{i\vct{k}\cdot(\vct{r} - \vct{R})} \frac{\dif^3\vct{k}}{(2\pi)^3}\]
+\(\nabla\) deluje na funkcije spremenljivke \(\vct{r}\), na funkcije spremenljivke \(\vct{k}\) pa ne. Ko jo torej nesemo v integral, bo delovala le na funkcijo \(e^{i\vct{k}(\vct{r} - \vct{R})}\), kar lahko izra\v cunamo.
+Dobimo:
+\[\int \left[-k^2 G(\vct{k}) + \frac{1}{\varepsilon_0}\right]e^{i\vct{k}(\vct{r} - \vct{R})}\frac{\dif^3\vct{k}}{(2\pi)^3} = 0\]
+To bo zanesljivo veljalo, \v ce bo
+\[G(\vct{k}) = \frac{1}{\varepsilon_0 k^2}\]
+Opomba: Z uporabo Fourierove transformacije smo re\v sevanje diferencialne ena\v cbe poenostavili na re\v sevanje algebrai\v cne ena\v cbe. \\
+Opomba 2: na\v sa re\v sitev \(G(\vct{k})\) je \v se vedno v \(\vct{k}\)-prostoru. Morali jo bomo transformirati nazaj. \\
+(Opomba 3: Dobili smo \textbf{roke za ustni izpit. Prvi rok 2. in 4. februar, drugi rok 25. februar, tertji rok 11. september.}) \\
+Pojdimo nazaj v direktni prostor:
+\[G(\vct{r} - \vct{R}) = \iiint \frac{1}{\varepsilon_0k^2}\,e^{i\vct{k}(\vct{r}-\vct{R})}\frac{\dif^3\vct{k}}{(2\pi)^3} = \frac{1}{(2\pi)^3}\int_{0}^{\infty}\int_{-1}^{1}\int_{0}^{2\pi} \frac{1}{\varepsilon_0k^2}\,e^{ik|\vct{r}-\vct{R}|\cos\vartheta}\dif\varphi\dif(\cos\vartheta)\,k^2\dif k\]
+\(k^2\) se nam ravno pokraj\v sa. Ko integriramo, dobimo:
+\[G(\vct{r} - \vct{R}) = ... = \frac{1}{4\pi\varepsilon_0|\vct{r} - \vct{R}|}\]
+Nekaj podobnega smo delali pri vajah (2\_vaje.pdf). Vmes uporabimo znano vrednost \(\int_{0}^{\infty}\frac{\sin x}{x}\dif x = \pi/2\). \\
+Splo\v sna re\v sitev Poissonove ena\v cbe je torej
+\[\varphi(\vct{r}) = \int \frac{\rho(\vct{R})}{4\pi\varepsilon_0|\vct{r} - \vct{R}|}\dif^3\vct{R}\]
+Zdaj, ko poznamo potencial, brez te\v zav izra\v cunamo elektri\v cno polje, in sicer odvajamo:
+\[\vct{E} = -\nabla\varphi = -\nabla\left(\int \frac{\rho(\vct{R})}{4\pi\varepsilon_0|\vct{r}-\vct{R}|^3}\dif^3\vct{R}\right)\]
+Ker \(\nabla\) vpliva le na \(\vct{r}\), jo brez slabe vesti nesemo v integral in odvajamo integrand. Dobimo
+\[\vct{E}(\vct{r}) = \int\frac{\rho(\vct{R})}{4\pi\varepsilon_0}\frac{(\vct{r}-\vct{R})}{|\vct{r}-\vct{R}|^3}\dif^3\vct{R}\]
+\subsection{Earnshawjev teorem}
+\textit{"Nabor to\v ckastih nabojev ne more nikoli biti v stabilnem ravnovesju samo kot posledica elektrostatskih interakcij."} \\[2mm]
+Labilno ravnovesje je na\v celoma mogo\v ce. Re\v cemo lahko tudi, da elektrostatski potencial v praznem prostoru nima minimumov ali maksimumov, temve\v c kve\v cjemu sedla. O\v citna posledica tega izreka je, da obstajajo \v se druge fundamentalne sile poleg elektrostatskih. Sicer snov nikoli ne bi mogla biti stabilna, kajti medatomske sile so osnovane na elektrostatiki.
+Stvar kar dobro razlo\v zi kvantna mehanika.
+\subsection{Elektrostatska energija}
+Obravnavamo delec v zunanjem magnetnem polju (kako smo dobili to polje, nas ne zanima, in vsaki\v c, ko je njegov izvor omenjen, spremenimo temo pogovora). Nanj deluje sila:
+\[\vct{F} = e\vct{E}\]
+Diferencial dela je enak:
+\[\dif A = -\vct{F}\cdot\dif\vct{r} = -e\vct{E}\cdot\dif\vct{r} = e\nabla\varphi\cdot\dif{r}\]
+\v Ce zadevo integriramo (naboj premaknemo od to\v cke \((1)\) do to\v cke \((2)\)), bomo dobili skupno delo, ki bo enako spremembi potencialne elektrostatske energije.
+\[A = \int_{(1)}^{(2)}e\nabla\varphi\dif\vct{r} = ~\text{po prvem izreku analize}~ = e\varphi_2 - e\varphi_1\]
+Torej prepoznamo elektrostatsko energijo kot \[\Delta W_e = e\Delta\varphi\]
+Za zvezno porazdeljen naboj lahko ra\v cunamo:
+\[W_e = \int\rho(\vct{r}) \varphi(\vct{r})\dif^3\vct{r}\]
+To je energija nabojev \(\rho(\vct{r})\) v zunanjem elektri\v cnem polju. Notranje elektri\v cno polje tu ne pride v po\v stev. \v Ce upo\v stevamo \v se to, dobimo:
+\[\dif W = \int\dif\rho\cdot\alpha\varphi(\vct{r})\dif^3\vct{r} = \int_{0}^{1}\alpha\dif\alpha\int\rho(\vct{r})\varphi(\vct{r})\dif^3\vct{r} = \frac{1}{2}\int\rho(\vct{r})\varphi(\vct{r})\dif^3\vct{r}\]
+Elektrostatsko energijo zapi\v semo z \(\vct{E}\):
+\[W = \frac{1}{2}\int_V\rho(\vct{r}) \varphi(\vct{r})\dif^3\vct{r} = \frac{1}{2}\int_V\varepsilon_0(\nabla\cdot\vct{E})(\vct{r})\varphi(\vct{r})\dif^3\vct{r}\]
+Vemo: \(\nabla(f\vct{g}) = \nabla f \cdot \vct{g} + f\nabla\cdot\vct{g}\). Sledi:
+\[W = \frac{\varepsilon_0}{2}\left[\int_V\nabla(\varphi\vct{E})\dif^3\vct{r} - \int_V\nabla\varphi\cdot\vct{E}\dif^3\vct{r}\right]\]
+\[= \frac{\varepsilon_0}{2}\int_{\partial V}(\varphi\vct{E})\dif\vct{S}-\frac{\varepsilon_0}{2}\int_{V}\nabla\varphi\cdot\vct{E}\dif^3\vct{r}\]
+Mislimo si, da volumen obdamo z neko povr\v sino. Ker je na\v s volumen v bistvu neskon\v cen, gre prvi integral hitro proti \(0\). Ostane nam torej le \v se:
+\[W = -\frac{\varepsilon_0}{2}\int_V\nabla\varphi\cdot\vct{E}\dif^3\vct{r} = \frac{\varepsilon_0}{2}\int_{V} E^2\dif^3\vct{r}\]
+Opomba: Stvar o\v citno ne deluje, \v ce polje ustvarja npr. neskon\v cna plo\v s\v ca. Tedaj je energija tako ali tako neskon\v cna, tako da tako ali tako ne bi mogli kaj dosti pametovati.
+\subsection{Sila kot funkcional elektri\v cnega polja} Zanima nas sila na naboj (opisan z \(\rho(\vct{r})\)), ki se nahaja v zunanjem elektri\v cnem polju \(\vct{E}_z(\vct{r})\). Na naboj delujejo tudi druga elektri\v cna polja, skupno polje ozna\v cimo z \(\vct{E}\).
+\[\vct{F} = \int_{V}\rho(\vct{r})\vct{E_z}(\vct{r})\dif^3\vct{r}\]
+Radi pa bi izra\v cunali tudi silo na naboj v odvisnosti od \(\vct{E}\). \\[2mm]
+Prvi korak je, da se znebimo \(\rho\). Maxwellova ena\v cba pravi, da je \[\nabla\cdot\vct{E_L} = \frac{\rho}{\varepsilon_0}\]
+Tu je \(\vct{E_L}\) lastno (notranje) elektri\v cno polje telesa. Ker integriramo le po volumnu telesa, v katerem se zunanje polje ne ustvarja, lahko poleg tega trdimo \(\nabla\cdot\vct{E_z} = 0\) (in ne bo nobene \v skode, \v ce ga pri\v stejemo).
+\[\vct{F} = \varepsilon_0\int_V(\nabla\cdot\vct{E_L})\vct{E_z}\dif^3\vct{r} = \varepsilon_0\int_{V} (\nabla \cdot \vct{E_L} + \nabla \cdot \vct{E_z})\vct{E_z}\dif^3\vct{r}\]
+\(\nabla \cdot \vct{E_L} + \nabla \cdot \vct{E_z}\) pa je seveda enako \(\nabla \cdot \vct{E}\). \\
+Drugi podoben trik, ki ga lahko naredimo, je da opazim, da notranje elektri\v cno polje delca ne more ustvarjati zunanje sile ne delec, torej je
+\[\int_{V} \rho(\vct{r})\vct{E_L}(\vct{r})\dif^3\vct{r} = 0\]
+Torej lahko izrazu za silo brez posledic pri\v stejemo ta integral. Dobimo:
+\[\vct{F} = \int_V (\nabla\cdot\vct{E})\vct{E} \dif^3\vct{r}\]
+Od tod si pomagamo z matemati\v cno enakostjo
+\[\nabla\cdot(\vct{a} \otimes \vct{a}) = \vct{a}(\nabla\cdot\vct{a}) + (\vct{a}\cdot\nabla)\vct{a}\]
+\[\vct{F} = \varepsilon_0\int_{V}\left[\nabla\left(\vct{E}\otimes\vct{E}\right) - \left(\vct{E}\cdot\nabla\right)\vct{E}\right]\dif^3\vct{r}\]
+Ker je elektri\v cno polje znotraj delca te\v zko meriti, bomo uporabili Gaussov izrek:
+\[= \varepsilon_0\int_{\partial V}\left(\vct{E}\otimes\vct{E}\right)\dif\vct{S} - \varepsilon_0\int_V\left(\vct{E}\cdot\nabla\right)\vct{E}\dif^3\vct{r}\]
+Uporabimo matemati\v cno enakost:
+\[\frac{1}{2}\nabla E^2 = \left(\vct{E} \cdot \nabla\right)\vct{E} + \vct{E} \times \left(\nabla \times \vct{E}\right)\]
+Zaradi lastnosti elektri\v cnega polja, da je \(\nabla \times \vct{E} = 0\), lahko drugi \v clen izpustimo.
+\[\vct{F} = \varepsilon_0\int_{\partial V} \left(\vct{E} \otimes \vct{E}\right) \dif\vct{S} - \frac{\varepsilon_0}{2}\int_V\nabla E^2\dif^3\vct{r}\]
+\[= \varepsilon_0\int_{\partial V} \left[\left(\vct{E} \otimes \vct{E}\right)\vct{n} - \frac{1}{2}E^2\vct{n}\right]\dif S\]
+\[= \varepsilon_0 \int_{\partial V} \left[\left(\vct{E}\otimes\vct{E}\right) - \frac{1}{2}E^2\duline{I}\right]\vct{n}\dif S\]
+Zdaj integriramo celotno elektri\v cno polje po povr\v sini telesa.
+\subsection{Napetostni tenzor} Dobljeni zapis lahko zapi\v semo z uvedbo napetostnega tenzorja elektri\v cnega polja:
+\[F_i = \oint_{\partial V}T_{ik} n_k\dif S\]
+\[T_{ik} = \varepsilon_0\left(E_iE_k - \frac{1}{2}E^2\delta_{ik}\right)\]
+Zakaj je to uporabno? Ko pridemo do magnetnega polja, bomo uvedli napetostni tenzor tudi za tega. To pomeni, da bomo lahko, ko bosta ne telo delovali obe polji naenkrat, tenzorja preprosto se\v steli.
+\paragraph{Volumska gostota sile.} Uvedemo ga kot \[f_i = \pd{T_{ik}}{x_k} = \sum_{k}\pd{T_{ik}}{x_k}\]
+(Uporabljamo Einsteinovo notacijo). Gre v bistvu za divergenco. Tudi ta zapis lahko uporabljamo za druga polja. Velja tudi:
+\[F_i = \oint_{\partial V} T_{ik}\dif S_k = \int_V f_i\dif^3\vct{r}\]
+\subsection{Multipolni razvoj elektri\v cnega potenciala} Zanima nas elektri\v cno polje dale\v c stran od telesa, ki nosi opisano gostoto naboja, po vodilnih prispevkih (multipolih). \\
+Opomba: Izraz dale\v c stran tu pomeni v primerjavi z velikostjo telesa. Se pravi vsaj nekaj premerov telesa stran. \v Ce govorimo o neskon\v cnih palicah ali \v cem podobnem, multipolnega razvoja ne moremo uporabljati.
+\[\varphi(\vct{r}) = \int \frac{\rho(\vct{\vct{R}})}{4\pi\varepsilon_0|\vct{r} - \vct{R}|\dif^3\vct{R}}\]
+Zanima nas re\v zim, ko je \(|\vct{r}| \gg |\vct{R}|\), torej lahko stvar razvijemo:
+\[\frac{1}{|\vct{r} - \vct{R}|} = \frac{1}{r} - \vct{R}\cdot\nabla\frac{1}{|\vct{r}|} + ... \approx \frac{1}{r}+\vct{R}\cdot\frac{\vct{r}}{r^3}\]
+Torej:
+\[\varphi(\vct{r}) = \frac{1}{4\pi\varepsilon_0}\int\frac{\rho(\vct{R})}{r}\dif^3\vct{R} + \frac{1}{4\pi\varepsilon_0}\int\frac{\rho(\vct{R})\vct{R}\cdot\vct{r}}{r^3}\dif^3\vct{R} + ... =\]
+\[= \frac{e}{4\pi\varepsilon_0\vct{r}} + \frac{\vct{r} \cdot \vct{p}}{4\pi\varepsilon_0 r^3} + ...\]
+Uvedli smo:
+\[\int \rho(\vct{R})\dif^3\vct{R} = e ~ \rightarrow ~ \text{el. monopol}\]
+\[\int \vct{R}\rho(\vct{R})\dif^3\vct{R} = \vct{p} ~ \rightarrow ~ \text{el. dipol}\]
+Lahko uvedemo tudi vi\v sje monopole, ki so potem matrike, tenzorji 3. reda, 4. reda in tako naprej. \\
+\paragraph{Sferi\v cni harmoniki.} Za sferi\v cne koordinate lahko zapi\v semo:
+\[\varphi(\vct{r}) = \frac{1}{4\pi\varepsilon_0}\Sum{l}\sum_{m=-l}^{l}\frac{4\pi}{2l+1}\frac{q_{lm}}{r^{l+1}}Y_{lm}(\theta, \varphi)\]
+Tu so \(Y_{lm}\) sferi\v cni harmoniki, \(q_{lm}\) pa multipolni koeficienti:
+\[q_{lm} = \int\rho(s)s^lY_{lm}(\theta, \varphi)\dif^3\vct{s}\]
+To nas lahko spominja na iskanje orbital vodikovega atoma pri kvantni fiziki. V bistvu gre pri kvantni fiziki ravno za to, da naredimo multipolni razvoj danega potenciala.
+\subsection{Polje in potencial to\v ckastega dipola}
+Velja: \[\varphi(\vct{r}) = \frac{\vct{r} \cdot \vct{p}}{4\pi\varepsilon_0r^3}\]
+\[\vct{E}(\vct{r}) = -\nabla\varphi(\vct{r}) = -\frac{\vct{p}}{4\pi\varepsilon_0r^3} + \frac{3(\vct{r}\cdot\vct{p})\vct{r}}{4\pi\varepsilon_0r^5}\]
+\subsection{Multipolni razvoj elektrostatske energije}
+Elektrostatsko energijo smo definirali kot:
+\[W_e = \int_V \rho(\vct{r}) \varphi(\vct{r}) \dif^3\vct{r}\]
+Interval te\v ce po volumnu telesa. Predpostavili bomo, da je naboj zbran okoli to\v cke \(\vct{r_0}\), ki le\v zi znotraj volumna \(V\) (to je smiselna predpostavka, saj za multipolni razvoj tako ali tako zahtevamo, da je volumen kon\v cen). Potem je:
+\[\varphi(\vct{r}) = \varphi(\vct{r_0}) + (\vct{r} - \vct{r_0})\nabla\varphi(\vct{r_0}) + ...\]
+Zaenkrat bomo rekli, da so nadaljnji \v cleni majhni in jih ne bomo pisali. \v Ce to ne velja, moramo pa\v c uporabiti ve\v c monopolov.
+\[W = \int_V \rho(\vct{r})\left[\varphi(\vct{r_0}) + (\vct{r} - \vct{r_0})\nabla\varphi(\vct{r_0})\right]\dif^3\vct{r} = e\varphi(\vct{r_0}) + \nabla\varphi(\vct{r_0})\int_V\rho(\vct{r} - \vct{r_0})\dif^3\vct{r}\]
+V integralu prepoznamo dipol \(\vct{p}\), iz divergence potenciala pa seveda izrazimo elektri\v cno polje:
+\[W = e\varphi - \vct{p}\cdot\vct{E}\]
+Ali, \v ce pi\v semo ve\v c \v clenov:
+\[W = e\varphi - \vct{p}\cdot\vct{E} + \vct{E}^T\duline{Q}\vct{E} + ...\]
+\subsection{Multipolni razvoj sile in navora}
+Diferencial energije zapi\v semo kot \(\dif W = \dif\vct{F}\cdot\dif\vct{r}\)
+\[\dif W = \dif(e\varphi - \vct{p}\cdot\vct{E}) + e\nabla\varphi(\vct{r})\dif\vct{r} - \dif(\vct{p}\cdot\vct{E})\]
+\[= e\nabla\varphi(\vct{r}) - \left[\vct{p}\times(\nabla\times\vct{E}) + (\vct{p} \cdot \nabla)\vct{E}\right]\]
+Vemo, da je \(\nabla \times \vct{E} = 0\) tako da dobimo kon\v cni rezultat
+\[\vct{F} = e\vct{E} + (\vct{p} \cdot \nabla)\vct{E}\]
+Prvi \v clen predstavlja silo na monopol, drugi \v clen silo na dipol. Tretji \v clen bi (\v ce bi ga zapisali, \v cesar pa se nam seveda ne po\v cne) opisoval silo na kvadrupol in tako naprej. \\
+Opomba:
+\[(\vct{p}\cdot\nabla)\vct{E} = \left(p_x\pd{}{x} + p_y\pd{}{y} + p_z\pd{}{z}\right)\vct{E}\]
+Za izra\v cun navora zapi\v semo energijo kot \(\dif W = -\vct{M}\cdot\dif\vct{\phi}\)
+\[\dif W = -\dif p \cdot \vct{E} = -\left(\dif\vct{\phi}\times\vct{p}\right)\cdot\vct{E}\]
+\[= \dif\vct{\phi}\cdot(\vct{p}\times\vct{E})\]
+Sledi: \(\vct{M} = \vct{p} \times \vct{E}\)
+\section{Magnetostatika}
+\subsection{Amperova sila med elektri\v cnimi vodniki}
+\paragraph{Ravni \v zici.} Amperova sila je magnetni analog Coulombovi sili. \v Ce imamo dve \v zici, po katerih te\v ce tok (denimo, da po eni te\v ce tok \(I_1\), po drugi pa \(I_2\)), je sila med njima enaka
+\[\vct{F} = \frac{\mu_0}{4\pi}\frac{I_1I_2L}{|\vct{r_2} - \vct{r_1}|}\frac{\vct{r_2} - \vct{r_1}}{|\vct{r_2} - \vct{r_1}|}\]
+\v Ce po obeh vodniki\v h te\v ce tok v isto smer, je sila med njima privla\v cna. Sicer je odbojna.
+\paragraph{Poljubni \v zici.} \v Zico bomo opisali kot neko parametri\v cno krivuljo \(\vct{r}(l)\). \v Zici bomo razdelili na majhne ko\v s\v cke \(\dif\vct{r}(l_1)\).
+Privzamemo, da so ti ko\v s\v cki razmeroma ravni in zapi\v semo silo med njimi:
+\[\dif^2\vct{F} = \frac{\mu_0}{4\pi}\,\frac{I_1I_2\dif\vct{r_1}(l_1)\dif\vct{r_2}(l_2)}{|\vct{r_2}(\vct{l_2}) - \vct{r_1}(l_1)|^2}\,\frac{(\vct{r_2}(\vct{l_2}) - \vct{r_1}(l_1))}{|\vct{r_2}(\vct{l_2}) - \vct{r_1}(l_1)|}\]
+Smeri \(\dif\vct{r_1}\) in \(\dif\vct{r_2}\) sta dolo\v ceni s smerjo elektri\v cnega toka.
+\[\vct{F} = \frac{\mu_0}{4\pi}I_1I_2\int_{C_1}\int_{C_2}\frac{\dif\vct{r_1}(l_1)\dif\vct{r_2}(l_2)}{|\vct{r_2}(\vct{l_2}) - \vct{r_1}(l_1)|^2}\,\frac{(\vct{r_2}(\vct{l_2}) - \vct{r_1}(l_1))}{|\vct{r_2}(\vct{l_2}) - \vct{r_1}(l_1)|}\]
+To lahko prepi\v semo kot:
+\[\vct{F} = -\frac{\mu_0}{4\pi}I_1I_2 \int_{C_1}\int_{C_2} \frac{\dif\vct{r_1}(l_1) \times \left(\dif\vct{r_2}(l_2) \times \left[\vct{r_2}(l_2) - \vct{r_1}(l_1)\right]\right)}{|\vct{r_2}(l_2) - \vct{r_1}(l_1)|^3}\]
+\subsection{Elektri\v cni tok}
+Gre za gibanje naboja vzdol\v z nekega elektri\v cnega vodnika. V magnetostatiki obi\v cajno predpostavimo, da je konstanten, v splo\v snem pa je definiran kot
+\[I = \dd{e}{t}\]
+\newpage
+Nekaj vrednosti: \\
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l l}
+        Skozi celi\v cno membrano & \(1-10\,\mathrm{pA}\) \\
+        \v Ziv\v cni impulz & \(1\,\mathrm{\mu A}\) \\
+        Gospodinjski aparati & \(1\,\mathrm{A}\) \\
+        Tok skozi magnete v  LHC & \(12\,000\,\mathrm{A}\) \\
+        Tok pri blisku & \(1-20\cdot10^4\,\mathrm{A}\) \\
+        Tok v Zeleljskem jedru & \(10^9\,\mathrm{A}\)
+    \end{tabular}
+\end{table}
+\subsection{Gostota magnetnega polja}
+Kot pri elektrostatiki lahko delovanje sil med elektri\v cnimi vodniki opi\v semo z uvedbo magnetnega polja.
+To nam pri magnetostatiki \v se bolj koristi, saj se delci ne premikajo nujno po ustaljeni\v h \v zicah, zato bi bilo silo prakti\v cno nemogo\v ce izra\v cunati na obi\v cajni na\v cin.
+\[\vct{F} = -\frac{\mu_0 I_1 I_2}{4\pi}\iint \frac{\dif\vct{l_1} \times \dif \vct{l_2} \times (\vct{r}(l_2) - \vct{r}(l_1))}{|\vct{r}(l_2) - \vct{r}(l_1)|^3} = \]
+\[= \int_{C_1} I_1\dif\vct{l_1} \times \int_{C_2} \frac{\mu_0 I_2}{4\pi} \frac{\dif\vct{l_2}\times(\vct{r}(l_1) - \vct{r}(l_2))}{|\vct{r}(l_1) - \vct{r}(l_2)|^3}\]
+za gostoto magnetnega polja bomo razglasili integral po \(\dif\vct{l_2}\):
+\[\vct{F} = \int_{C_1}I_1\dif\vct{l} \times \vct{B}\]
+Izpeljano definicijo magnetnega polja pa prepoznamo kot Biot-Savartov zakon:
+\[\vct{B}(\vct{R}) = \frac{\mu_0I}{4\pi}\int_{C_2} \frac{\dif\vct{l_2} \times (\vct{R} - \vct{r}(l_2))}{|\vct{R} - \vct{r}(l_2)|}\]
+Nekaj vrednosti:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l l}
+        Mo\v zganska aktivnost & \(1\,\mathrm{fT}\) \\
+        Medgalakti\v cna magnetna polja & \(1-10\,\mathrm{pT}\) \\
+        Sr\v cna aktivnost & \(100\,\mathrm{pT}\) \\
+        Zemeljsko magnetno polje & \(20-70\,\mathrm{\mu T}\) \\
+        \v Zelezni magneti & \(100\,\mathrm{mT}\) \\
+        Son\v cne pege & \(1\,\mathrm{T}\) \\
+        Pospe\v sevalniki & \(10\,\mathrm{T}\) \\
+        Nevtronska zvezda & \(10^6-10^7\,\mathrm{T}\) \\
+        Atomsko jedro & \(10^9\,\mathrm{T}\)
+    \end{tabular}
+\end{table}
+\subsection{Magnetna cirkulacija}
+\subsection{Magnetne silnice.} \v Ce si skiciramo magnetne silnice okoli \v zice, opazimo, da so zaklju\v cene. Ne moremo ravno dokazati, da je vedno tako, nismo pa \v se nikoli na\v sli primera, ko bi bilo druga\v ce. \\
+Magnetno cirkulacijo definiramo kot
+\[\Gamma_M = \oint_C \vct{B} \times \dif\vct{r} \neq 0\]
+Iz neenakosti sledi \(\nabla\times\vct{B} \neq 0\), torej je magnetno polje vrtin\v cno.
+\subsection{Magnetni pretok}
+Magnetni pretok je definiran kot \[\phi_M = \int_S \vct{B} \cdot \dif\vct{S}\]
+Ker so vse magnetne silnice sklenjene, velja:
+\[\oint_S\vct{B}\cdot\dif\vct{S} = 0\]
+V diferencialni obliki ima ena\v cba obliko \[\nabla\cdot\vct{B} = 0\]
+To je hkrati ena od Maxwellovih ena\v cb.
+\subsection{Gostota elektri\v cnega toka}
+Elektri\v cni tok, o katerem je bilo do zdaj smiselno govoriti samo v kontekstu \v zic (oziroma tak\v snih ali druga\v cnih vodnikov), se posplo\v si z uvedbo gostote elektri\v cnega toka.
+\[I = \int \vct{j}\cdot\dif\vct{S}\]
+Elektri\v cni pretok \(\vct{j}\) ima lahko poljubno smer v prostoru, in ne nujno po \v zici.
+\[\vct{j}\cdot\dif\vct{S} = \dif I = \dif\left(\frac{\rho \dif V}{\dif t}\right) = \frac{\rho \dif x \dif S}{\dif t} = \rho\vct{v}\dif S\]
+Sledi:
+\[\vct{j} = \rho\dif\vct{v}\]
+\subsection{Amperov izrek}
+Imamo tokovno zanko (ozna\v cimo \(C'\)), po kateri te\v ce tok \(I\). Majhen del zanke bomo ozna\v cili kot \(\dif\vct{l}'\).
+\v Ce okoli zanke na nekem polo\v zaju \(\vct{r}(l)\) potegnemo navidezno zanko (\(C\)), ki obkro\v za vodnik, lahko poskusimo izra\v cunati magnetno cirkulacijo po tej navidezni zanki.
+\[\Gamma_M = \oint_C\vct{B}\cdot\dif\vct{l} = \oint_C \left[-\frac{\mu_0I}{4\pi}\oint_{C'}\dif\vct{l}'\times\frac{\vct{r}(l) - \vct{r}(l')}{|\vct{r}(l) - \vct{r}(l')|^3}\right]\cdot\dif\vct{l}\]
+V izrazu opazimo me\v sani produkt:
+\[= \oint_C\oint_{C'} \frac{\mu_0I}{4\pi}\left(\dif\vct{l}'\times\frac{\vct{r}(l) - \vct{r}(l')}{|\vct{r}(l) - \vct{r}(l')|^3}\right)\cdot\dif\vct{l} = \oint_C\oint_{C'} \frac{\mu_0I}{4\pi} \left(\dif\vct{l} \times \dif\vct{l}' \cdot \frac{\vct{r}(l) - \vct{r}(l')}{|\vct{r}(l) - \vct{r}(l')|^3}\right)\]
+Vemo, da vektorski produkt predstavlja nekak\v sno povr\v sino. Integral torej prevedemo na integral po zaklju\v ceni ploskvi. Kak\v sna ploskev to je, ni jasno niti predavatelju (verjetno gre za nekak\v sno cev okoli zanke \(C'\)), ampak predvidevamo, da tak\v sna ploskev obstaja, da je zaklju\v cena in da jo bomo lahko opisali v sferi\v cnih koordinatah.
+\[\Gamma_M = \frac{\mu_0 I}{4\pi}\oint_S \frac{\vct{r}(l) - \vct{r}(l')}{|\vct{r}(l) - \vct{r}(l')|^3} r^2\dif r\sin\vartheta\dif\vartheta\dif\varphi = \frac{\mu_0 I}{4\pi}\oint_S\dif\Omega = \frac{\mu_0 I}{4\pi}\,4\pi = \mu_0 I\]
+V integralu po ploskvi smo prepoznali integral prostorskega kota, ki pa je enak \(4\pi\).
+\subsection{Magnetni potencial}
+Pri elektri\v cnem polju smo uvedli skalarni potencial \(\varphi\), da je veljalo \(\vct{E} = \nabla\varphi\). To smo lahko storili, ker je bilo elektri\v cno polje brezvrtin\v cno, kajti rotor gradienta je vedno enak \(0\). \\
+Za magnetno polje ne bomo mogli uporabiti skalarnega potenciala, saj je polje vrtin\v cno. Vemo pa, da je brezizvorno, in vemo tudi, da je divergenca rotorja enaka \(0\). \v Ce je divergenca magnetnega polja torej enaka 0, ga je smiselno opisati z rotorjem nekega vektorskega potenciala. \\
+Bodi torej \(\vct{A}\) tak\v sen vektor, da je
+\[\vct{B} = \nabla \times \vct{A}\]
+Zdaj lahko namesto enega magnetnega polja uporabljamo drugo vektorsko polje. Videli bomo, da se nam bo uporaba potencialnega polja v\v casih bolj izpla\v cala. \\[2mm]
+Magnetni pretok z magnetnim potencialom:
+\[\phi_M = \int_S\vct{B}\cdot\dif\vct{S} = \int_S(\nabla\times\vct{A})\dif\vct{S} = \int_{\partial S} \vct{A}\cdot\dif\vct{r}\]
+Vektorski potencial znotraj tuljave: Imejmo tuljavo, znotraj katere je magnetno polje enako \(\vct{B_0} = (0, 0, B_0)\) - zunaj je seveda enako 0. Ker nimamo lepe inverzne operacije rotorju, ne moremo konstruirati \(\vct{A}\), lahko pa ga uganemo:
+\[\vct{A} = \frac{1}{2}\vct{B_0} \times \vct{r}\]
+Zunaj tuljave: Gostota magnetnega polja je enaka \(0\). Zamislimo si zanko, ki obkro\v za tuljavo (tik ob zunanjem robu tuljave). Zanima nas magnetni pretok skoznjo, kajti magnetni pretok v odvisnosti od \(\vct{A}\) smo malo prej izra\v cunali.
+\[\phi_M = \int\vct{B}\cdot\dif\vct{S} = B_0 \pi a^2\]
+Z \(a\) smo ozna\v cili radij tuljave. \(S\) je povr\v sina zanke, ki obkro\v za tuljavo (njen radij je \(r > a\)).
+\[\int_{\partial S} \vct{A} \cdot \dif\vct{r} \propto 2\pi r A\]
+Sledi, da \(A\) izven tuljave ni enak \(0\). Uganiti moramo obliko \(\vct{A}\):
+\[\vct{A} = c\,\vct{B_0}\times\frac{\vct{r}}{r^2}\]
+Konstanto \(c\) dolo\v cimo tako, da je \(\vct{A}\) na robu tuljave zvezen. To lahko naredimo kar z magnetnim pretokom:
+\[\oint_{\partial S} c\left(\vct{B_0} \times \frac{\vct{r}}{r^2}\right)\cdot\dif\vct{r} = 2\pi c B_0\]
+To ena\v cimo z rezultatom, ki smo ga dobili z notranje strani tuljave:
+\[2\pi c B_0 = B_0 \pi a^2 \Rightarrow c = \frac{a^2}{2}\]
+To nam da kon\v cni rezultat:
+\[\vct{A} = \begin{cases}
+    \frac{1}{2}\vct{B_0}\times\vct{r} & |\vct{r}| \leq a \\
+    \frac{a^2}{2r^2}\vct{B_0} \times \vct{r} & |\vct{r}| > a
+\end{cases}\]
+To je mo\v cno prostorsko odvisna funkcija (tudi, ko je \(\vct{B} = 0\)), je pa vsaj zvezna.
+\paragraph{Umeritev.} Na magnetnem potencialu \(\vct{A}\) naredimo transformacijo:
+\[\vct{A}' = \vct{A} + \nabla\zeta(\vct{r})\]
+Polji \(\vct{A}\) in \(\vct{A}'\), saj je \(\rot(\nabla\zeta) = 0\) za katero koli funkcijo \(\zeta\). \\
+V primeru tuljave se nam spla\v ca vzeti \[\zeta(x, y, z) = -\frac{B_0\,a^2}{2}\arctan\frac{x}{y}\]
+Tako zunaj tuljave dobimo:
+\[\vct{A}' = \frac{a^2}{2}\vct{B_0}\times\frac{\vct{r}}{r^2} - \nabla\left(-\frac{B_0a^2}{2}\arctan\frac{y}{x}\right) = \frac{B_0a^2}{2}\frac{2\pi}{a}\delta(\phi - \pi)\widehat{e}_\phi\]
+Dobili smo \(\vct{A}\), ki je enak ni\v c povsod razen znotraj tuljave. Vidimo, da si lahko z uvedbo umeritve precej olaj\v samo ra\v cunanje s potencialom \(\vct{A}\), ne da bi pri tem vplivali na magnetno polje \(\vct{B}\).
+\subsection{Magnetna sila}
+\[\vct{F} = \int I\dif\vct{l}\times\vct{B}\]
+Tok \(I\) izrazimo z elektri\v cnim pretokom in dobimo \[\vct{F} = e\vct{v}\times\vct{B}\] (Velja za to\v ckast naboj.)
+\subsection{Kiechoffova ena\v cba} Zanima nas osnovna ena\v cba za vektorski magnetni potencial. Uporabimo Amperov zakon:
+\[\mu_0\vct{j} = \rot\vct{B} = \nabla \times \rot\vct{A} = \nabla(\nabla\cdot\vct{A}) - \nabla^2\vct{A}\]
+Uporabimo Helmholtzov izrek: Vsako vektorsko polje lahko zapi\v semo kot vsoto brezizvornega in brezvrtin\v cnega polja.
+\[\vct{A} = \vct{A_1} + \vct{A_2},~~~\nabla\cdot\vct{A_1}= 0,~\rot\vct{A_2} = 0\]
+Ker je \(\vct{B} = \rot\vct{A_1} + \rot\vct{A_2} = \rot\vct{A_1}\), si brez kakr\v snih koli posledic privo\v s\v cimo, da je \(A_2 = 0\). Tako je \(\vct{A} = \vct{A_1}\) in velja \(\nabla\cdot\vct{A} = 0\). Sledi:
+\[\nabla^2\vct{A} = -\mu_0\vct{j}\]
+Dobljenemu pravimo Kirchoffova ena\v cba. To je osnovna ena\v cba za izra\v cunn magnetnega vektorskega potenciala. \\[2mm]
+Ker je ena\v cba skoraj identi\v cna Poissonovi, lahko uganemo re\v sitev (po potrebi tudi izra\v cunamo, v resnici je samo sistem treh neodvisnih Poissonovih ena\v cb):
+\[\vct{A}(\vct{r}) = \frac{\mu_0}{4\pi}\int_{V}\frac{\vct{j}(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}\]
+Integriramo po volumnu, kjer je \(\vct{j}\) neni\v celn. Od tod z rotorjem dobimo ravno Biot-Savartov zakon:
+\[\vct{B}(\vct{r}) = \frac{\mu_0}{4\pi}\int_{V}\frac{\vct{j}(\vct{r}') \times \vct{r} - \vct{r}'}{|\vct{r} - \vct{r}'|^3}\dif^3\vct{r}\]
+\subsection{Magnetna energija}
+\subsubsection{Magnetna energija v zunanjem polju}
+Zanko s povr\v sino \(S\), po kateri te\v ce tok \(I\), premaknemo za \(\dif\vct{r}\). Zanko parametriziramo z vektorjem \(\vct{t}\). Zanima nas, koliko se je spremenila energija.
+\[\vct{F} = \int_C I\dif\vct{l}\times\vct{B} = I \int_C (\vct{t} \times \vct{B})\dif l\]
+\[\dif A = -\vct{F} \cdot \dif \vct{r} = -I\int_C (\dif\vct{r} \times \vct{t})\cdot\vct{B}\dif l\]
+\[A = -I \int_S\vct{B}\cdot\dif\vct{S} = -I\Phi_M\]
+Ali lahko to zapi\v semo z vektorskim magnetnim potencialom?
+\[\vct{A} = -I\int_S(\rot\vct{A})\cdot\dif\vct{S} = -I\int_{C_2}\vct{A}\cdot\dif\vct{r} + I\int_{C_2}\vct{A}\cdot\dif\vct{r}\]
+Posplo\v simo \(I\) na \(\vct{j}\):
+\[A = -\int_{(2)}\vct{j}\cdot\vct{A}\dif^3\vct{r} + \int_{(1)}\vct{j}\cdot\vct{A}\dif^3\vct{r}\]
+Torej je magnetna energija v zunanjem magnetnem polju \[W = -\int_V \vct{j}\cdot\vct{A}\dif^3\vct{r}\]
+Opomba: \(\vct{A}\) ni odvisen od \(\vct{j}\), saj govorimo o zunanjem magnetnem polju.
+\subsubsection{Magnetna energija kot funkcional toka}
+Magnetni potencial je moral ustvariti nekak\v sen elektri\v cni tok. Iz Kirchoffove ena\v cbe vemo:
+\[\vct{A}(\vct{r}) = \frac{\mu_0}{4\pi}\int\frac{\vct{j}'(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}'\]
+\[W = \frac{\mu_0}{4\pi} \int_V\int_{V'}\frac{\vct{j}(\vct{r})\vct{j}'(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}\dif^3\vct{r}'\]
+Opisali smo, kako tok \(\vct{j}\) in \(\vct{j}'\) delujeta eden na drugega.
+\subsubsection{Celotna magnetna energija}
+Zanima nas celotna energija polja potenciala \(\vct{A}\), ki ga ustvarja gostota toka \(\vct{j}\). Uvedemo parameter \(\alpha: 0 \to 1\). Vrednost parametra \(\alpha\) dolo\v ca velikost \(\vct{A}\). Tako gre \(\vct{A}: 0 \to \vct{A}\). \\
+Vemo, da tok \(\vct{j}\) ustvarja potencial \(\vct{A}\). Pri nekem \(\alpha\) imamo \(\widehat{A}\) in velja \(\widehat{j} = \alpha\vct{j}\), \(\dif\widehat{j} = \vct{j}\dif\alpha\).
+\[\dif W = \int -\dif\widehat{j}\cdot\widehat{A} \dif^3\vct{r}\]
+\[= - \int \vct{j}\cdot\vct{A} \alpha\dif\alpha = -\frac{1}{2}\int_V\vct{j}\cdot\vct{A}\dif^3\vct{r}\]
+Opomba: tu je \(\vct{A}\) polje, ki ga ustvarja tok \(\vct{j}\). Se pravi ina ena\v cba bistveno drug pomen kot ena\v cba za zunanje polje (\v ceprav se razlikujeta le za predfaktor). Polje \(\vct{A}\) izra\v cunamo s Kirchoffovo ena\v cbo. \\
+Opomba 2: Pri izra\v cunu nismo upo\v stevali, da vzpostavitev toka \(\vct{j}\) po zanki zahteva nek vlo\v zek energije.
+\[P = UI = -I\int\vct{E}\cdot\dif\vct{r}\]
+Uporabimo izrek, ki ga \v se nismo izpeljali, namre\v c:
+\[\int\vct{E}\cdot\dif\vct{r} = -\pd{}{t}\int\vct{B}\cdot\dif\vct{S}\]
+Pozneje bomo to v diferencialni obliki poznali kot eno od Maxwellovih ena\v cb: \(\displaystyle \rot\vct{E} = -\pd{\vct{B}}{t}\).
+\[P = I \pd{}{t} \int \vct{B} \cdot\dif\vct{S} = \pd{W}{t}\]
+Preberemo \(W\):
+\[W = I\int\vct{B}\cdot\dif\vct{S} = I\int\rot\vct{A}\cdot\dif\vct{S} = \int_V \vct{A} \cdot (I\dif\vct{r}) = \int \vct{j} \cdot \vct{A} \dif^3\vct{r}\]
+\subsection{Gostota energije magnetnega polja}
+Energijo \v zelimo prepisati v odvisnost od \(\vct{B}\).
+\[W = \frac{1}{2} \int\vct{j}\cdot\vct{A}\dif^3\vct{r} = \]
+Uporabimo Amperov zakon: \[\rot\vct{B} = \mu_0\vct{j}\]
+\[=\frac{1}{2\mu_0}\int\left(\rot\vct{B}\right)\cdot\vct{A}\dif^3\vct{r}\]
+Uporabimo identiteto \[\nabla\cdot(\vct{B} \times \vct{A}) =  \vct{A}\cdot(\rot\vct{B}) - \vct{B}\cdot(\rot\vct{A})\]
+\[= \frac{1}{2\mu_0} \int_V \nabla(\vct{B} \times \vct{A})\dif^3\vct{r} + \frac{1}{2\mu_0}\int_V\vct{B}\cdot(\rot\vct{A})\dif^3\vct{r}\]
+Prvi integral nam izgleda znano. Drugi je ogro\v zen. Pokazali bomo, da je enak 0, in sicer tako, da ga spremenimo na integral po ploskvi.
+\[W = \frac{1}{2\mu_0}\int_V B^2\dif^3\vct{r} + \frac{1}{2\mu_0}\int_{\partial V} \frac{\dots}{R^3}\dif\vct{S}\]
+Integrirana funkcija bo torej \(\propto 1/R\). Ker smemo povr\v sino razglasiti za neskon\v cno veliko, gre to proti \(0\). Sledi:
+\[W = \frac{1}{2\mu_0}\int_V B^2\dif^3\vct{r}\]
+\subsection{Sila kot funkcional magnetnega polja}
+Imamo krompir z volumnom \(V\), po katerem te\v ce tok \(\vct{j}\). Je v magnetnem polju \(\vct{B}\), ki je vsota zunanjega in lastnega polja.
+\[\vct{F} = \int_V \vct{j} \times \vct{B}_\text{zun} \dif^3\vct{r}\]
+Uporabimo Amperov zakon: \[\vct{j} = \frac{1}{\mu_0}\rot\vct{B}\]
+\[\vct{F} = \frac{1}{\mu_0}\int_V(\rot\vct{B}_\text{not}) \times \vct{B}_\text{zun}\dif^3\vct{r}\]
+\section{Kvazistati\v cna polja}
+\subsection{Indukcija}
+\subsubsection{Lenzovo pravilo}
+"Sprememba magnetnega pretoka skozi tokokrog po\v zene tok, ki nasprotuje vzroku svojega nastanka."
+\subsubsection{Maxwellova formulacija indukcije} Osnovana je na Faradejevem zakonu indukcije:
+\[\Gamma_e = \oint_{C}\vct{E}\cdot\dif\vct{r} = -\dd{}{t}\phi_m\]
+\paragraph{Opomba.} Te ena\v cbe nimamo od kod izpeljati, pridobljena je empiri\v cno.
+\[\oint_{\partial S}\vct{E}\cdot\dif\vct{r} = -\dd{}{t}\int_S\vct{B}\cdot\dif\vct{S}\]
+Uporabimo Stokesov zakon:
+\[\int_S \rot\vct{E}\cdot\dif\vct{S} = \int_S-\pd{}{t}\vct{B}\cdot\dif\vct{S}\]
+Preberemo kinemati\v cno Maxwellovo ena\v cbo:
+\[\rot\vct{E} = -\pd{\vct{B}}{t}\]
+\subsubsection{Maxwellov impulz magnetnega polja}
+V kinemati\v cno Maxwellovo ena\v cbo vstavimo \(\vct{B} = \rot\vct{A}\).
+\[\rot\vct{E} = -\pd{}{t}(\rot\vct{A}) = -\nabla \times \pd{\vct{A}}{t}\]
+Gostota elektri\v cnega polja je torej odvisna od \v casovnega odvoda magnetnega in obratno.
+\[\vct{F} = e\vct{E} = -\pd{e\vct{A}}{t} = -\pd{\vct{p}}{t}\]
+Torej je \(e\vct{A}\) gibalna koli\v cina, ki jo z indukcijo dodajamo v sistem.
+\subsection{Kvazistati\v cen sistem Maxwellovih ena\v cb}
+\begin{align*}
+    \nabla\cdot\vct{E} & = \frac{\rho}{\varepsilon_0} & \nabla\cdot\vct{B} & = 0 \\
+    \rot\vct{E} & = -\pd{\vct{B}}{t} & \rot\vct{B} & = \mu_0\vct{j} \\
+\end{align*}
+Sistem nam dolo\v ca:
+\[\nabla\cdot\vct{j} = 0\]
+Tokovne zanke so torej striktno zaklju\v cene.
+\subsubsection{EM potenciala za kvazistati\v cna polja}
+Ker je \(\nabla\cdot\vct{B} = 0\), lahko \v se vedno velja \(\vct{B} = \rot\vct{A}\). Za \(\vct{E}\) to v nestati\v cnem sistemu ne velja ve\v c. Velja:
+\[\rot\vct{E} = -\nabla\times\pd{\vct{A}}{t} \Rightarrow \nabla \times \left(\vct{E} + \pd{\vct{A}}{t}\right) = 0\]
+To zagotovimo tako, da je izraz v oklepaju enak gradientu potenciala. Tako je v kvazistati\v cnem sistemu elektri\v cni potencial enak:
+\[\vct{E} = -\nabla\varphi - \pd{\vct{A}}{t}\]
+Ti formulaciji potencialov veljata tudi v splo\v snem.
+\subsection{Prevodniki in Ohmov zakon}
+Izjava: snovi, v katerih obstajajo prosti nosilci naboja, imenujemo prevodniki. Nosilci naboja so lahko elektroni, vrzeli, ioni ipd. Za prevodnike velja Ohmov zakon:
+\[\vct{j} = \sigma_e\vct{E}\]
+\v Ce ni elektri\v cnega polja, je v ravnovesju tok enak \(\vct{j} = 0\). Ko je \(\vct{E} \neq 0\), se naboj znotraj prevodnika porazdeli tako, da nastane polje v nasprotno smer. Tok bo tekel, dokler je razlika teh nasprotujo\v cih si polj razli\v cna od 0 - ustavil se bo, ko se nosilci naboja postavijo na povr\v sino prevodnika. Predpostavljamo seveda, da ima prevodnik dovolj parov nabitih delcev, da lahko zasen\v ci zunanje polje.
+\subsubsection{\v Casovna konstanta prevodnika}
+Kako hitro se v prevodniku vzpostavi ravnovesje? Izhajamo iz kontinuitetne ena\v cbe:
+\[\dvg\vct{j} = -\pd{\rho}{t}\]
+\[\dvg\left(\sigma\vct{E}\right) + \pd{\rho}{t} = 0\]
+Vstavimo \(\div\vct{E} = \rho/\varepsilon_0\) (operiramo pod predpostavko, da je \(\sigma\) konstantna):
+\[\pd{\rho}{t} + \frac{\sigma}{\varepsilon_0}\rho\]
+\[\rho = \rho_0\,e^{-t/\tau},~~\tau = \varepsilon_0/\sigma\]
+Zna\v cilni \v cas za uravnove\v sanje je torej sorazmeren s prevodnostjo kovineza \v zelezo je na primer reda velikosti \(10^{-18}\,\mathrm{s}\).
+\subsection{Mikroskopski model prevodnosti}
+Ohmov zakon dobimo iz Drudejevega modela:
+\[m\dd{\vct{v}}{t} = -m\gamma\vct{v} + e\vct{E}\]
+Prvi \v clen ozna\v cuje disipacijo (sipanje na ne\v cisto\v cah v prevodniku). Ko ni polja (\(\vct{E} = 0\)), dobimo eksponentno funkcijo:
+\[\vct{v}(t) = \vct{v_0}e^{-\gamma t}\]
+V prisotnosti elektri\v cnega polja dobimo nehomogeno diferencialno ena\v cbo, katere re\v sitev je (sicer analiti\v cno dosegljiva, vendar jo podamo brez izpeljave):
+\[v(t) = \frac{e}{m}\int_{-\infty}^{t}e^{-\gamma(t - t')}\vct{E}(t')\dif t'\]
+\[\vct{j} = \rho\vct{v} = ne\vct{v} = \frac{ne^2}{m}\int_{-\infty}^t e^{-\gamma(t-t')}\vct{E}(t')\dif t'\]
+Za konstantno polje \((\vct{E} = \text{konst.})\) dobimo:
+\[\vct{j} = \frac{ne^2}{m\gamma}\,\vct{E} \qquad \sigma = \frac{ne^2}{m\gamma}\]
+Za \(\sigma_e\) uvedemo enoto Siemens (\(\mathrm{S = 1/\Omega}\)).
+Nekaj vrednosti:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l l}
+        Aluminij: & \(3.7 \cdot 10^7\,\mathrm{S/m}\) \\
+        \v Zelezo: & \(9.9 \cdot 10^6\,\mathrm{S/m}\) \\
+        \(\mathrm{YBa_2Cu_3O_7}\) nad \(T = 92\,\mathrm{K}\): & \(10^6\,\mathrm{S/m}\) \\
+        \(\mathrm{YBa_2Cu_3O_7}\) pod \(T = 92\,\mathrm{K}\): & \(\sim \infty\) \\
+        Steklo pri \(T = 300\,\mathrm{K}\): & \(10^{-15}\,\mathrm{S/m}\) \\
+        Steklo pri \(T = 1000\,\mathrm{K}\): & \(10^{-7}\,\mathrm{S/m}\) \\
+    \end{tabular}
+\end{table}
+\subsection{Upornost}
+Elektri\v cni tok omejimo na vodnik in ga integriramo po njegovi dol\v zini:
+\[\int \vct{j} \cdot \dif \vct{l} = \int \frac{\vct{j} \cdot \vct{t}}{S}\dif^3\vct{r} = I\int\frac{\dif l}{S}\]
+\[\int \vct{j} \cdot \dif \vct{l} = \int \sigma \vct{E} \cdot \dif \vct{l} = \sigma (\varphi_{(2)} - \varphi_{(1)})\]
+\v Ce vpeljemo elektri\v cno upornost kot
+\[R = \int \frac{\dif l}{S\cdot\sigma},\]
+dobimo Ohmov zakon v bolj znani obliki:
+\[U = \Delta \varphi = RI\]
+\subsection{Disipacija energije} Na porazdelitev naboja lahko delujeta elektri\v cna in magnetna sila. Magnetna sila vedno deluje pravokotno na smer gibanja, zato ne tro\v si energije. Velja:
+\[\vct{F} = \int \rho\vct{E}\dif^3\vct{r}\]
+Izra\v cunamo mo\v c, ki jo elektromagnetna sila lahko tro\v si:
+\[P = \int \vct{f}\cdot\vct{v} \dif^3\vct{r} = \int \frac{\vct{j}}{\rho}\,\left(\rho\vct{E} + \vct{j}\times\vct{B}\right)\dif^3\vct{r}\]
+\[P = \int \vct{j} \cdot \vct{E} \dif^3\vct{r}\]
+\subsection{Kapacitivnost} Elektri\v cno energijo shranjujemo v kondenzatorju. Zanj veljata ena\v cbi:
+Vzamemo \(N\) prevodnikov: \(i = 1, ..., N\). Prevodnike nabijemo, in ker gre za prevodnike, velja: \(\varphi(\partial V_i) = \text{konst.}\)
+Kapacitivnost \v zelimo uvesti kot mero med nabojem in potencialom, oziroma koliko elektri\v cne energije lahko shranimo v dani sistem. Oglejmo si energijo velotnega elektri\v cnega polja:
+\[W_e = \frac{1}{2}\int_{V}\rho(\vct{r})\varphi(\vct{r})\dif^3\vct{r}\]
+Ker je naboj le na povr\v sini prevodnikov, na\v s integral postane:
+\[\rho\dif^3\vct{r} \to \sum_i \sigma_i\dif S_i\]
+\[W_e = \frac{1}{2}\sum_i\varphi_i\oint \sigma_i\dif S_i = \frac{1}{2}\sum_i \varphi_i e_i\]
+Isti ra\v cun izvedemo druga\v ce:
+\[W_e = \frac{1}{2}\int\rho(\vct{r})\varphi(\vct{r})\dif^3\vct{r}\]
+Upo\v stevamo:
+\[\varphi(\vct{r}) = \frac{1}{4\pi\varepsilon_0}\int\frac{\rho(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}'\]
+\[W_e = \frac{1}{8\pi\varepsilon_0}\int_V\int_V \frac{\rho(\vct{r})\rho(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}'\dif^3\vct{r}\]
+Upo\v stevamo, da imamo naboj samo na povr\v sini prevodnikov:
+\[\rho(\vct{r})\dif^3\vct{r} = \sum_i\sigma_i\dif S_i\]
+\[W_e = \frac{1}{8\pi\varepsilon_0}\sum_{i, k}\int_{\partial V_i}\int_{\partial V_k} \frac{\sigma_i\sigma_k}{|\vct{r_i} - \vct{r_k}|}\dif S_i \dif S_k\]
+Izraz pomno\v zimo z \(\displaystyle \frac{e_i\,e_k}{e_i\,e_k} = 1\), s \v cimer nismo naredili ni\v c matemati\v cno spornega. Dobimo:
+\[W_e = \frac{1}{2}\,\frac{1}{4\pi\varepsilon_0}\sum_{i, k} e_ie_k \int_{\partial V_i}\int_{\partial V_k} \frac{\sigma_i\sigma_k}{e_ie_k|\vct{r_i} - \vct{r_k}|}\dif S_i \dif S_k\]
+Zdaj uvedemo kapacitivnost kot
+\[\left[C^{-1}\right]_{ik} = \frac{1}{4\pi\varepsilon_0}\int_{S_i}\int_{S_k} \frac{\sigma_i\sigma_k}{|\vct{r_i} - \vct{r_k}|}\dif S_i \dif S_k\]
+Elektri\v cno energijo sistema delcev zapi\v semo kot \[W_e = \frac{1}{2}\sum_i \varphi_i e_i = \frac{1}{2} \sum_{i,k}C^{-1}_{ik} e^i e^k\]
+\subsection{Induktivnost} Induktivnost nam opisuje, koliko magnetne energije lahko shranimo v tokovno zanko.
+Imamo \(i=1, 2, ..., N\) tokovnih zank, po vsaki te\v ce tok \(I_i\). Ra\v cunamo energijo magnetnega polja. \\[2mm]
+Prvi na\v cin:
+\[W_i = \frac{1}{2}\iiint\vct{j_i}\cdot\vct{A}\dif^3\vct{r_i} = \frac{1}{2}\int I_i\vct{A}\cdot\dif\vct{l_i}\]
+\quad Ker imamo ve\v c zank, moramo se\v steti vse njihove prispevke \(I\):
+\[W = \frac{1}{2}\sum_iI_i\oint\vct{A}\cdot\dif\vct{l_i} = \frac{1}{2}\sum_iI_i\iint_{S_i}\vct{B}\cdot\dif\vct{S_i}\]
+\quad Sledi:
+\[W = \frac{1}{2}\sum_i I_i\phi_i\]
+Drugi na\v cin:
+\[U = L\dot{I} \Rightarrow \phi_m = LI\]
+\[W = \frac{1}{2}\iiint\vct{j}\cdot\vct{A}\dif^3\vct{r} = \frac{1}{2}\int_V\int_V\frac{\vct{j}(\vct{r})\vct{j}(\vct{r'})}{|\vct{r} - \vct{r'}|}\dif^3\vct{r}\dif^3\vct{r'}\]
+\[= \frac{\mu_0}{8\pi}\sum_{i, k}I_iI_k\oint_{i} \oint_{k} \frac{\dif\vct{l_k}\cdot\dif\vct{l_i}}{|\vct{r}(l_i) - \vct{r}(l_k)|}\]
+Ko strani ena\v cimo, dobimo:
+\[\frac{1}{2}\sum_iI_i\phi_i = \frac{1}{2}\sum_{i, k}\frac{\mu_0}{4\pi}I_iI_k \left(\oint_{i} \oint_{k} \frac{\dif\vct{l_k}\cdot\dif\vct{l_i}}{|\vct{r}(l_i) - \vct{r}(l_k)|}\right)\]
+Izraz v oklepaju razglasimo za induktivnost, velja:
+\[L_{ik} = \oint_{i} \oint_{k} \frac{\dif\vct{l_k}\cdot\dif\vct{l_i}}{|\vct{r}(l_i) - \vct{r}(l_k)|}\]
+Velja \(\phi_i =  \sum_{k}L_{ik}I_k\)
+\paragraph{Opomba.} Opazimo, da je \(L_{ik} = L_{ki}\), in da nimamo nobenega razloga, da ne moremo izra\v cunati tudi \(L_{ii}\) - tej koli\v cini pravimo lastna induktivnost.
+\subsection{Ko\v zni pojav} Obravnavamo primere, ko tok ni konstanten, temve\v c imamo opravka z izmeni\v cnim tokom. Ko izmeni\v cni tok te\v ce skozi \v zico, se razporedi tako, da je gostota toka najve\v cja blizu sten prevodnika.
+\subsubsection{Osnovne ena\v cbe ko\v znega pojava}
+Uporabimo Maxwellove ena\v cbe in Ohmov zakon za prevodnik;
+\begin{align*}
+    \dvg\vct{E} & = 0~~(\text{Kajti v prevodniku: }\rho = 0) \\
+    \dvg\vct{B} & = 0 \\
+    \rot\vct{E} & = -\pd{B}{t} \\
+    \rot\vct{B} & = \mu_0\vct{j} + \mu_0\varepsilon_0\pd{\vct{E}}{t} \approx \mu_0\vct{j} \\
+    \vct{j} & = \sigma\vct{E}
+\end{align*}
+Aproksimacija, ki smo jo naredili pri \v cetrti ena\v cbi, obi\v cajno dobro velja za \(\omega < 10^{18}\,\mathrm{s^{-1}}\).
+\[\rot(\rot\vct{E}) = -\pd{}{t}\rot\vct{B}=\mu_0\sigma\pd{\vct{E}}{t}\]
+\[\rot(\rot\vct{B}) = \rot(\mu_0\sigma\vct{E}) = -\mu_0\sigma\pd{\vct{B}}{t}\]
+Matemati\v cno gledano sta to neodvisni ena\v cbi, vendar bomo iz re\v sitve ene izrazili re\v sitev druge, zato gre v resnici le za eno ena\v cbo. Uporabimo dejstvo:
+\[\rot(\rot\vct{v}) = \nabla(\dvg\vct{v}) - \nabla^2\vct{v}\]
+V na\v sem primeru je divergenca obeh polj enaka \(0\), torej:
+\[\nabla^2\vct{E} = \mu_0\sigma\pd{\vct{E}}{t}\]
+\[\nabla^2\vct{B} = \mu_0\sigma\pd{\vct{B}}{t}\]
+To sta neke vrste difuzijski ena\v cbi. Za re\v sitev uporabimo nastavek:
+\[\vct{E}(\vct{r}, t) = \vct{\epsilon}(\vct{r})e^{i\omega t}\]
+\[\vct{B}(\vct{r}, t) = \vct{\beta}(\vct{r})e^{i\omega t}\]
+Zakaj \(e^{i\omega t}\)? Prvi\v c, ker je to nastavek, ki pogosto deluje za take vrste ena\v cb. Drugi\v c, ker bomo lahko poljubno \v casovno odvisnost sestavili kot linearno kombinacijo re\v sitev z razli\v cnimi \(\omega\).
+Ko nastavka vstavimo v ena\v cbi, dobimo:
+\[\nabla^2\vct{\varepsilon} = k^2\vct{\varepsilon}\]
+\[\nabla^2\vct{\beta} = k^2\vct{\beta}\]
+Ozna\v cili smo \(k^2 = -i\omega\mu_0\sigma\). Izra\v cunamo lahko \(k = \sqrt{\frac{1}{2}}(1-i)\sqrt{\omega\mu_0\sigma}\)
+V eni dimenziji bi bila re\v sitev oblike
+\[\vct{E}(z, t), \vct{B}(z, t) \propto e^{-kz} = e^{-\sqrt{\omega\mu_0\sigma/2}z}e^{-i\sqrt{\omega\mu_0\sigma/2}z}\]
+Uvedemo t.i. udorno globino, ki bodi enaka:
+\[d = \sqrt{\frac{2}{\omega\mu_0\sigma}}\]
+Nekaj vrednosti: Za baker pri \(50\,\mathrm{Hz}\) dobimo \(d = 2.3\,\mathrm{cm}\). To je naj\v sir\v sa \v zica, ki jo je smiselno uporabljati za prenos elektri\v cnega toka pri taki frekvenci.
+\subsubsection{Re\v sitev v cilindri\v cnem vodniku}
+Ker je vodnik cilindri\v cen, recimo, da tok te\v ce le v smeri \(z\) in potemtakem velja:
+\[E_z(r, t) = E_z(r)e^{-i\omega t}\]
+\[B_\varphi(r, t) = B_\varphi(r)e^{-i\omega t}\]
+Laplaceov operator v cilindri\v cnih koordinatah in cilindri\v cni bazi.
+\[\frac{1}{r}\pd{}{r}\left(r\pd{E_z}{r}\right) - \frac{E_z}{r^2} = -i\omega\mu_0\sigma E_z\]
+\[\frac{1}{r}\pd{}{r}\left(r\pd{B_\varphi}{r}\right) - \frac{B_\varphi}{r^2} = -i\omega\mu_0\sigma B_\varphi\]
+Zaradi vezi med \(\vct{E}\) in \(\vct{B}\) velja:
+\[-i\omega B_\varphi = -\pd{E_z}{r}\]
+Nato z ra\v cunalnikom dobimo re\v sitvi ena\v cb:
+\[E_z(r) = AJ_0(kr) \qquad B_\varphi = -iA\frac{k}{\omega}J_1(kr)\]
+Tu je \(\displaystyle k = \frac{1-i}{\sqrt{2}}\sqrt{\omega\mu_0\sigma}\), \(J_0\) in \(J_1\) pa sta modificirani Besselovi funkciji (navadni ne zado\v s\v cata, saj je \(k\) kompleksen). \\
+Ustrezajo\v ca gostota elektri\v cnega toka je
+\[\vct{j} = \sigma\vct{E} = \widehat{e}_z\,\sigma A J_0(kr)\]
+Seveda je \(A\) konstanta, ki jo dolo\v ca robni pogoj.
+\section{Maxwellove ena\v cbe}
+Maxwellova teorija EM polja povezuje osrednji dve polji - elektri\v cno \(\vct{E}\) in magnetno \(\vct{B}\) - med seboj in z njunimi izvori. Ozna\v cimo slede\v ca izvora:
+\[\rho(\vct{r}, t)\quad\text{(gostota naboja - izvor }\vct{E})\]
+\[\vct{j}(\vct{r}, t)\quad\text{(gostota el. toka - izvor }\vct{B})\]
+Helmholtzov teorem pravi, da je poljubno vektorsko polje popolnoma dolo\v ceno, \v ce poznamo njegovo divergenco in rotor.
+Ker \v zelimo z Maxwellovimi ena\v cbami opisati vektorski polji, jih torej zapi\v semo v obliki
+\[\dvg\vct{E} = ... \qquad \dvg\vct{B} = ...\]
+\[\rot\vct{E} = ... \qquad \rot\vct{B} = ...\]
+\subsection{Ohranjanje naboja - kontinuitetna ena\v cba}
+V nekem volumno \(V_0\) imamo naboj, porazdeljen z gostoto \(\rho(\vct{r}, t)\).
+\[\int_{V_0}\rho(\vct{r}, t) \dif^3\vct{r} = e(t)\]
+V splo\v snem naboj ni konstanten, spreminja se namre\v c, \v ce v volumen vstopa tok naboja:
+\[\dd{e}{t} = -\oint_{\partial V_0}\vct{j}\cdot\vct{n}\dif S = -\int_{V_0}\dvg\vct{j}\dif^3\vct{r}\]
+Hkrati je to enako
+\[\dd{e}{t} = \pd{}{t}\int_{V_0}\rho(\vct{r}, t)\dif^3\vct{r} = \int_{V_0}\pd{\rho}{\vct{t}}(\vct{r}, t)\dif^3\vct{r}\]
+Ko to ena\v cimo, dobimo:
+\[\dvg\vct{j} + \pd{\rho}{t} = 0\]
+Predpostavka za tako ena\v cbo je, da naboj znotraj \(V_0\) lahko "nastane" le tako, da prite\v ce vanj skozi njegovo povr\v sino.
+Da naboj ne mora nastajati in izginjati tako reko\v c iz ni\v cesar, v klasi\v cni fiziki tudi dr\v zi.
+\subsection{Maxwellov premikalni tok}
+Osnove Maxwellovih ena\v cb v kvazistati\v cnem pribli\v zku so oblike
+\[\dvg\vct{E} = \frac{\rho}{\varepsilon_0} \qquad \dvg\vct{B} = 0\]
+\[\rot\vct{E} = -\pd{\vct{B}}{t} \qquad \rot\vct{B} = \mu_0\vct{j}\]
+Vidimo, da te ena\v cbe niso popolne, saj implicirajo
+\[0 = \dvg(\rot\vct{B}) = \mu_0\dvg\vct{j}\]
+Kar o\v citno ne velja nujno. Te\v zavo re\v simo z uvedbo premikalnega toka (ki ga dolo\v cimo empiri\v cno - ni nobene smiselne izpeljave):
+\[\rot\vct{B} = \mu_0\vct{j} + \mu_0\varepsilon_0\pd{\vct{E}}{t}\]
+\v Ce poskusimo na obe strani spet delovati z divergenco:
+\[\dvg(\rot\vct{B}) = 0 = \mu_0\dvg\vct{j} + \mu_0\varepsilon_0\dvg\left(\pd{\vct{E}}{t}\right) = \mu_0\dvg\vct{j} + \mu_0\varepsilon_0\pd{}{t}(\dvg\vct{E})\]
+Ko vstavimo \(\dvg\vct{E} = \rho/\varepsilon_0\), dobimo kontinuitetno ena\v cbo.
+\subsection{Popoln set Maxwellovih ena\v cb}
+\begin{enumerate}
+    \item Gaussov zakon: 
+    \begin{equation} \label{eq:1}
+        \qquad\displaystyle\dvg\vct{E} = \frac{\rho}{\varepsilon_0}    
+    \end{equation}
+    \item Kinemati\v cna ena\v cba:
+    \begin{equation} \label{eq:2}
+        \quad\displaystyle\dvg\vct{B} = 0
+    \end{equation}
+    \item Kinemati\v cna ena\v cba:
+    \begin{equation} \label{eq:3}
+        \quad\displaystyle\rot\vct{E} = -\pd{\vct{B}}{t}
+    \end{equation}
+    \item Amperov zakon:
+    \begin{equation} \label{eq:4}
+        \qquad\displaystyle\rot\vct{B} = \mu_0\vct{j} + \mu_0\varepsilon_0\pd{\vct{E}}{t}
+    \end{equation} 
+\end{enumerate}
+Kontinuitetna ena\v cba: \[\dvg\vct{j} + \pd{\rho}{t} = 0\]
+To so ena\v cbe, ki dolo\v cajo klasi\v cen elektromagnetizem.
+\subsection{Ohranitveni zakoni}
+Maxwellove ena\v cbe ohranjajo naboj, gibalno koli\v cino, vrtilno koli\v cino in energijo.
+\subsubsection{Ohranitev energije}
+Kontinuitetno ena\v cbo izpeljemo iz 3. in 4. Maxwellove ena\v cbe. Pri ohranitvi energije pri\v cakujemo ena\v cbo, ki je po obliki podobna kontinuitetna (le da bomo namesto gostote naboja in elektri\v cnega toka uporabili gostoto energije in energijskega toka).
+Tak\v sno ena\v cbo izpeljemo tako, da \ref{eq:3}. Maxwellovo ena\v cbo na obeh straneh skalarno mno\v zimo z \(\vct{B}\), \ref{eq:4}. Maxwellovo ena\v cbo pa na z \(\vct{E}\).
+\[\vct{B}\cdot(\rot\vct{E}) = -\vct{B}\pd{\vct{B}}{t}\]
+\[\vct{E}\cdot(\rot\vct{B}) = \mu_0\vct{j}\cdot\vct{E} + \mu_0\varepsilon_0\vct{E}\cdot\pd{\vct{E}}{t}\]
+Dobljeni ena\v cbi med seboj od\v stejemo:
+\[\mu_0\varepsilon_0\vct{E}\pd{\vct{E}}{t} + \vct{B}\cdot\pd{\vct{B}}{t} = \vct{E}\cdot(\rot\vct{B}) - \vct{B}\cdot(\rot\vct{E}) - \mu_0\vct{j}\cdot\vct{E}\]
+\[\pd{}{t}\left(\frac{1}{2}\varepsilon_0 E^2 + \frac{1}{2\mu_0}B^2\right) = -\frac{1}{\mu_0}\dvg(\vct{E}\times\vct{B}) - \vct{j}\cdot\vct{E}\]
+Izraz na levi predstavlja \v casovni odvod gostote elektri\v cne in magnetne energije, na desni ozna\v cimo \(\vct{P} = (\vct{E} \times \vct{B})/\mu_0\) - Poyntingov vektor. Tako dobimo ena\v cbo ohranitve energije:
+\[\pd{w}{t} + \dvg\vct{P} = -\vct{j}\cdot\vct{E}\]
+\subsubsection{Ohranitev gibalne koli\v cine}
+Obravnavamo:
+\[\pd{}{t}\left(\varepsilon_0\vct{E}\times\vct{B}\right) = \varepsilon_0\left(\pd{\vct{E}}{t}\times\vct{B} + \vct{E}\times\pd{\vct{B}}{t}\right)\]
+\[= \varepsilon_0\left[\frac{1}{\varepsilon_0\mu_0}(\rot\vct{B})\vct{B} - \frac{1}{\varepsilon_0}\vct{j}\times\vct{B} - \vct{E}\times(\rot\vct{E})\right]\]
+Dvojni vektorski produkt lahko prevedemo v razliko skalarnih produktov:
+\[\pd{}{t}(\varepsilon_0\vct{E}\times\vct{B}) = \vct{\nabla}\cdot\left[\varepsilon_0\vct{E}\otimes\vct{E} - \frac{1}{2}E^2\duline{I} + \frac{1}{\mu_0}\vct{B}\otimes\vct{B} - \frac{1}{2}B^2\duline{I}\right] - \left[\rho\vct{E} + \vct{j}\times\vct{B}\right]\]
+Dobimo Cauchyjevo kontinuitetno ena\v cbo:
+\[\pd{g_i}{t} - \pd{T_{ik}}{x_k} + f_i = 0\]
+Uvedli smo gibalno koli\v cino, ki pripada polju z napetostnim tenzorjem \(T_{ik}\):
+\[\vct{g} = \varepsilon_0\vct{E}\times\vct{B}\]
+\(f_i\) pa ozna\v cuje gostoto sile: \(f = \rho\vct{E} + \vct{j}\times\vct{B}\).
+\paragraph{Opomba.} ravnokar smo polju, ki samo po sebi nima mase, pripisali gibalno koli\v cino. To je izrazita posplo\v sitev, ki pa je uporabna v posebni in splo\v sni teoriji relativnosti.
+\subsubsection{Ohranitev vrtilne koli\v cine}
+Za\v cnemo s prej izpeljano Cauchyjevo kontinuitetno ena\v cbo:
+\[\pd{g_i}{t} = \pd{T_{ik}}{x_k}-f_i\]
+Na obeh straneh skalarno mno\v zimo z neko krajevno koordinato \(x_j\):
+\[\pd{(x_jg_i)}{t} = x_j\pd{T_{ik}}{x_k} - x_jf_i\]
+Upo\v stevamo: \[x_j\pd{T_{ik}}{x_k} = \pd{(x_jT_{ik})}{x_k} - T_{ij}\]
+\[\pd{(x_jg_i)}{t} = \pd{(x_jT_{ik})}{x_k} - T_{ij} - x_jf_i\]
+Na obe strani delujemo s Levi-Civita tenzorjem \(\varepsilon_{lji}\), ki predstavlja vektorski produkt. Ker je \(T_{ij} = T_{ji}\), je \(\varepsilon{lji}T_{ij} = 0\)
+\[\pd{}{t}(\varepsilon_{lji}x_jg_i) = \pd{}{x_k}(\varepsilon_{lji}x_jT_{ik}) - \varepsilon_{lji}x_jf_i\]
+Uvedemo vrtilno koli\v cino: \[\gamma_l = \varepsilon_{lji}x_jg_i\]
+in gostoto navora: \[m_l = \varepsilon_{lji}x_jf_i\]
+\[\pd{\gamma_l}{t} - \pd{(\varepsilon_{lji}x_jT_{ik})}{x_k} + m_l = 0\]
+Spet spomnimo, da je \(\varepsilon_{lji}\) Levi-Civita tenzor.
+\section{Elektromagnetno polje v snovi}
+\subsection{Elektri\v cno polje v snovi}
+Zanima nas, kako se spremenijo Maxwellove ena\v cbe, \v ce polje ustvarimo oziroma deluje v snovi.
+\subsubsection{Vezan naboj}
+Celotna gostota naboja v snovi je sestavljena iz dveh prispevkov:
+\begin{itemize}
+    \item Zunanji naboj, ki ga lahko v okviru eksperimenta tudi spreminjamo.
+    \item Vezan naboj, ki se v odziv na zunanje polje prerazporedi po snovi. Definiran je kot \[\rho_V(\vct{r_i}) = \overline{\sum_i e_i\delta^3(\vct{r} - \vct{r_i})}\]
+\end{itemize}
+\(\rho_V\) smo povpre\v cili - ne gre za neko statisti\v cno povpre\v cje, temve\v c gre zamo za to, da zgladimo mikroskopske variacije in delta funkcije spremenimo v nekoliko bolj prebavljive Gaussovke. Temu pravimo povpre\v cje preko hidrodinamskega volumna.
+Prva Maxwellova ena\v cba (\ref{eq:1}) se prepi\v se v:
+\[\dvg\vct{E} = \frac{\rho}{\varepsilon_0} + \frac{\rho_V}{\varepsilon_0}\]
+\subsubsection{Polarizacija}
+Vezan naboj v snovi opi\v semo z novo koli\v cino: polarizacijo \(\vct{P}\). Uvedemo jo z zahtevo:
+\[\rho_V = -\dvg\vct{P}\]
+Vrh tega uvedemo gostoto elektri\v cnega polja kot \(\vct{D} = \varepsilon_0\vct{E} + \vct{P}\)
+Velja:
+\[\dvg\vct{D} = \rho\]
+Izvori \(\vct{D}\) so striktno zunanji naboji, torej \(\vct{D}\) ni odvisen od snovi.
+\subsubsection{Konstitutivna relacija za elektri\v cno polje v snovi}
+Opi\v simo polarizacijo \(\vct{P}\) v odvisnosti od zunanjega polja:
+\[\vct{P} = \vct{P}(\vct{D})\]
+Ta odvisnost je v principu poljubna. za \v sibka polja in snov, ki je izotropna in homogena, razvijmo \(\vct{P}\) do prvega reda:
+\[\vct{P}(\vct{D}) = \chi_E\vct{D} + \mathcal{O}(D^2)\]
+Gre v resnici za nekak\v sen Taylorjev razvoj - \v ce je \(\vct{D}\) majhen, to smemo. Koli\v cino \(\chi_E\) imenujemo elektri\v cna susceptibilnost, pogosto pa uvedemo tudi
+\[\chi_E = 1 - \frac{1}{\varepsilon},\]
+kjer \(\varepsilon\) pomeni dielektri\v cnost. \v Ce to vstavimo v definicijo \(\vct{D}\), dobimo:
+\[\vct{D} = \varepsilon_0\varepsilon\vct{E}\]
+\[\vct{P} = \varepsilon_0(\varepsilon - 1)\vct{E}\]
+Spet poudarimo, da to velja za \v sibka elektri\v cna polja in izotropne, homogene snovi.
+Primer snovi, v kateri konstitutivna relacija ne velja, so feroelektriki, ki imajo v sebi lastne elektri\v cne dipole.
+\subsubsection{Gostota elektri\v cnega dipolnega momenta in polarizacija}
+Zanima nas, kaj to\v cno je polarizacija.
+\[-\nabla^2\varphi = \frac{\rho}{\varepsilon_0} - \frac{\dvg\vct{P}}{\varepsilon_0}\]
+\[\varphi(\vct{r}) = \frac{1}{4\pi\varepsilon_0}\int_V\frac{\rho(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}' - \frac{1}{4\pi\varepsilon_0}\int_V\frac{\nabla'\cdot\vct{P}(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}'\]
+Izraz v drugem integralu poskusimo zapisati druga\v ce:
+\[\nabla'\cdot\left(\frac{\vct{P}(\vct{r}')}{|\vct{r} - \vct{r}'|}\right) = \frac{\nabla'\cdot\vct{P}(\vct{r}')}{|\vct{r} - \vct{r}'|} + \vct{P}(\vct{r}')\,\nabla'\left(\frac{1}{|\vct{r} - \vct{r}'|}\right)\]
+\[\varphi(\vct{r}) = \frac{1}{4\pi\varepsilon_0}\int_V\frac{\rho(\vct{r}')}{|\vct{r} - \vct{r}'|}\dif^3\vct{r}'\]
+\[- \frac{1}{4\pi\varepsilon_0}\int_V\nabla'\cdot\left(\frac{\vct{P}(\vct{r}')}{|\vct{r}- \vct{r}'|}\right)\dif^3\vct{r}'\]
+\[+ \frac{1}{4\pi\varepsilon_0}\int_V\vct{P}(\vct{r}')\,\nabla'\left(\frac{1}{|\vct{r} - \vct{r}'|}\right)\dif^3\vct{r}'\]
+Drugi integral prevedemo na integral po povr\v sini, in zaradi deljenja z \(|\vct{r} - \vct{r}'|\) sklepamo, da bo njegova vrednost enaka \(0\). Poleg tega obravnavajmo primer, ko ni zunanjega naboja, da bo tudi prvi \v clen enak \(0\). Ostane:
+\[\varphi(\vct{r}) = -\frac{1}{4\pi\varepsilon_0}\int_V\vct{P}(\vct{r}')\nabla'\left(\frac{1}{|\vct{r} - \vct{r}'|}\right)\dif^3\vct{r}'\]
+Velja: \[\nabla'\left(\frac{1}{|\vct{r} - \vct{r}'|}\right) = -\nabla\left(\frac{1}{|\vct{r} - \vct{r}'|}\right)\]
+Ker \(\nabla\) ne vpliva na spremenljivko \(\vct{r}\), jo lahko nesemo iz integrala in dobimo:
+\[\varphi(\vct{r}) = -\frac{1}{4\pi\varepsilon_0}\,\nabla\int_V\frac{\vct{P}(\vct{r}')}{\vct{r} - \vct{r}'}\dif^3\vct{r}'\]
+Rezultat primerjamo s potencialom elektri\v cenga dipola:
+\[\varphi(\vct{r}) = -\frac{1}{4\pi\varepsilon_0}\vct{p}\cdot\nabla\left(\frac{1}{|\vct{r} - \vct{r}'|}\right)\]
+\v Ce bi v pravkar izra\v cunano ena\v cbo za \(\varphi\) vstavili \(\vct{P} = \vct{p}\delta^3\vct{r - \vct{r}'}\), bi dobili ravno tak rezultat.
+Polarizacija \(\vct{P}\) nam torej opisuje volumsko gostoto elektri\v cnih dipolov.
+\subsubsection{Klasifikacija snovi glede na odziv elektri\v cnega polja}
+Glede na velikost dielektri\v cnosti lo\v cimo snov na slede\v ce skupine:
+\begin{itemize}
+    \item Dielektriki imajo kon\v cno vrednost \(\varepsilon\), lahko kopi\v cijo energijo. V neidealnih dielektrikih je \(\varepsilon\)odvisen od frekvence spreminjanja ekeltri\v cnega polja.
+    \item Prevodniki imajo neskn\v cen \(\varepsilon\), idealno sen\v cijo elektri\v cno polje v svoji notranjosti.
+    \item Feroelektriki, superprevodniki \dots
+\end{itemize}
+\subsection{Magnetno polje v snovi}
+V snovi v magnetnem polju se ustvarijo vezani tokovi, ki so kvantno-mehanskega izvora. Posledica teh tokov je notranje magnetno polje. Posledica: \v ce ni zunanjega magnetnega polja, je hidrodinamsko povpre\v cje magnetnih polj vezanih tokov enako 0.
+\v Ce zunanje magnetno polje imamo, pa se lahko vezani tokovi nanj odzovejo in zaznamo lahko spremembo hidrodinamskega povpre\v cja.
+\subsubsection{Vezan tok} Kot prej delimo gostoto elektri\v cnega toka:
+\begin{itemize}
+    \item Gostota zunanjega toka: \(\vct{j}\)
+    \item Gostota vezanega toka: \(\vct{j_V}\). Definiramo: \[\vct{j_V} = \overline{\sum_i\vct{j_i}\delta^3(\vct{r} - \vct{r_i})}\]
+\end{itemize}
+Prepi\v semo Maxwellovo ena\v cbo (\ref{eq:4}):
+\[\rot\vct{B} = \mu_0\vct{j} + \mu_0\vct{j_V} + \mu_0\varepsilon_0\pd{\vct{E}}{t}\]
+\subsubsection{Magnetizacija}
+Uvedemo novo vektorsko polje, ki ga krstimo kot magnetizacijo. Velja naj:
+\[\vct{j_V} = \rot\vct{M} + \pd{P}{t}\]
+S tako definicijo je zado\v s\v ceno kontinuitetni ena\v cbi:
+\[\dvg\vct{j_V} + \pd{\rho_V}{t} = 0\]
+Vpeljemo jakost magnetnega polja kot:
+\[\vct{H} = \frac{\vct{B}}{\mu_0} - \vct{M}\]
+In dobimo Maxwellovo ena\v cbo v snovi:
+\[\rot\vct{H} = \vct{j} + \pd{\vct{D}}{t}\]
+Sledi: Polje v snovi je odvisno striktno od zunanjega magnetnega polja in zunanje gostote naboja.
+\subsection{Manjka: Napetostni tenzor v snovi}
+\subsection{Robni pogoji}
+\subsubsection{Manjka: Robni pogoj za \(\vct{B}\)}
+Zaklju\v cek je, da se pri prehodu magnetnega polja iz ene snovi v drugo ohranja komponenta, pravokotna na rob snovi.
+\subsubsection{Robni pogoj za \(\vct{D}\)}
+Na robu med dvema snovema i\v s\v cemo robni pogoj med elektri\v cnima poljema \(\vct{D_1}\) in \(\vct{D_2}\).
+Robni pogoj nam dolo\v ca Maxwellova ena\v cba \ref{eq:1}, in sicer mora povsod veljati:
+\[\dvg\vct{D} = \rho\]
+V integralski obliki:
+\[\int_V \dvg\vct{D}\dif^3\vct{r} = \int_V\rho(\vct{r})\dif^3\vct{r}\]
+Izberemo tak volumen \(V\), da ga del se\v ze v snov 1, del pa v snov 2. Najbolj nam ustreza nek majhen valj, katerega vi\v sino bomo poslali proti \(0\). Nato uporabimo Gaussov izrek.
+\[\int_V \dvg\vct{D}\dif^3\vct{r} = \oint_S\vct{D}\cdot\dif\vct{S} = \int_{(1)}\vct{D_1}\cdot\vct{n_1}\dif S + \int_{(2)}\vct{D_2}\cdot\vct{n_2}\dif S + \int_{\text{pla\v s\v c}}\vct{D_{pl}}\cdot\vct{n_{pl}}\dif S\]
+V limiti, ko vi\v sino valja po\v sljemo proti \(0\), izgubimo tretji \v clen, in dobimo samo integral po povr\v sini. Izrazimo povr\v sinsko gostoto \(\sigma\):
+\[\sigma = \vct{D_1}\cdot\vct{n_1} + \vct{D_2}\cdot\vct{n_2}\]
+To je na\v s robni pogoj - gre za ohranitev normalne komponente \(\vct{D}\).
+\subsubsection{Robni pogoj za \(\vct{E}\)}
+Izhajamo iz Maxwellove ena\v cbe \ref{eq:3}:
+\[\rot\vct{E} = -\pd{\vct{B}}{t}\]
+Mislimo si, da med snovema napeljemo zanko - tedaj lahko integriramo po povr\v sini le-te.
+\[\int_S\rot\vct{E} = -\int_S\pd{\vct{B}}{t}\dif\vct{S}\]
+Uporabimo Stokesov izrek:
+\[\int_{\partial S} \vct{E}\cdot\dif\vct{r} = -\int\pd{\vct{B}}{t}\cdot\dif\vct{S}\]
+Vzamemo limito, ko zanko kr\v cimo, da gre izraz na desni v \(0\). Ostane nam:
+\[\vct{E_1}\cdot\vct{t_1} + \vct{E_2}\cdot\vct{t_2} = 0\]
+To je na\v s robni pogoj - gre za ohranitev tangencialne komponente \(\vct{E}\)
+\subsubsection{Robni pogoj za \(\vct{H}\)}
+Izhajamo iz Maxwellove ena\v cbe v snovi:
+\[\rot\vct{H} = \vct{j} + \pd{\vct{D}}{t}\]
+Spet integriramo po zanki in uporabimo Stokesov izrek:
+\[\int_{\partial S}\vct{H}\cdot\dif\vct{r} = \int_S \vct{j}\cdot\dif\vct{S} + \int_S\pd{\vct{B}}{t}\dif\vct{S}\]
+\v Clen \(\pd{\vct{D}}{t}\cdot\dif\vct{S}\) lahko v limiti po\v sljemo proti \(0\), \v clen \(\vct{j}\cdot\vct{t}\dif l\) pa nam ostane. Ozna\v cimo ga s \(K\) in imenujemo povr\v sinska gostota toka (za primere, ko je tok po snovi omejen na povr\v sino - obstajajo snovi, v katerih do tega pride).
+\[\vct{H_1}\cdot\vct{t_1} + \vct{H_2}\cdot\vct{t_2} = K\]
+\subsection{Frekven\v cna odvisnost dielektri\v cne funkcije}
+V snovi imamo ena\v cbo
+\[\vct{P}(t) = \varepsilon_0(\varepsilon - 1)\vct{E}(t)\]
+Parameter \(\varepsilon\) je lahko odvisen od \v casa, \v se pomembnej\v sa pa je odvisnost od frekvence spreminjanja elektri\v cnega polja:
+ \(\varepsilon = \varepsilon(\omega)\). V optiki se pogosto pojavi tudi \(\varepsilon = n^2(\omega)\).
+V tem primeru je \(\varepsilon(\omega)\) kompleksna koli\v cina, kjer \(\mathfrak{Re}(\omega)\) opisuje odboj in \(\mathfrak{Im}\) opisuje absorpcijo.
+\subsection{Kramers-Kronigove relacije} Realen in imaginarni del dielektri\v cne funkcije povezuje ena\v cba:
+\[\mathfrak{Re}\varepsilon(\omega) = 1 + \frac{2}{\pi} \mathcal{P}\int_{0}^{\infty}\frac{\omega'\mathfrak{Im}\varepsilon(\omega')}{\omega'^2 - \omega^2}\]
+In obratno:
+\[\mathfrak{Im}\varepsilon(\omega) = -\frac{2\omega}{\pi}\mathcal{P}\int_{0}^{\infty}\frac{\mathfrak{Re}\varepsilon(\omega') - 1}{\omega'^2 - \omega^2}\dif\omega'\]
+Pri tem se te\v zavam z resonan\v cno lego izognemo tako, da definiramo
+\[\int_{-\infty}^{\infty}\frac{g(\omega')}{\omega'^2 - \omega^2}\dif\omega' = \lim_{\varepsilon \to 0}\left[\int_{-\infty}^{\omega-\varepsilon}\frac{g(\omega')}{\omega'^2 - \omega^2}\dif\omega' + \int_{\omega + \varepsilon}^{\infty}\frac{g(\omega')}{\omega'^2 - \omega^2}\dif\omega'\right]\]
+\subsection{Modeli dielektri\v cne funkcije}
+\subsubsection{Gibalna ena\v cba za vezan naboj}
+V dielektriku imamo vezan naboj, ki se ne more prosto gibati. Obravnavamo ga klasi\v cno, torej z Newtonovim zakonom:
+\[m\dd{^2\vct{r}}{t^2} = - m\omega_0^2\vct{r} + e\vct{E}(t) - m\gamma\dd{\vct{r}}{t}\]
+Prvi \v clen opisuje sinusno nihanje. Drugi \v clen opisuje vzbujanje tega nihanja. Tretji \v clen opisuje du\v senje zaradi viskoznosti ali sipanja v kristalih.
+Da analiziramo odvisnost od frekvence, uporabimo Fourierovo transformacijo:
+\[\vct{r}(t) = \int\vct{r}(\omega)e^{-i\omega t}\dif \omega\]
+\[-m\omega^2\vct{r}(\omega) = im\gamma\omega\vct{r}\omega - m\omega_0^2\vct{r}(\omega) + e\vct{E}(\omega)\]
+Vidimo, da smo se znabili odvodov in da lahko zapi\v semo:
+\[\vct{r}(\omega) = \frac{e}{m}\frac{\vct{E}(\omega)}{\omega_0^2 - \omega^2 - i\gamma\omega}\]
+\[\vct{P}(\omega) = n\,e\vct{r}(\omega)\]
+Tu \(n\) pomeni volumsko \v stevilsko gostoto.
+Ker je \(\vct{P} = \varepsilon_0(\varepsilon - 1)\vct{E}(\omega)\), dobimo model za \(\varepsilon(\omega)\) kot:
+\[\varepsilon_0(\varepsilon(\omega) - 1) = \frac{ne^2}{m}\frac{1}{\omega_0^2 - \omega^2 - i\gamma\omega}\]
+To je splo\v sen model, vendar v praksi pogosto ni popolnoma ustrezen: v realnih snoveh imamo lahko ve\v c virov vzbujanja ali disipacije.
+\subsubsection{Debyjeva relaksacija}
+Pri nizkih frekvencah vzbujanja zanemarimo \v clen \(\omega^2\):
+\[\vct{P}(\omega) = \frac{ne^2}{m}\frac{\vct{E}(\omega)}{\omega_0^2 -i\gamma\omega}\]
+Debyjevo relaksacijo vidimo pri relaksaciji dipolnega momenta v molekulah za \(\omega \lesssim 10^{7}\,\mathrm{s^{-1}}\).
+\subsubsection{Lorentzova relaksacija}
+Obdr\v zimo vse \v clene in izrazimo \(\varepsilon(\omega)\):
+\[\varepsilon(\omega) - 1 = \frac{(\varepsilon(\omega = 0) - 1)\omega_0^2}{\omega_0^2 - \omega^2 - i\gamma m}\]
+Pomembna je npr. pri obravnavi nihanja molekul, pri frekvencah \(\omega \sim 10^{12} - 10^{15}~\mathrm{s^{-1}}\)
+\subsubsection{Plazemska relaksacija} Pri visokih frekvencah prevlada \v clen \(\omega^2\):
+\[\vct{P}(\omega) = -\frac{e^2n}{m}\frac{\vct{E}(\omega)}{\omega^2}\]
+\[\varepsilon(\omega) = 1 - \frac{\omega_p^2}{\omega^2}\]
+Uporabili smo plazemsko frekvenco \(\omega_p^2\), ki je definirana kot
+\[\omega_p^2 = \frac{e^2n}{m\varepsilon_0}\]
+To relaksacijo uporabljamo pri frekvencah \(\omega \gtrsim 10^{16}\).
+\paragraph{Primer:} Dielektri\v cna funkcija vode. Uporablja se za Debyjev model pri nizkih frekvencah in Lorentzov model pri visokih.
+\[\varepsilon(i\omega) = 1 + \sum_{k=1}^{1} \frac{d_k}{1 + \omega\tau_k} + \sum_{k=1}^{11}\frac{f_k}{\omega_k^2 + g_k\omega + \omega^2}\]
+kjer so \(d_k, \tau_k, f_k, \omega_k, g_k\) fenomenolo\v ske konstante, ki jih moramo izmeriti. Opazimo, da gre za en Debyjev \v clem in enajst Lorentzovih.
+Ko izmerimo potrebne konstante, lahko molekule vode vzbujamo z eno od lastnih frekvenc \(\omega_k\), da jo segrejemo. To je osnovni princip delovanje mikrovalovne pe\v cice.
+\section{Elektromagnetno valovanje}
+\subsection{Valovna ena\v cba v vakuumu}
+Predpostavimo, da v prostoru ni izvorov, torej je \(\vct{j} = 0\) in \(\rho = 0\). Za take pogoje imajo Maxwellove ena\v cbe obliko
+\begin{align*}
+    \dvg\vct{E} & = 0 & \dvg\vct{B} & = 0 \\
+    \rot\vct{E} & = -\pd{\vct{B}}{t} & \rot\vct{B} & = \mu_0\varepsilon_0\pd{\vct{E}}{t}
+\end{align*}
+Vzemimo rotor tretje ena\v cbe:
+\[\rot(\rot\vct{E}) = -\pd{}{t}\rot\vct{B}\]
+\[\nabla(\dvg\vct{E}) - \nabla^2\vct{E} = -\pd{}{t}\left(\mu_0\varepsilon_0\pd{\vct{E}}{t}\right)\]
+Podobno storimo tuid za \(\vct{B}\) in dobimo valovni ena\v cbi za \(\vct{E}\) in \(\vct{B}\):
+\[\nabla^2\vct{E} - \varepsilon_0\mu_0\pd{^2\vct{E}}{t^2} = 0\]
+\[\nabla^2\vct{B} - \varepsilon_0\mu_0\pd{^2\vct{B}}{t^2} = 0\]
+Gre za valovni ena\v cbi s \(c = 1/(\varepsilon_0\mu_0)\). Opomnimo, da valovne ena\v cbe ne re\v sijo samo ravni valovi ali sinusna nihanja - valovno ena\v cbo re\v si marsikaj, je pa re\v sitev mo\v cno odvisna od lastnosti problema.
+\v Ce gledamo le re\v sitev pri eni frekvenci \(\omega\) in v neskon\v cnem praznem prostoru, je na\v sa re\v sitev dejansko ravni val, torej:
+\[\vct{E}(\vct{r}, t) = \vct{E}(\vct{r})\,e^{-i\omega t} = \vct{E_0}\,e^{i(\vct{k}\cdot\vct{r} - \omega t)}\]
+\[\vct{B}(\vct{r}, t) = \vct{B}(\vct{r})\,e^{-i\omega t} = \vct{B_0}\,e^{i(\vct{k}\cdot\vct{r} - \omega t)}\]
+V praznem prostoru sta \(\vct{E_0}\) in \(\vct{B_0}\) konstanti. Velja tudi zveza med \(\omega\) in \(\vct{k}\):
+\[\omega = kc\]
+\subsection{Geometrija EM valovanja}
+Splo\v sna re\v sitev valovne ena\v cbe v praznem prostoru je
+\[\vct{E}(\vct{r}, t) = \mathfrak{Re}\left[\sum_k \vct{E_k}\,e^{-(\vct{k}\cdot\vct{r} - \omega_k t)}\right]\]
+\[\vct{B}(\vct{r}, t) = \mathfrak{Re}\left[\sum_k \vct{B_k}\,e^{-(\vct{k}\cdot\vct{r} - \omega_k t)}\right]\]
+\paragraph{Opomba.} Zahteve, da gre le za realni del, pogosto ne pi\v semo. Da elektri\v cno polje ne more biti imaginarno, je samoumevno. \\[2mm]
+Ker je prostor po predpostavki brez izvorov, lahko o obeh valovanjih na podlagi prvih treh Maxwellovih ena\v cb re\v cemo slede\v ce:
+\[0 = \dvg\vct{E} = \sum_k i\vct{k} \cdot \vct{E_k}\,e^{-(\vct{k}\cdot\vct{r} - \omega_k t)}\]
+Veljati mora torej \(\vct{k} \cdot \vct{E_k} = 0\) ali \(\vct{k} \perp \vct{E_k}\).
+\[0 = \dvg\vct{B} = \sum_k i\vct{k} \cdot \vct{B_k}\,e^{-(\vct{k}\cdot\vct{r} - \omega_k t)}\]
+Veljati mora torej \(\vct{k} \cdot \vct{B_k} = 0\) ali \(\vct{k} \perp \vct{B_k}\). Vektorja \(\vct{E}\) in \(\vct{B}\)
+morata biti torej nujno pravokotna na isti vektor. Da sta pravokotna tudi med sabo, dobimo iz tretje Maxwellove ena\v cbe.
+Ko izra\v cunamo rotor, je rezultat
+\[\vct{k} \times \vct{E_k} = \omega\vct{B_k}\]
+\section{Hamiltonske metode v teoriji polja}
+Teorija polja se pogosto obravnava v okviru Hamiltonovega oziroma Euler-Lagrangeva formalizma. Za to imamo dva razloga. Prvi razlog je, da s Hamiltonovim formalizmom dobimo
+sistem dveh diferencialnih ena\v cb prvega reda, ki so obi\b cajno bolj obvladljivi kot posami\v cne ena\v cbe 2. reda. Drugi razlog je, da nam to pogosto pride prav v kvantni mehaniki.
+\subsection{Osnove Hamiltonskih metod v klasi\v cni fiziki}
+\subsubsection{Lagrangeve ena\v cbe}
+Obravnavamo gibanje delca po tiru \(\vct{r}(t)\) in s hitrostjo \(\dot{\vct{r}}(t)\). Definiramo akcijo
+\[S = \int L(\vct{r}, \dot{\vct{r}}, t)\dif t\]
+in z variacijo akcije \(\delta S = 0\) dobimo Euler-Lagrangeve ena\v cbe:
+\[\dd{}{t}\pd{L}{\dot{\vct{r}}} - \pd{L}{\vct{r}} = 0\]
+Za en delec definiramo
+\[L = \frac{1}{2}m\dot{\vct{r}}^2 - V(\vct{r})\]
+\v Ce to vstavimo v Euler-Lagrangevo ena\v cbo, dobimo ravno Newtonov zakon.
+\subsubsection{Hamiltonove ena\v cbe}
+Uvedemo impulz \[\vct{p} = \pd{L}{\vct{r}}\]
+in Hamiltonovo funkcijo
+\[H(\vct{r}(t), \vct{p}(t), t) = \dot{\vct{r}}\vct{p} - L(\vct{r}, \dot{\vct{r}}, t)\]
+Za en delec to pomeni \(H = \frac{1}{2}m\dot{\vct{r}}^2 + V(\vct{r})\), kar je ravno energija delca. Tako dobimo Hamiltonove ena\v cbe:
+\[\dot{\vct{r}} = \pd{H}{\vct{p}}~,~~\dot{\vct{p}}(t) = -\pd{H}{\vct{r}}\]
+\subsection{Lagrangeva funkcija nabitega delca v polju}
+Lagrangeva funkcija mora izgledati tako, da iz nje dobimo 2. Newtonov zakon. za\v cnemo z Lorentzovo silo:
+\[m\dot{\vct{v}} = e\vct{E} + e\vct{v} \times \vct{B}\]
+Zanima nas, kak\v sna Lagrangeva funkcija da tak rezultat. Vemo:
+\[e\vct{E} + e\vct{v} \times \vct{B} = -e\nabla\varphi - e\pd{\vct{A}}{t} + e(\vct{v} \times (\rot\vct{A}))\]
+Uporabimo pravilo za dvojni vektorski produkt:
+\[= -e\nabla\varphi - e\pd{\vct{A}}{t} + e\nabla(\vct{v} \cdot \vct{A}) - e(\vct{v} \cdot \nabla)\vct{A}\]
+Prepoznamo totalni odvod:
+\[\dd{\vct{A}}{t} = \pd{\vct{A}}{t} + \pd{A}{\vct{r}}\pd{\vct{r}}{t} = \pd{\vct{A}}{t} + (\vct{v} \cdot \nabla)\vct{A}\]
+Sledi: \[m\dot{\vct{v}} = -e\nabla\varphi - e\nabla(\vct{v} \cdot \vct{A}) - \dd{\vct{A}}{t}\]
+Ali druga\v ce:
+\[\dd{}{t}(\vct{A} + m\vct{v}) = -e\nabla(\varphi + \vct{v}\cdot\vct{A})\]
+To nas \v ze zelo spominja na Euler-Lagrangevo ena\v cbo. Da se stvar izide, mora biti Lagrangeva funkcija enaka
+\[L = \frac{1}{2}m\dot{\vct{r}}^2 - e\varphi + e\dot{\vct{r}}\cdot\vct{A}\]
+\subsection{Hamiltonova funkcija nabitega delca v polju}
+Izpeljemo jo tako kot v klasi\v cni mehaniki:
+\[H = \pd{L}{\vct{r}}\dot{\vct{r}} - L\]
+\subsection{Schwartzschildova invarianta}
+Zanima nas Lagrangeva funkcija za zvezno porazdelitev nabitih delcev, ki se nahajajo v zunanjem polju. Za en delec:
+\[L = \frac{1}{2}m\dot{\vct{r}}^2 - e\varphi + e\dot{\vct{r}}\cdot\vct{A}\]
+Za zvezno porazdeljen naboj:
+\[L_{DP} = -\int\rho(\vct{r})\varphi\dif^3\vct{r} + \int\vct{j}\cdot\vct{A}\dif^3\vct{r} =: \int\mathcal{L}_{DP}\dif^3\vct{r}\]
+Uvedemo gostoto Lagrangeve funkcije:
+\[\mathcal{L}_{DP} = -\rho(\vct{r}, t)\varphi(\vct{r}, t) + \vct{j}(\vct{r}, t) \cdot \vct{A}(\vct{r}, t)\]
+Tej koli\v cini pravimo tudi Schwartzschildova invarianta.
+\subsection{Lagrangeva funkcija EM polja}
+Zanima nas Lagrangeva funkcija nabitih premikajo\v cih se delcev kot izvorov EM polja, ki pa se hkrati nahajajo v zunanjem EM polju.
+\[L = \int\mathcal{L}\dif^3\vct{r} = \int\mathcal{L}_P\dif^3\vct{r} + \int\mathcal{L}_{DP}\dif^3\vct{r}\]
+Prvi integral predstavlja lastno polje, drugi pa sklopitev z zunanjim poljem.
+Da dobimo \(\mathcal{L}_P(\vct{r}, t)\), malo ugibamo:
+\[\mathcal{L}(\vct{r}, t) = \frac{1}{2}\varepsilon_0E^2 + \frac{1}{2\mu_0}B^2\]
+Celotna gostota Lagrangeve funkcije pa je
+\[\mathcal{L} = \frac{1}{2}\varepsilon_0E^2 + \frac{1}{2\mu_0}B^2 -\rho(\vct{r}, t)\varphi(\vct{r}, t) + \vct{j}(\vct{r}, t) \cdot \vct{A}(\vct{r}, t)\]
+\subsection{Euler-Lagrangeve in Riemann-Lorentzove ena\v cbe}
+Akcijo elektromagnetnega polja smo zapisali kot
+\[S = \int \mathcal{L}\left(\varphi(\vct{r, t}), \vct{A}(\vct{r}, t), t\right)\dif^3\vct{r}\dif t\]
+Kar da Euler-Lagrangeve ena\v cbe:
+\[\dd{}{t}\left(\pd{\mathcal{L}}{\left(\pd{\varphi}{t}\right)}\right) + \nabla\left(\pd{\mathcal{L}}{(\nabla\varphi)}\right) - \pd{\mathcal{L}}{\varphi} = 0\]
+\[\dd{}{t}\left(\pd{\mathcal{L}}{\left(\pd{A_i}{t}\right)}\right) + \nabla\left(\pd{\mathcal{L}}{(\nabla A_i)}\right) - \pd{\mathcal{L}}{A_i} = 0\]
+Posledica so Riemann-Lorentzove ena\v cbe:
+\[\nabla^2\varphi - \frac{1}{c^2}\pd{^2\varphi}{t^2} = -\frac{\rho}{\varepsilon_0}\]
+\[\nabla^2\vct{A} - \frac{1}{c^2}\pd{^2\vct{A}}{t^2} = -\mu_0\vct{j}\]
+Ti ena\v cbi sta ekvivalentni Maxwellovim ena\v cbam na nivoju potencialov, vendar ne opisujeta sklopitve med elektri\v cnim in magnetnim poljem.
+\section{Posebna teorija relativnosti}
+\subsection{Elektromagnetna polja in Lorentzova transformacija}
+Recimo, da imamo dva sistema (\(S\) in \(S'\)), pri \v cemer se \(S'\) giblje s hitrostjo blizu svetlobe v smeri \(x'\).
+Pri prehodu med koordinatnima sistemoma opravimo Lorentzovo transformacijo:
+\[x' = \gamma(x + \beta ct)\]
+\[y' = y\]
+\[z' = z\]
+\[t' = \gamma(ct - \beta x)\]
+\[\beta = \frac{v}{c}~~~~\gamma = \frac{1}{\sqrt{1 - \beta^2}}\]
+\v Ce Lorentzova transformacija velja, tem koli\v cinam pravimo manifestno Lorentzovo invariantne (za razliko od npr. pospe\v skov).
+Zanima nas, kako se transformirata \(\vct{E}\) in \(\vct{B}\).
+V kartezi\v cnih koordinatah vzamemo \ref{eq:3}. Maxwellovo ena\v cbo (po komponentah):
+\[\pd{E_{x'}'}{x'} + \pd{E_{'y'}'}{y'} + \pd{E_{z'}'}{z'} = 0\]
+\[\pd{E_{z'}'}{y'} - \pd{E_{y'}'}{z'} = \pd{B_{x'}'}{t'}\]
+\[\pd{E_{x'}'}{z'} - \pd{E_{z'}'}{x'} = \pd{B_{y'}'}{t'}\]
+\[\pd{E_{y'}'}{x'} - \pd{E_{x'}'}{y'} = \pd{B_{z'}'}{t'}\]
+Uporabimo transformacijo:
+\[\pd{}{x'} = \gamma(\pd{}{x} + \beta \pd{}{ct})\]
+\[\pd{}{y'} = \pd{}{y}\]
+\[\pd{}{z'} = \pd{}{z}\]
+\[\pd{}{ct'} = \gamma(\pd{}{ct} - \beta \pd{}{x})\]
+Dobimo:
+\[E_x = E_{x'}'\]
+\[E_y = \gamma\left(E_{y'}' + vB_{z'}'\right)\]
+\[E_z = \gamma\left(E_{z'}' - vB_{z'}'\right)\]
+\[B_x = B_{x'}'\]
+\[B_y = \gamma\left(B_{y'}' - \frac{v}{c^2}E_{z'}'\right)\]
+\[B_z = \gamma\left(B_{z'}' + \frac{v}{c^2}E_{z'}'\right)\]
+Posledica: ko skalarno mno\v zimo \(\vct{E}\) in \(\vct{B}\), dobimo
+\[\vct{E} \cdot \vct{B} = E_x B_x + E_y B_y + E_z B_z =\]
+\[= E_x'B_x' + \gamma^2\left(1 - \frac{v^2}{c^2}\right)E_y'B_y' + \gamma^2\left(1 - \frac{v^2}{c^2}\right)E_z'B_z'\]
+Po definiciji \(\gamma\) vemo, da je
+\[\gamma^2\left(1 - \frac{v^2}{c^2}\right) = 1\]
+Kar pomeni, da se kot med \(\vct{E}\) in \(\vct{B}\) pri transformaciji ohranja. \\[2mm]
+Druga posledica je
+\[E^2 - c^2B^2 = E'^2 - c^2B'^2\]
+kar pomeni, da ima v praznem prostoru re\v sitev Maxwellovih ena\v cb enako obliko, torej obliko ravnega vala,
+velikosti posameznih polj pa sta odvisni od izbire sistema.
+\subsection{Prostor Minkovskega}
+Tteorijo relativnosti se formulira s \v cetverci, ki pri posebni teoriji relativnosti sledijo metriki Minkovskega, pri splo\v sni teoriji relativnosti pa
+metriki, odvisni od porazdelitve mase. \v Cetverec dogodka ozna\v cimo kot
+\[x_\mu = (x, y, z, ct)\]
+Obi\v cajno se dogovorimo, da pri indeksiranju \v cetvercev uporabljamo gr\v ske indekse (\(\mu = 1, 2, 3, 4\)),
+pri indeksiranju tridimenzionalnih vektorjev pa latinske \(i = 1, 2, 3\).
+Definiramo tudi kontravariantni vektor
+\[x^\mu = (x, y, z, -ct)\]
+\v Ce je indeks spodaj, gre za kovariantni vektor (opisan prej), \v ce je zgoraj, pa za kontravariantni vektor.
+Skalarni produkt izra\v cunamo tako, da mno\v zimo kovariantni in kontravariantni vektor. Pri Lorentzovi transformaciji se tak skalarni produkt ohranja.
+\[x^\mu x_\mu = x'^\mu x'_\mu\]
+\subsection{\v Cetverec gostote toka}
+\subsubsection{Gostota naboja in Lorentzova transformacija}
+Naboj mora biti invarianten na Lorentzovo transformacijo, sicer bi ga pridobivali in izgubljali s prehajanjem med sistemi.
+\[e = \int_V \rho\dif^3\vct{r} = \int_{V'} \rho'\dif^3\vct{r}' = \int \rho' \dif x' \dif y' \dif z'\]
+Od prej imamo \(\dif y' = \dif y\) in \(\dif z' = \dif z\), transformira pa se \(\dif x\): \(\dif x' = \gamma \dif x\).
+Iz na\v se zahteve, da se naboj ohranja, sledi
+\[\rho' = \frac{\rho}{\gamma}\]
+Kar pomeni, da bomo \(\rho/\gamma\) lahko obravnavali kot invariantno koli\v cino.
+\subsubsection{\v Cetverec gostote toka}
+Spomnimo se, da je v treh dimanzijah \[\vct{j} = \rho \vct{v}\]
+V \v stirih dimenzijah je enako, torej
+\[j_\mu = \frac{\rho}{\gamma}u_\mu = \frac{\rho}{\gamma}(\gamma\vct{v}, \gamma c)\]
+Izrazimo kovariantni in kontravariantni \v cetverec:
+\[j_\mu = (\vct{j}, \rho c),~~~j^\mu = (\vct{j}, -\rho c)\]
+Ker je \(j_\mu\) udeven kot "pravi" \v cetverec, Lorentzova transformacija ohranja skalarni produkt \(j^\mu j_\mu\).
+\[j'^\mu j'_\mu = j^\mu j_\mu = \vct{j} \cdot \vct{j} - c^2\rho^2\]
+\subsection{\v Cetverec potenciala}
+Spomnimo se Riemann-Lorentzovih ena\v cb za \(\vct{A}\) in \(\vct{\varphi}\):
+\[\nabla^2\varphi - \frac{1}{c^2}\pd{^2\varphi}{t^2} = -\frac{\rho}{\varepsilon_0}\]
+\[\nabla^2\vct{A} = -\frac{1}{c^2}\pd{^2\vct{A}}{t^2} = -\mu_0\vct{j}\]
+mimogrede uvedemo D'Alembertov operator: \(\square^2 = \partial_\mu\partial^{\mu}\)\footnote{Pogosto se pi\v se tudi samo \(\square = \partial_\mu \partial^\mu\)}, kjer je
+\[\partial_\mu = \left(\nabla, \pd{}{(ct)}\right)\]
+Ena\v cbi lahko tedaj zapi\v semo kot
+\[\square\varphi = -\frac{\rho}{\varepsilon_0}\]
+\[\square\vct{A} = -\mu_0\vct{j}\]
+Ker \(\rho\) in \(\vct{j}\) tvorita \v cetverec, tudi \(\varphi\) in \(\vct{A}\) tvorita \v cetverec.
+\[A_\mu = \left(\vct{A}, \frac{\varphi}{c}\right),~~~A^\mu = \left(\vct{A}, -\frac{\varphi}{c}\right)\]
+Tako prepi\v semo Riemann-Lorentzovi ena\v cbi v manifestno Lorentzovo invariantni obliki kot
+\[\square^2 A_\mu = -\mu_0j_\mu\]
+To je najbolj kompakten (ne pa najbolj poveden) zapis Maxwellovih ena\v cb. Spet velja Lorentzova transformacija
+\[A_x' = \gamma(A_x - \beta\frac{\varphi}{c})\]
+\[A_y' = A_y\]
+\[A_z' = A_z\]
+\[\frac{\varphi'}{c} = \gamma\left(\frac{\varphi}{c} - \beta A_x\right)\]
+\(A^\mu A_\mu\) pa je invarianta.
+\[A^\mu A_\mu = A^2 - \frac{\varphi^2}{c^2}\]
+Spet je oblika re\v sitve Riemann-Lorentzovih ena\v cb neodvisna od izbire sistema, velikost posameznih komponent pa se pri transformacijah lahko spremeni.
+\subsubsection{Schwartzschildova invarianta}
+V nerelativisti\v cni dinamiki smo definirali Swartzschildovo invarianto kot
+\[\mathcal{L}_{DP} = -\rho(\vct{r}, t)\varphi(\vct{r}, t) + \vct{j}(\vct{r}, t) \cdot \vct{A}(\vct{r}, t)\]
+kjer sta \(\varphi\) in \(\vct{A}\) zunanja potenciala. Celotna Lagrangeova funkcija je bila
+\[\int\left(-\rho\varphi + \vct{j}\cdot\vct{A}\right)\dif^3\vct{r}\dif t\]
+In na podlagi tega smo zapisali akcijo:
+\[S = \int\left(-\rho\varphi + \vct{j}\cdot\vct{A}\right)\dif^3\vct{r}\dif t\]
+To pa je ravno enako
+\[S = \int A_\mu j^\mu \dif^4 x_\mu = \int A^\mu j_\mu \dif^4 x_\mu\]
+\subsection{Kovariantni tenzor EM polja}
+Transformirali smo \v ze vektorja \(\vct{E}\) in \(\vct{B}\), vendar smo dobili \v sest ena\v cb, \v cesar ne moremo spraviti v \v cetverec.
+Lahko pa definiramo tenzor, ki bo manifestno invarianten na Lorentzovo transformacijo. Spomnimo se, da originalne transformacije niso bile Lorentzove.
+Za\v cnemo z ena\v cbama
+\[\vct{B} = \rot\vct{A}\]
+\[\vct{E} = \nabla\varphi -\pd{\vct{A}}{t}\]
+Tako potencial kot odvod smo izrazili s \v cetvercem.
+\[E_x = - \pd{\varphi}{x} + \pd{A_x}{(-ct)}\]
+Tako \(\varphi\) kot \(A_x\) sta komponenti \v cetverca potenciala, odvoda po \(x\) in \(t\) pa sta komponenti \(\partial^\mu\). (Opomba: Dodati moramo \v se predfaktorje \(1/c\), kar pa lahko naredimo).
+Tako dobimo alternativen zapis:
+\[E_x = - c\pd{A_4}{x^1} + c\pd{A_1}{x^4}\]
+Podobno lahko naredimo z \(B_x\):
+\[B_x = \pd{A_z}{y} - \pd{A_y}{z} = \pd{A_3}{x^2} - \pd{A_2}{x^3}\]
+Zapis nas spominja na nekak\v sem \v stiridimenzionalen rotor. Ni dejanski rotor, saj je vektorski produkt definiran le v treh dimenzijah,
+vendar lahko poskusimo svtar zapisati na ta na\v cin. V treh dimenzijah:
+\[(\rot \vct{c})_i = \varepsilon_{ijk}\pd{c_j}{x_k},\]
+kjer je \(\varepsilon_{ijk}\) Levi-Civita tenzor. Na podlagi tega razmisleka uvedemo tenzor elektromagnetnega polja, ki opisuje to transformacijo.
+\[F_{\mu\nu} = \pd{A_\nu}{x^\mu} - \pd{A_\mu}{x^\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu\]
+\v Ce zamenjamo \(\mu\) in \(\nu\), dobimo ravno obraten rezultat, torej je tenzor antisimetri\v cen. \\[2mm]
+\[B_x = \pd{A_3}{x^2} - \pd{A_2}{x^3} = F_{23}\]
+\[E_x = -c\left(\pd{A_4}{x^1} - \pd{A_1}{x^4}\right) = -c\,F_{14}\]
+Zapi\v simo ga po komponentah.
+\[F_{\mu\nu} = \begin{bmatrix}
+    0 & B_z & -B_y & -E_x/c \\
+    -B_z & 0 & B_x & -E_y/c \\
+    B_y & -B_x & 0 & -E_z/c \\
+    E_x/c & E_y/c & E_z/c & 0
+\end{bmatrix}\]
+\paragraph{Opomba.} Prvi\v c smo elektri\v cno in magnetno polje zdru\v zili v eno koli\v cino.
+Elektromagnetno polje torej obravnavamo kot eno samo polje, ki pa je tenzor.
+Uvedemo lahko tudi kontravariantni tenzor \(F^{\mu\nu} = \partial^\mu A^\nu - \partial^\nu A^\mu\)
+\[F^{\mu\nu} = \begin{bmatrix}
+    0 & B_z & -B_y & E_x/c \\
+    -B_z & 0 & B_x & E_y/c \\
+    B_y & -B_x & 0 & E_z/c \\
+    -E_x/c & -E_y/c & -E_z/c & 0
+\end{bmatrix}\]
+\subsubsection{Invariante EM tenzorja}
+\[\sum_{\mu = 1}^{4}\sum_{\nu = 1}^{4} F_{\mu\nu}F^{\mu\nu} = 2\left(B^2 - \frac{E^2}{c^2}\right)\]
+To je ravno energija polja, ki je skalarna invarianta. Druga invarianta je determinanta matrike, ki je enaka
+\[\det F_{\mu\nu} = \det F^{\mu\nu} = \frac{1}{c^2}(\vct{B} \cdot \vct{E})^2\]
+\subsection{Kovariantna akcija}
+\v Ce uvedemo relativisti\v cno akcijo, bomo lahko iz nje dobili Lagrangeovo in Hamiltonovo funkcijo, ki ju bomo potrebovali v kvantni mehaniki. Zapisali smo \v ze
+\[S = \int\left(\frac{1}{2}\varepsilon_0 E^2 - \frac{1}{2\mu_0}B^2 - \rho\varphi + \vct{j}\cdot\vct{A}\right)\dif^3\vct{r}\dif t\]
+Vse v integralu lahko zapi\v semo kot invarianti:
+\[\frac{1}{2}\varepsilon_0 E^2 - \frac{1}{2\mu_0} B^2 = -\frac{1}{4\mu_0} F_{\mu\nu}F^{\mu\nu}\]
+\[\vct{j}\cdot\vct{A} - \varphi\rho = j_\mu A^\mu\]
+\[\dif^3\vct{r}\dif t = \frac{1}{c}\dif^4 x_\lambda\]
+To vstavimo v integral.
+\[S = \frac{1}{c}\int\left(-\frac{1}{4\mu_0}F_{\mu\nu}F^{\mu\nu} + j_\mu A^\mu\right)\dif^4x_\lambda\]
+To je kovariantni zapis akcije elektromagnetnega polja, ki je osnova za kvantizacijo v kvantni elektrodinamiki.
+\end{document}

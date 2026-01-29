@@ -1,0 +1,60 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{To\v ckasti naboj nad ozemljeno prevodno plo\v s\v co.} Okoli naboja se ustvari elektri\v cno polje, ki vpliva tudi na razporeditev naboja na plo\v s\v ci. Imamo robni pogoj \(\vct{E} = 0\) pod plo\v s\v co. Poznamo naboj \(e\) in odmik od plo\v s\v ce \(d\).
+\[U(\vct{r}) = \frac{e}{4\pi\varepsilon_0}\left(\frac{1}{r_+} - \frac{1}{r_-}\right)\]
+\[= \frac{e}{4\pi\varepsilon_0}\left(\frac{1}{\sqrt{(z-d)^2 + \rho^2}} + \frac{1}{\sqrt{(z+d)^2 + \rho^2}}\right)\]
+\[\sigma_{\text{ind}} = \varepsilon_0E_\perp\Big|_0 = \varepsilon_0E_z\Big|_{z=0} = -\pd{}{z}U\Big|_{z=0} = ... = -\frac{ed}{2\pi\varepsilon_0}\left(\rho^2 + d^2\right)^{3/2}\]
+Oglejmo si limiti \(\rho \gg d\) in \(\rho \ll d\): \\[2mm]
+\(\rho \gg d\): \(\sigma_{ind} \sim \rho^{-3}\) \\[2mm]
+\(\rho \ll d\): Uporabimo Taylorjev razvoj \((1 + \varepsilon)^p \approx 1 + p\varepsilon\).
+\[\left(\rho^2 + d^2\right)^{3/2} = \left[d^2 \left(1 + \frac{\rho^2}{d^2}\right)\right]^{-3/2} \approx d^{-3}\left(1 -\frac{3}{2}\frac{\rho^2}{d^2}\right) = \frac{1}{d^3} - \frac{3}{2}\frac{\rho^2}{d^5}\]
+Limiti sta si bili ogledani.
+\[\dif e_{ind} = \sigma_{ind}\dif S\]
+\[e_{ind} = -ed\int_0^{\infty}\rho\left(\rho^2 + d^2\right)^{-3/2}\dif \rho = -\frac{ed}{2}\int_{d^2}^{\infty} u^{-3/2}\dif u = ... = -e\]
+\paragraph{Elektri\v cna sila na to\v ckasti naboj nad prevodno plo\v s\v co.} Silo lahko ra\v cunamo z napetostnim tenzorjem:
+\[\vct{F_e} = \varepsilon_0\oint_D\left[(\vct{E} \otimes \vct{E}) - \frac{1}{2}E^2\underline{I}\right]\vct{n} \dif S\]
+Integrirati moramo po zaklju\v cani ploskvi, zato si mislimo, da je obravnavana plo\v s\v ca prvi del te ploskve,
+drugi del pa je polkrogla, katere radij po\v sljemo proti neskon\v cno. Hitro lahko poka\v zemo, da gre drugi prispevek proti \(0\). \\
+Integral vzdol\v z plo\v s\v ce pa ra\v cunamo takole: Vemo, da je normala vzporedna z elektri\v cnim poljem ob plo\v s\v ci.
+\[\vct{E}(\vct{E}\cdot\vct{n}) = E^2\vct{n}\]
+\[\vct{F} = \varepsilon_0\int_{S}\frac{1}{2}E^2\vct{n}\dif S = \frac{\varepsilon_0\vct{n}}{2}\int_SE^2 \dif S\]
+Od prej imamo
+\[E = -\frac{ed}{2\pi\varepsilon_0}\left(\rho^2 + d^2\right)^{-3/2}\]
+\[\dif S = 2\pi\rho\dif\rho\]
+Ko to vstavimo v ena\v cbo, dobimo:
+\[\vct{F_{e}} = \frac{e^2\varepsilon_02\pi}{8\pi^2\varepsilon_0^2}\vct{n}\int_0^{\infty} \frac{\rho}{d}\left(1 + \frac{\rho^2}{d^2}\right)^{-3}\frac{\dif \rho}{d} = \]
+Uporabimo substitucijo \(u = (1 + \rho^2/d^2)\) in dobimo
+\[\vct{F_e} = \frac{e^2\,\vct{n}}{16\pi\varepsilon_0d^2} = \frac{e^2}{4\pi\varepsilon_0(2d)^2}(-\widehat{e}_z)\]
+Sila je torej enaka, kot bi bila sila med pozitivnim in negativnim nabojem na razdalji \(2d\).
+\paragraph{To\v ckasti naboj med dvema pravokotnima plo\v s\v cama.} Fiksen naboj le\v zi na simetrali med plo\v s\v cama, od vsake plo\v s\v ce je oddaljen za neko razdaljo \(a\), odmik od prese\v ci\v s\v ca ploskev pa ozna\v cimo z \(\vct{r}\). Zanima nas \(U(\vct{r})\). \\[2mm]
+Obravnavali bomo primer \(r \gg a\). Naredimo multiploni razvoj:
+\[U(\vct{r}) = \frac{1}{4\pi\varepsilon_0}\left[\frac{e}{r} + \frac{\vct{p_e}\cdot\vct{r}}{r^3} + \frac{\vct{r}^TQ\vct{r}}{r^5} + ...\right]\]
+\[= \]
+\end{document}
