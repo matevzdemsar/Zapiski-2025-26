@@ -1,0 +1,126 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\usepackage{multirow}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+\renewcommand{\tablename}{Tabela}
+
+\begin{document}
+Hamiltonski operator Coulombskega potenciala (in z upo\v stevanjem vrtilne koli\v cine) ima obliko
+\[\left(-\frac{\hbar^2}{2m}\dd{}{r} + \frac{l(l+1)}{2mr^2} - \frac{e^2}{4\pi\varepsilon_0r}\right)u(r) = Eu(r)\]
+Na obeh straneh pomno\v zimo z \(\displaystyle{\frac{1}{\kappa^2}\frac{2m}{\hbar^2}}\), nato uvedemo slede\v ce spremenljivke in konstante:
+\[\rho = \kappa r \qquad \frac{\hbar^2\kappa^2}{2m} = |E| \qquad \rho_0 = \frac{me^2}{2\pi\varepsilon_0\hbar^2\kappa}\]
+Dobimo slede\v co diferencialno ena\v cbo:
+\[u'' - \frac{l(l-1)}{\rho^2}u + \frac{\rho}{\rho_0}u - u = 0\]
+Uvedemo novo spremenljivko:
+\[u(\rho) = \rho^{l+1}v(\rho)e^{-\rho}\]
+S tem na\v sa diferencialna ena\v cba postane
+\[\rho v'' + 2(l+1-\rho)v' + (\rho_0 - 2(l+1))v = 0\]
+To diferencialno ena\v cbo je Schr\" odinger re\v sil z Laplaceovo transformacijo, kar pa je zamudno in komplicirano, zato bomo mi to storili druga\v ce: Foberniusova metoda razvoja v vrsto, ki smo jo spoznali pri Matematiki IV.
+\[v(\rho) = \Sum{k} c_k\rho^k\]
+\[v'(\rho) = \Sum{k} (k+1)c_{k+1}\rho^k\]
+\[v''(\rho) = \Sum{k} k(k+1)c_{k+1}\rho^{k-1}\]
+To vstavimo v diferencialno ena\v cbo in dobimo:
+\[\Sum{k} \left[\left(k(k+1) + 2(l+1)(k+1)\right)c_{k+1} + \left(-2k + (\rho_0 - 2(l+1))\right)c_k\right]\,\rho^k = 0\]
+Ker moramo to veljati za vsak \(k\), mora biti izraz v oglatih oklepajih enak \(0\).
+To nam da rekurzivno zvezo:
+\[c_{k+1} = \frac{2(k+l+1) - \rho_0}{(k+1)(k+2l+2)}\,c_k\]
+Oglejmo si limito \(k \gg 1\):
+\[c_{k+1} \approx \frac{2}{k}c_k\]
+Dobljena funkcija pa ni omejena, kajti v limiti \(k \gg 0\) velja tudi:
+\[e^{2x} = \Sum{k}\frac{2^k x^k}{k!} = \Sum{k} \alpha_k x^k,~\alpha_{k+1} \approx \frac{2}{k}\alpha_k\]
+Se pravi je \(u(\rho)\big|_{k \gg 0,\,\rho \gg 0} = \rho^{l+1}e^{2\rho}e^{-\rho} \sim e^\rho\) \\
+To, da funkcija divergira, je problemati\v cno, saj je tedaj ne moremo normalizirati (\v ce pa je ne moremo normalizirati, ni ustrezna valovna funkcija). Kako se temu izognemo? Zahtevamo lahko, da je vrsta kon\v cna namesto neskon\v cna: Izberemo \(k_{\text{max}}\) in koeficient \(c_{k_\text{max} + 1}\) nastavimo na 0. Tako na\v sa vrsta postane polinom stopnje
+\[2\left(k_{max} + l + 1\right) = \rho_0 = 2n,~n\in\N\]
+Tako dobimo funkcijo oblike \[u(\rho) \sim \rho^{k+l+1}e^{-\rho}\]
+Ozna\v cimo \(n = \rho/2 = k_{\text{max}} + l + 1\).
+Velja:
+\[E = -\frac{\hbar^2\kappa^2}{2m} = -\frac{me^2}{8\pi^2\varepsilon_0^2\hbar^2\rho_0}\]
+\[E_n = -\frac{m}{2\hbar^2}\left(\frac{e^2}{4\pi\varepsilon_0}\right)^2\frac{1}{n^2} = -\frac{|E_1|}{n^2}\]
+\paragraph{Kvantni Laplace-Runge-Lenzov vektor.} Laplace-Runge-Lentzov vektor smo sre\v cali pri klasi\v cni mehaniki, vendar ga moramo v kvantni mehaniki malo prilagoditi. Operator \(\vct{p} \times \vct{L}\) namre\v c ne komutira.
+Pauli je kvantni Laplace-Runge-Lenzov vektor definiral kot
+\[\vct{A} = \frac{1}{2}\left(\vct{p} \times \vct{L} + \left(\vct{p} \times \vct{L}\right)^\dag\right) - \frac{me_0^2}{4\pi\varepsilon_0}\frac{\vct{r}}{\vct{r}}\]
+Ta vektor ima slede\v ce zanimive lastnosti:
+\[[L_\alpha, A_\beta] = i\hbar \varepsilon_{\alpha\beta\gamma} A_\gamma\]
+\[[\vct{A}, H] = 0,~~[L^2, H] = 0,~~[\vct{L}, H] = 0\]
+\paragraph{Degeneracija.} Opazimo, da lahko delec (elektron v Coulombskem potencialu) neko vrednost energije dose\v ze na ve\v c razli\v cnih na\v cinov:
+\[E = -\frac{|E_1|}{n^2}\]
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|c|c|l}
+        \(n\) & \(l\) & \(k\) & \(u\) \\
+        \hline
+        1 & 0 & 0 & \(u(\rho) = e^{-\rho}\) \\
+        \hline
+        \multirow{2}{1em}{2} & 0 & 1 & \(u(\rho) = \rho e^{-\rho} Y_0^0\) \\
+        & 1 & 0 & \(u(\rho) = e^{-\rho} Y_1^m\) \\
+        \hline
+        \multirow{3}{1em}{3} & 0 & 2 & \(u(\rho) = \rho^2 e^{-\rho} Y_0^0\) \\
+        & 1 & 1 & \(u(\rho) = \rho e^{-\rho} Y_1^m\) \\
+        & 2 & 0 & \(u(\rho) = e^{-\rho} Y_2^m\) \\
+        \hline
+        \vdots & \vdots & \vdots & \vdots
+    \end{tabular}
+    \caption{Razli\v cne mo\v zne re\v sitve za posamezne vrednosti \(n\). Vidimo, da imamo za neki \(n\) ravno \(n\) razli\v cnih mo\v znosti, pri \v cemer sploh \v se nismo upo\v stevali degeneracije Laguerrovih polinomov \(Y^m\). Velja \(-l \leq m \leq l\), torej imamo \(2l+1\) razli\v cnih mo\v znosti.}
+\end{table}
+\paragraph{Klasi\v cna limita.} V klasi\v cni limiti imamo opravka z velikimi kvantnimi \v stevili \(n, l, m \gg 1\). Recimo, da opazujemo delec, ki se giblje po kro\v zni\v ci z radijem \(R\). V klasi\v cni limiti bo veljalo
+\[\Delta r^2 = \avg{r^2} - \avg{r}^2 \leq R\]
+Brown, 1973: za \(n \gg 1\) ima valovna funkcija pri kro\v zenju obliko
+\[\psi_{nl} = \psi_{n, n-1} = C_nr^{n-1}e^{-\frac{r}{na_0}}\]
+Gre za nekak\v sno Poissonovo porazdelitev: okoli \(\avg{r}\) nastane ozek vrh. Velja:
+\[\frac{\Delta r}{\avg{r}} \sim \frac{1}{\sqrt{n}}\]
+\paragraph{Nabit delec v magnetnem polju.} Klasi\v cno:
+\[m\ddot{\vct{r}} = e\left(\vct{E} + \vct{v} \times \vct{B}\right)\]
+Lani smo izpeljali Hamiltonovo funkcijo
+\[H = \frac{(\vct{p} - e\vct{A})^2}{2m} + e\varphi + U\]
+Opomba: Vektor \(\vct{A}\) slu\v zi kot potencial magnetnega polja. Je namre\v c tisti vektor, za katerega velja:
+\[\vct{B} = \nabla \times \vct{A},\qquad\vct{E}=-\nabla\varphi-\pd{}{t}\vct{A}\]
+Schr\" odingerjeva ena\v cba:
+\[i\hbar\pd{\psi}{t} = \frac{1}{2m}\left(-i\hbar\nabla - e\vct{A}\right)^2\psi + e\varphi\psi + U \psi\]
+\[\left(i\hbar\nabla = e\vct{A}\right)^2f = -\hbar^2\nabla^2f + i\hbar e(\nabla\cdot\vct{A})f + i\hbar e \vct{A} \cdot (\nabla f) + e^2A^2f\]
+\[i\hbar\pd{\psi}{t} = -\frac{\hbar^2\nabla^2}{2m}\psi + \frac{i\hbar e}{m}\vct{A}\cdot (\nabla\psi) + \left(\frac{i\hbar e}{2m}\nabla\cdot\vct{A} + \frac{e^2}{2m}A^2 + e\varphi + U\right)\psi\]
+Opomba: V dobljeni Schr\" odingerjevi ena\v cbi ima potencial imaginarni del. To pomeni, da bi lahko pri\v slo do izgube verjetnosti. To pa se ne zgodi, in sicer iz dveh razlogov. Prvi\v c, v ena\v cbi nastopa prvi odvod (\(\nabla\psi\)). \v Ce bi \v sli izpeljevati verjetnostni tok za tak\v sno ena\v cbo, bi \v clen s prvim odvodom kompenziral imaginarni del potenciala. Drugi\v c, brez izgube splo\v snosti lahko zapi\v semo \(\nabla\cdot\vct{A} = 0\). to namre\v c velja za vsa (do zdaj ustvarjena) magnetna polja.
+\paragraph{Zeemanova sklopitev.} Izvrednotiti \v zelimo \v clen s prvim krajevnim odvodom \(\psi\), ki se nam je pojavil v ena\v cbni. Predpostavimo, da je magnetno polje konstantno, homogeno in (zaenkrat) razmeroma \v sibko.
+\[\vct{A} = -\frac{1}{2}\left(\vct{r}\times\vct{B}\right);~\vct{B} = (0, 0, B)\]
+\[i\frac{e\hbar}{m}\vct{A}\cdot(\nabla\psi) = -i\frac{e\hbar}{2m}\left(\vct{r} \times \vct{B}\right)\cdot(\nabla\psi) = -\frac{e}{2m}\vct{L}\cdot\vct{B}\psi\]
+Definiramo magnetni moment \(\mu = \displaystyle\frac{e}{2m}\vct{L}\). Tedaj je \(H_z = -\vct{B}\cdot{\mu}\). \\[2mm]
+\paragraph{Landanovi nivoji.} Zanima nas \v se \v clen \(\displaystyle \frac{e^2}{2m} A^2\).
+\[\frac{e^2}{2m}\vct{A}\cdot\vct{A} = \frac{e^2}{8m}\left(B^2r^2 - \left(\vct{B}\cdot\vct{r}\right)^2\right) = \frac{e^2B^2}{8m}\left(x^2 + y^2\right)\]
+Opomba: To pomeni, da je potencial vedno osno simetri\v cen okoli koordinatnega izhodi\v s\v ca. To je \v cudno, kajti problem postane odvisen od izbire koordinatnega sistema.
+Vzrok za zmedo je, da je potencial \(\vct{A}\) nedolo\v cen do gradienta neke funkcije natan\v cno:
+\[\vct{A}' = \vct{A} + \nabla\lambda(\vct{r, t}) \Rightarrow \vct{B} = \nabla \times \vct{A} = \nabla \times \vct{A}'\]
+kajti rotor gradienta je enak \(0\). \\[2mm]
+Naredimo nekaj, \v cemur re\v cemo Landanova umeritev: izberemo \(\vct{A} = B(-y, 0, 0)\), kar nam da magnetno polje \(\nabla\times\vct{A} = (0, 0, 1)\).
+S tem na\v sa diferencialna ena\v cba postane
+\[\frac{1}{2m}\left[\left(-i\hbar\pd{}{x} + eBy\right)^2 + \hbar^2\pd{^2}{y^2} + \hbar^2\pd{^2}{z^2}\right]\psi + e\varphi\psi = E\psi\]
+Uporabili bomo nastavek (ravni val):
+\[\psi(\vct{r}) = e^{i\left(p_xx/\hbar + p_zz/\hbar\right)}\chi(y)\]
+Funkcija \(\chi(y)\) zaenkrat \v se ne poznamo. Zado\v s\v ca nam predpostavka, da obstaja. Ko to vstavimo v ena\v cbo, dobimo:
+\[\frac{1}{2m}\left((p_x + eBy)^2 - \hbar^2\pd{^2}{y^2}\right)\chi(y) = e\varphi\chi(y) = E\chi(y)\]
+Zaenkrat bomo vzeli \(\varphi=0\). Da se tudi v splo\v snem primeru, je pa to koristna poenostavitev. Tedaj vidimo, da je problem postal enodimenzionalen in da je \(\chi(y)\) re\v sitev nekak\v snega harmonskega oscilatorja.
+Ozna\v cimo \(\displaystyle \omega^2 = \frac{e^2B^2}{m^2}\) in \(\displaystyle y_0 = -\frac{p_x}{eB}\), da dobimo
+\[\left(-\frac{\hbar^2}{2m}\dd{^2}{y^2} = \frac{1}{2}m\omega^2(y-y_0)^2\right)\chi = E\chi\]
+\end{document}

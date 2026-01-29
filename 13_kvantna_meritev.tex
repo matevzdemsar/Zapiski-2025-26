@@ -1,0 +1,102 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Kvantna meritev.} Primer: Stern-Gerlach - na delec z lastnim magnetnim momentom deluje magnetna sila.
+\[\vct{F} = (\mu \cdot \nabla)\vct{B}(\vct{r}) = \nabla(\vct{\mu} \cdot \vct{B}) = -\nabla(-\vct{\mu}\cdot\vct{B})\]
+V na\v sem primeru deluje polje le v smeri osi \(z\):
+\[\dvg\vct{B} = \pd{B_z}{z}\]
+\[F_z = \mu\pd{B_z}{z}\]
+\[\delta p = mv_z = F_z\tau,~~~v_z = \pm \frac{e_0\hbar}{2m^2} \pd{B}{z} \tau\]
+Definirali smo \(\tau = L/v_y\), torej \v cas, v katerem delec preleti magnetno polje. Rezultate eksperomenta opi\v semo kvantno (Bohm):
+\[H = -\frac{\hbar^2\nabla^2}{2m} - \frac{e}{m}\vct{S}\cdot\vct{B}\]
+\[B_z = B_0 + \pd{B_z}{z} z + ...\]
+\[H  = H_0 - E_0\sigma_z - F_z z \sigma_z\]
+Tu je \[E_0 = \frac{e\hbar}{2m}B_0,~~~F_z = \frac{e\hbar}{2m}\pd{B_z}{z}\]
+Pri \(t > 0\) imamo Schr\"odingerjevo ena\v cbo \[Psi(\vct{r}, t) = \psi_0(x, y, z)\begin{pmatrix}
+    \psi_{\uparrow}(z, t) \\ \psi_{\downarrow}(z, t)
+\end{pmatrix}\]
+Ena\v cbe ne bomo re\v sevali, je pa razvidno, da spin vpliva na krajevno komponento valovne funkcije, ki je merljiva.
+Kar pa v resnici ni meritev, temve\v c eksperiment. Postulat kvantne mehanike pravi, da kvantna meritev ireverzibilno dolo\v ci stanje delca, ki ga opazujemo.
+\paragraph{Von Neumannova meritev.} Imamo delec s Hamiltonovo funkcijo \(H = H_0 + H_{int}\), kjer bodi
+\[H_{int} = -\frac{g\hbar}{\tau}\widehat{A}q\]
+\(\widehat{A}\) operator, ki ga \v zelimo obravnavati, ima naj lastne vrednosti \(a_n\), \(q\) pa je neka koordinata (na primer \(z\), \v ce govorimo o Stern-Gerlachu).
+Ob \(t=0\) naredimo razvoj:
+\[\ket{\Psi(0)} = \sum_n c_n\ket{n}\otimes \phi(q)\]
+Nato razvijemo po \v casu (\(\tau\)):
+\[U = e^{-i\frac{H_{int}t}{\hbar}} = e^{iq\widehat{A}q}\]
+\[\ket{\Psi(\tau)} = U(\tau, 0)\ket{\Psi(0)}\]
+\(\phi(q)\) transformiramo v \(\tilde{\phi}(p)\):
+\[\ket{\Psi(\tau)} = U(\tau) \sum_n c_n \otimes \int \tilde{\phi}(p)\ket{p}\dif p = \]
+\[= \sum_n c_n e^{iq a_n q}\ket{n}\otimes\int\tilde{\phi}(p)\ket{p}\dif p = \]
+Vstavimo \(\ket{p} \propto \exp(ipq/\hbar)\):
+\[= \sum_n c_n \ket{n} \otimes \int \tilde{\phi}(p)\ket{p + \delta p_n} \dif p\]
+\[= \sum_n c_n \ket{n} \otimes \int \tilde{\phi}(p - \delta p_n) \ket{p} \dif p \propto e^{i(ga_n + p/\hbar)q}\]
+Se pravi \(\hbar \delta p_n \sim ga_n\)
+Iz \(p_n\) lahko torej izmerimo z gibalno koli\v cino, ki jo tako ali druga\v ce znamo izmeriti. Dejansko zasnovati tak eksperiment je seveda druga stvar.
+\paragraph{Kvantna prepletenost.} Imejmo valovno funkcijo, ki je odvisna od dveh vrednosti, na primer \(x_1, x_2\). Vzemimo
+\[\psi(x_1, x_2) = C\exp\left(-\frac{(x_1 - x_2 - L)^2}{4\sigma^2}\right)\]
+V limiti \(\sigma \to 0\) gre to proti funkciji \(\delta(x_1 - x_2 + L)\). Prva posledica je, da to pomeni, da \v ce poznamo pozicijo enega delca, takoj poznamo tudi pozicijo drugega delca.
+Na primer, \v ce naj velja \(x_2 = x_1 + L\), dobimo \[\psi(x_2) = \delta(x - x_1)\]
+\v e merimo gibalno koli\v cino teh delcev, je \(p_2 = -p_1\), torej \[\psi(x_2) = -i\frac{p_2x}{\hbar}\]
+Tu imamo ena\v cbo za ravni val. Ali lahko valovna funkcija enega delca spremeni obliko, \v ce opzaujemo drugi delec?
+V praksi takega eksperimenta ne moremo izvesti, lahko pa eksperimentalno doka\v zemo Bellove neena\v cbe, ki opisujejo kvantno prepletenost spinov.
+Imamo fotona z valovno funkcijo
+\[\ket{\psi, 0} = \frac{1}{\sqrt{2}}\left(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\right)\]
+Mo\v znosti za spin sta \(\pm 1\). Predpostavimo, da spin \v ze pred meritvijo dolo\v cajo neke spremenljivke \(\lambda_i\): Za prvi foton (s spinom \(a = \pm 1\)) so te spremenljivke \(\lambda_i^a\),
+za drugi foton (s spinom \(b = \pm 1\)) pa \(\lambda_i^b\).
+Velja naj torej
+\[a = b(\vartheta_b) = f(\lambda_1^a, \lambda_2^a, ..., \lambda_n^a)\]
+\[b = a(\vartheta_a) = f(\lambda_1^b, \lambda_2^b, ..., \lambda_n^b)\]
+Zdaj imamo dve mo\v zni predpostavki:
+\begin{enumerate}
+    \item Obstajajo take skrite spremenljivke \(\lambda\), ki so dolo\v cene \v ze pred meritvijo
+    \item Med fotonoma ni komunikacije
+\end{enumerate}
+Ustvarimo pogoje, v pri katerih imamo \v stiri mo\v znosti: \(a, b, a', b'\). Naredimo tabelo:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c|c|c|c}
+        \(a\) & \(b\) & \(a'\) & \(b'\) & \(ab + a'b + ab' - a'b' = C\) \\
+        \hline
+        1 & 1 & 1 & 1 & 2 \\
+        1 & 1 & 1 & -1 & 2 \\
+        \vdots & \vdots & \vdots & \vdots & \vdots \\
+        -1 & -1 & -1 & -1 & -2
+    \end{tabular}
+\end{table}
+Povpre\v cje vrednosti v zadnjem stolpcu je \(pm 2\). Lahko pa jih izra\v cunamo tudi druga\v ce:
+\[\overline{ab} = \int \rho(\vartheta_a, \underline{\lambda^a})\rho(\vartheta_b, \underline{\lambda^b})f(\vartheta_a, \underline{\lambda^a})f(\vartheta_b, \underline{\lambda^b})\dif^n\lambda^a\dif^n\lambda^b\]
+\v Ce to naredimo za vse ostale stolpce v tabeli, mora veljati
+\[\overline{ab} + \overline{ab'} + \overline{a'b} + \overline{a'b'} = \overline{C'}\]
+To pa lahko velja tudi, \v ce je \(|\overline{C}| \geq 2\) (temu pravimo Bellova neena\v cba), in s pametno izbiro kotov \(\vartheta_a, \vartheta_b, \vartheta_a', \vartheta_b'\) lahko eksperimentalno dobimo \(C' = 2\sqrt{2} > 2\).
+Sledi, da je vsaj ena od prej predpostavljenih mo\v znosti napa\v cna. Izkazalo se je, da fotona med seboj "komunicirata", in to celo z nadsvetlobno hitrostjo.
+Se pa s tem izognemo kr\v senju postulata o tem, da stanje delca pred meritvijo ni dolo\v ceno.
+\end{document}
