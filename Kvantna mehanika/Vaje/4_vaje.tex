@@ -1,0 +1,79 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Naloga.} Imamo Gaussov valovni paket:
+\[\psi(x, 0) = \frac{1}{\sqrt[4]{2\pi\sigma^2}}e^{-\frac{(x-\avg{x})^2}{4\sigma^2}}e^{i\frac{\avg{p}}{\hbar}x}\]
+Zanima nas \v casovni razvoj \(\avg{x, t}\) pri konstantnem potencialu. Spomnimo se:
+\[\avg{x, t} = \int\psi^*(x, t) x \psi(x, t)\dif x\]
+O za\v cetnem stanju vemo:
+\[\avg{x, 0} = \avg{x} \qquad \avg{p, 0} = \avg{p}\]
+\[\delta x(0) = \sigma\]
+\[\delta p(0) = \frac{\hbar}{2\sigma}\]
+Funkcijo \(\psi\) lahko razvijemo po lastnih funkcijah. Dobimo:
+\[\psi(0) = \int c(k)e^{ikx}\dif k\]
+V tem prepoznamo Fourierovo transformacijo:
+\[c(k) = \frac{1}{2\pi} \int \psi(x, 0) e^{-ikx} \dif x\]
+In spet nazaj:
+\[\psi(x, t) = \int c(\kappa) e^{-i\frac{E_kt}{\hbar}} e^{i\kappa x} \dif \kappa\]
+Iz spodnjih dveh izrazov bi lahko dobili re\v sitev, vendar bi bila to le dolgotrajna vaja iz integriranja. Obstaja elegantnej\v si na\v cin.
+\[\ket{\psi, t} = e^{-iHt\hbar}\ket{\psi t}\]
+\[\bra{\psi, t} = \ket{\psi, t}^\dag = \bra{\psi, 0}e^{iHt/\hbar}\]
+Za poljuben operator \(A\) torej velja:
+\[\bra{\psi, t} A \ket{\psi, t} = \bra{\psi, 0} e^{iHt/\hbar} A e^{-iHt/\hbar}\ket{\psi, 0} = \bra{\psi, 0} A(t) \ket{\psi, 0}\]
+Nekaj koristnih posledic tovrstnega zapisa:
+\[(\alpha A + \beta B)(t) = \alpha A(t) + \beta B(t)\]
+\[(AB)(t) = A(t)B(t)\]
+\[A^\dag(t) = \left(A(t)\right)^\dag\]
+\[\dd{}{t}A(t) = e^{iHt/\hbar} \frac{iH}{\hbar} A e^{-iHt/\hbar} + e^{iHt/\hbar} A e^{-iHt/\hbar}\left(-\frac{iH}{\hbar}\right)\]
+Ker operatorja \(f(A)\) in \(A\) komutirata (kar bi lahko dokazovali z razvojem v funkcijsko vrsto), izpostavimo:
+\[e^{-Ht/\hbar} \left(\frac{iH}{\hbar}A - A\frac{iH}{\hbar}\right)e^{iHt/\hbar}\]
+V izrazu na sredini prepoznamo komutator \([H, A]\).
+\[\dd{}{t}A(t) = \frac{i}{\hbar}[H, A](t)\]
+To je v resnici diferencialna ena\v cba za operator \(A\) z za\v cetnim pogojem \(A(0) = A\).
+Nas posebej zanimajo operatorji \(x\), \(p\), \(x^2\), \(p^2\).
+\[\dd{}{t}x(t) = \frac{i}{\hbar}[H, x](t)\]
+Izra\v cunamo komutator \([H, x]\):
+\[[H, x] = [\frac{1}{2m}p^2, x]\]
+Za la\v zje ra\v cunanje tu omenimo nekaj lastnosti komutatorja:
+\[AB, C = A[B, C] + [A, C]B\]
+\[[\alpha A + \beta B, C] = \alpha[A, C] + \beta[B, C]\]
+\[[p, x] = -i\hbar\]
+Sledi:
+\[[H, x] = \frac{1}{2m}\left(p(-i\hbar) - (i\hbar)p\right) = -\frac{i\hbar p}{m}\]
+\[\dd{}{t}x(t) = \frac{p(t)}{m}\]
+Poglejmo si zdaj operator \(p\):
+\[\dd{}{t}p(t) = \frac{i}{\hbar}[H, p](t) = \frac{1}{2m}[p^2, p] = 0\]
+Dobili smo sistem linearnih diferencialnih ena\v cb. Re\v sitev je dokaj enostavna:
+\[p(t) = p(0) = p = \text{konst.}\]
+\[\dd{x}{t} = \frac{p}{m}\]
+\[x(t) = \frac{p}{m}t + x(0)\]
+Dobili smo premo enakomerno gibanje (kar je smiselno, saj smo predpostavili konstanten potencial, torej ni sil). Izrazimo \v se \v casovni razvoj:
+\[\avg{x, t} = \frac{t}{m}\avg{p} + \avg{x}\]
+\[\avg{p, t} = \avg{p}\]
+\end{document}

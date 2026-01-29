@@ -1,0 +1,141 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+Problem lahko zapi\v semo tudi s Pavlijevimi matrikami. \v Ce imamo spin \(S = 1/2\), lahko zapi\v semo:
+\[\vct{S} = \frac{\hbar}{2}\vct{\sigma},\qquad\vct{S} = (S_x, S_y, S_z)\]
+kjer je \(\vct{S}\) vektor Pavlijevih matrik:
+\[\vct{\sigma} = \left(\begin{bmatrix}
+    0 & 1 \\ 1 & 0
+\end{bmatrix},~\begin{bmatrix}
+    0 & -i \\ i & 0
+\end{bmatrix},~\begin{bmatrix}
+    1 & 0 \\ 0 & -1
+\end{bmatrix}\right)\]
+V bazi \(x,\,y,\,z\) komponente vektorja \(\vct{\sigma}\) zapi\v semo kot (npr \(\sigma_y\)):
+\[\sigma_y = \frac{2}{\hbar}\begin{bmatrix}
+    \bra{\uparrow}S_y\ket{\uparrow} & \bra{\uparrow}S_y\ket{\downarrow} \\
+    \bra{\downarrow}S_y\ket{\uparrow} & \bra{\downarrow}S_y\ket{\downarrow} 
+\end{bmatrix}\]
+\v Ce spin opi\v semo z linearno kombinacijo \(\alpha\ket{\uparrow} + \beta\ket{\downarrow}\), lahko v tej bazi to zapi\v semo kot vektor, imenovan spinor:
+\[\alpha\ket{\uparrow} + \beta\ket{\downarrow} = \begin{pmatrix}
+    \alpha \\ \beta
+\end{pmatrix}\]
+Primer:
+\[H = \frac{p^2}{2m} + \lambda\left(p_x\frac{\hbar}{2}\sigma_y - p_y\frac{\hbar}{2}\sigma_x\right)\]
+\[H\left[e^{i\vct{k}\cdot\vct{r}}\right] = \frac{\hbar^2k^2}{2m}\Binom{\alpha}{\beta}e^{-\vct{k}\cdot\vct{r}} + \lambda\left(\frac{\hbar^2k_x}{2}\begin{bmatrix}
+    & -i \\ i &
+\end{bmatrix}\Binom{\alpha}{\beta} - \frac{\hbar^2 k_y}{2}\begin{bmatrix}
+    & 1 \\ 1 &
+\end{bmatrix}\Binom{\alpha}{\beta}\right)e^{i\vct{k}\cdot\vct{r}}\]
+\[= \begin{bmatrix}
+    \frac{\hbar^2k^2}{2m} & \frac{\lambda \hbar^2}{2}(-ik_x - k_y) \\
+    \frac{\lambda\hbar^2}{2}(ik_x - k_y) & \frac{\hbar^2k^2}{2m}
+\end{bmatrix}\,e^{i\vct{k}\cdot\vct{r}}\Binom{\alpha}{\beta}\]
+\paragraph{Sipanje delca na \(\delta\) potencialu}
+Bodi \(S_1 = 1/2\) (\(\ket{\uparrow}\)), \(S_2 = 1\) (\(\ket{1,0}\)). Delec \((2)\) stoji pri \(x = 0\),
+\footnote{Privzamemo, da se odmika dovolj malo, da na na\v s problem to ne vpliva - sicer bi kr\v sili Heisenbergovo nedolo\v cenost.}
+delec \((1)\) pa leti mimo njega. Imamo Hamiltonian:
+\[H = \frac{p_1^2}{2m} - \frac{\lambda}{\hbar^2}\delta(x_1)\vct{S_1}\cdot\vct{S_2}\]
+Zanima nas, kak\v sen je spin delca \((1)\) po sipanju in s kak\v sno verjetnostjo se pri sipanju spremeni. \\[2mm]
+Za delta potencial vemo:
+\[\psi_0(x) = \sqrt{\kappa_0}e^{-\kappa_0|x|}\]
+Tu je \(\kappa_0 = m\lambda/\hbar^2\). Lastna energija tega stanja je \[E_0 = \frac{\hbar^2\kappa_0^2}{2m}\]
+Zapi\v semo tudi
+\[S = \begin{pmatrix}
+    r & t' \\
+    t & r'
+\end{pmatrix} = \frac{1}{k+i\kappa_0}\begin{pmatrix}
+    -i\kappa_0 & k \\
+    k & -i\kappa_0
+\end{pmatrix},\qquad k = \sqrt{\frac{2mE}{\hbar^2}}\]
+Problem moramo opisati v nekak\v sni bazi: imamo dve mo\v znosti. Produktno bazo dolo\v cajo vektorji
+\[\begin{array}{l l}
+    \ket{\uparrow}\ket{1,1} & \ket{\downarrow}\ket{1,1} \\
+    \ket{\uparrow}\ket{1,0} & \ket{\downarrow}\ket{1,0} \\
+    \ket{\uparrow}\ket{1,-1} & \ket{\downarrow}\ket{1,-1} \\
+\end{array}\]
+V tej bazi imajo operatorji \(S_1^2, S_{1z}, S_2^2, S_{2z}\) skupne lastne vrednosti. \\[2mm]
+Baza z dobrim skupnim spinom je baza vektorja \[\vct{S} = \vct{S_1} + \vct{S_2}\]
+V njej imajo operatorji \(S^2, S_1^2, S_2^2, S_z\) iste lastne vrednosti. \\
+Izbira baze na re\v sitev ne bo vplivala, lahko pa nam poenostavi ra\v cunanje. \\[2mm]
+Clebsch-Gordanovi koeficienti za spina \(1\) in \(1/2\) nam omogo\v cajo prehod med bazama:
+\[\ket{\downarrow}\ket{1, 1} = \sqrt{\frac{1}{3}}\ket{\frac{3}{2},\,\frac{1}{2}} + \sqrt{\frac{2}{3}}\ket{\frac{1}{2},\,\frac{1}{2}}\]
+\[\ket{\downarrow}\ket{1, 0} = \sqrt{\frac{2}{3}}\ket{\frac{3}{2},\,\frac{1}{2}} - \sqrt{\frac{1}{3}}\ket{\frac{1}{2},\,\frac{1}{2}}\]
+Ali obratno:
+\[\ket{\frac{3}{2},\,\frac{1}{2}} = \sqrt{\frac{1}{3}}\ket{\downarrow}\ket{1,1} + \sqrt{\frac{2}{3}}\ket{\uparrow}\ket{1,0}\]
+\[\ket{\frac{1}{2},\,\frac{1}{2}} = \sqrt{\frac{2}{3}}\ket{\downarrow}\ket{1,1} - \sqrt{\frac{1}{3}}\ket{\uparrow}\ket{1,0}\]
+Kaj lahko ugotovimo na podlagi simetrije problema?
+Vemo: \[\vct{S_1}\cdot\vct{S_2} = S^2 - S_1^2 - S_2^2\]
+\[H = \frac{p_1^2}{2m}-\frac{\lambda}{2\hbar^2}(S^2-S_1^2-S_2^2)\]
+Velja, da operatorji \(S^2, S_1^2, S_2^2, S_z^2\), in tudi \(H\), saj je linearna kombinacija prvih \v stirih, komutirajo. To pomeni, da lahko celotno valovno funkcijo zapi\v semo kot
+\[\ket{\Psi} = \ket{\psi}\ket{sm}\]
+\v Ce uporabimo bazo z dobrim skupnim spinom, si torej iskanje valovne funkcije lahko poenostavimo z zgornjim nastavkom.
+\[\left(\frac{p_1^2}{2m}\ket{\psi}\right)\ket{sm} - \frac{\lambda}{2\hbar^2}\delta(x)\ket{\psi}\left(S^2\ket{sm} - S_1^2\ket{sm} - S_2^2\ket{sm}\right) = E\ket{\psi}\ket{sm}\]
+Ker so \(S^2, S_1^2, S_2^2\) lastna stanja \(\psi\), jih lahko nadomestimo z njihovimi lastnimi vrednostmi, nakar na \(\ket{sm}\) ne deluje noben operator ve\v c - se pravi lahko ra\v cunamo samo krajevni del:
+\[\frac{p_1^2}{2m}\ket{\psi}\ket{sm} - \frac{\lambda}{2\hbar^2}\delta(x)\ket{\psi}\left(\hbar^2 s(s+1) - \hbar^2 s_1(s_1 + 1) - \hbar^2 s_2(s_2 + 1)\right)\ket{sm} = E\ket{\psi}\ket{sm}\]
+\[\frac{p_1^2}{2m}\ket{\psi} + \frac{\lambda}{2\hbar^2}\left(\hbar^2 s(s+1) - \hbar^2 s_1(s_1 + 1) - \hbar^2 s_2(s_2 + 1)\right)\delta(x)\ket{\psi} = E\ket{\psi}\]
+Seveda je \(s_1 = 1/2\) in \(s_2 = 1\). Vpra\v sanje je le, kak\v sen je skupni spin:
+\[s=\frac{3}{2}: \qquad \frac{p_1^2}{2m}\ket{\psi} - \frac{\lambda}{2}\delta(x)\ket{\psi} = E\ket{\psi}\]
+\[s=\frac{1}{2}: \qquad \frac{p_1^2}{2m}\ket{\psi} + \lambda\delta(x)\ket{\psi} = E\ket{\psi}\]
+Ta dva primera nam data dve mo\v zni spialni matriki: \(S(\lambda/2)\) za \(s=3/2\) in \(S(-\lambda)\) za \(s=1/2\).
+\[S(\lambda/2) = \begin{pmatrix}
+    r_{3/2} & t'_{3/2} \\
+    t_{3/2} & r_{3/2}
+\end{pmatrix}\]
+\[S(-\lambda) = \begin{pmatrix}
+    r_{1/2} & t'_{1/2} \\
+    t_{1/2} & r_{1/2}
+\end{pmatrix}\]
+\[\psi_{3/2,\,1/2}(x<0) = \left(e^{ikx} + r_{3/2}e^{-ikx}\right)\ket{\frac{3}{2},\,\frac{1}{2}}\]
+\[\psi_{3/2,\,1/2}(x>0) = t_{3/2}e^{ikx}\ket{\frac{3}{2},\,\frac{1}{2}}\]
+\textit{}
+\[\psi_{1/2,\,1/2}(x<0) = \left(e^{ikx} + r_{1/2}e^{-ikx}\right)\ket{\frac{1}{2},\,\frac{1}{2}}\]
+\[\psi_{1/2,\,1/2}(x>0) = t_{1/2}e^{ikx}\ket{\frac{1}{2},\,\frac{1}{2}}\]
+Sestavimo \(\psi(x)\) tako, da se ujema z za\v cetnim stanjem:
+\[\psi(x) = \sqrt{\frac{2}{3}}\psi_{3/2,\,1/2}(x) - \sqrt{\frac{1}{3}}\psi_{1/2,\,1/2}(x)\]
+Preostane nam le, da re\v sitev izrazimo v primerni bazi:
+\[\psi(x>0) = e^{ikx}\ket{\uparrow}\ket{1, 0} + e^{-ikx}\left[\ket{\downarrow}\ket{1, 1}\left(\frac{\sqrt{2}}{3}r_{3/2} - \frac{\sqrt{2}}{3}r_{1/2}\right) + \ket{\uparrow}\ket{1,0}\left(\frac{2}{3}r_{3/2} + \frac{1}{3}r_{1/2}\right)\right]\]
+\[\psi(x>0) = e^{ikx}\left[\ket{\downarrow}\ket{1, 1}\left(\frac{\sqrt{2}}{3}t_{3/2} - \frac{\sqrt{2}}{3}t_{1/2}\right) + \ket{\uparrow}\ket{1,0}\left(\frac{2}{3}t_{3/2} + \frac{1}{3}t_{1/2}\right)\right]\]
+Ozna\v cimo:
+\[r_{\downarrow\uparrow} = \frac{\sqrt{2}}{3}r_{3/2} - \frac{\sqrt{2}}{3}r_{1/2}\]
+\[r_{\uparrow\uparrow} = \frac{2}{3}r_{3/2} + \frac{2}{3}r_{1/2}\]
+\[r_{\downarrow\uparrow} = \frac{\sqrt{2}}{3}t_{3/2} - \frac{\sqrt{2}}{3}t_{1/2}\]
+\[r_{\uparrow\uparrow} = \frac{2}{3}t_{3/2} - \frac{2}{3}t_{1/2}\]
+Tako smo dobili re\v sitev:
+\[R_{\downarrow\uparrow} = |r_{\downarrow\uparrow}|^2\]
+\[R_{\uparrow\uparrow} = |r_{\uparrow\uparrow}|^2\]
+\[T_{\downarrow\uparrow} = |t_{\downarrow\uparrow}|^2\]
+\[T_{\uparrow\uparrow} = |t_{\uparrow\uparrow}|^2\]
+Nazadnje lahko preverimo, da je \(R_{\downarrow\uparrow} + R_{\uparrow\uparrow} + T_{\downarrow\uparrow} + T_{\uparrow\uparrow} = 1\). Ve\v cina \v clenov se med sabo od\v steje, ostane
+\[R_{\downarrow\uparrow} + R_{\uparrow\uparrow} + T_{\downarrow\uparrow} + T_{\uparrow\uparrow} = \frac{2}{9}|r_{3/2}|^2 + \frac{2}{9}|r_{1/2}|^2 + \frac{4}{9}|r_{3/2}|^2 + \frac{1}{9}|r_{1/2}|^2 + \frac{2}{9}|t_{3/2}|^2 + \frac{2}{9}|t_{1/2}|^2 + \frac{4}{9}|t_{3/2}|^2 + \frac{1}{9}|t_{1/2}|^2\]
+Upo\v stevamo: \(|r_i|^2 + |t_i|^2 = 1\).
+\[R_{\downarrow\uparrow} + R_{\uparrow\uparrow} + T_{\downarrow\uparrow} + T_{\uparrow\uparrow} = \frac{2}{9} + \frac{4}{9} + \frac{2}{9} + \frac{1}{9} = 1\]
+\end{document}

@@ -1,0 +1,133 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+
+\begin{document}
+\paragraph{Re\v sevanje problemov kvantne mehanike.} V klasi\v cni mehaniki imamo podano za\v cetno lego in hitrost delca, od koder uporabimo drugi Newtonov zakon in izra\v cunamo njegovo nadaljnje gibanje.
+V kvantni mehaniki imamo podano za\v cetno valovno funkcijo delca, od koder uporabimo Schroedingerjevo ena\v cbo in ra\v cunamo \v casovno odvisnost lege in hitrosti z uporabo operatorjev: \\
+Schroedingerjeva ena\v cba: \[i\hbar \pd{\psi(x, t)}{t} = -\frac{\hbar^2}{2m}\pd{^2\psi(x, t)}{x^2} + V(x)\psi(x, t) = H\psi\]
+Razvoj pri\v cakovanega polo\v zaja in hitrosti po \v casu: \[\avg{x(t)} = \int_{-\infty}^{\infty}\psi^*(x, t)x\psi(x, t)\dif x\]
+\[\avg{p(t)} = \int_{-\infty}^{\infty} \psi^*(x, t)\left(-i\hbar\pd{}{x}\psi(x, t)\dif x\right)\]
+Re\v sevanje Schroedingerjeve ena\v cbe je do zdaj potekalo tako, da smo poiskali stacionarna stanja in rekli, da je stanje delca vedno nekak\v sna kombinacija teh stanj.
+Torej: \[H\psi_n(x) = E_n\psi_n(x)\]
+Primer: Vodikov atom ima lastne energije \(E_1 = -13.6\,\mathrm{eV} =: \mathrm{Ry}\), \(E_2 = \mathrm{Ry}/4 \, ... \, E_n = \mathrm{Ry}/n^2\), kjer je \(\mathrm{Ry}\) definirana kot Rydbergova energija.
+Stanje elektrona okoli vodikovega atoma opi\v semo s \v stirimi kvantnimi \v stevili, in sicer \(n, l, m, m_s\). Zaradi tega pride do tako imenovane degeneracije, ko ima ve\v c stanj isto energijo.
+\paragraph{Stanja s pozitivno energijo.} V vodikovem atomu je neskon\v cno \v stevilo vezanih stanj (stanj, v katerih je \(E_n < 0\)), toda popolnoma verjetno je, da bo imel elektron tudi pozitivno energijo in na atom vodika ne bo ve\v c vezan.
+Izka\v ze se (tega ne bomo posebej izpeljevali), da za nevezano "lastno" stanje zado\v s\v ca katera koli pozitivna vrednost energije. Dobimo torej zvezen spekter energij, pri vezanih stanjih pa smo imeli diskreten spekter.
+\paragraph{Lastnosti stacionarnih stanj.} Recimo, da neko stanje ni degenerirano. Velja torej
+\(H\psi(x) = E\psi(x)\). Opazimo pa, da lahko namesto \(\psi\) v ena\v cbo vstavimo \(\lambda\psi\), kjer je \(\lambda\) nek realen koeficient, in \v se vedno dobimo lastno funkcijo. \\
+Zahtevamo lahko normalizirano funkcijo:
+\[\int_{-\infty}^{\infty}|\psi(x)|\dif x = 1\]
+\v Ce je \(\psi\) tak\v sna funkcija, imamo zdaj omejitev \(|\lambda| = 1\).  To pomeni, da je \(\lambda = \exp{i\alpha}\), kjer je \(\alpha\) poljubno realno \v stevilo. Navidez imamo \v se vedno precej svobode pri izbiri lastnih funkcij in na\v se "nedegenerirano" stanje
+\v se vedno opisuje neskon\v cno mnogo funkcij. Z matemati\v cnega stali\v s\v ca to pomeni, da popolnoma nedegenerirana stanja ne obstajajo, iz meritev pa vidimo, da faktor \(\exp{i\alpha}\) ne vpliva na nobeno merljivo koli\v cino. \\
+V primeru degeneriranih stanj, ko imamo re\v sitvi \(\psi^{(1)}\) in \(\psi^{(2)}\), lahko iz njiju delamo linearne kombinacije, ki so \v se vedno re\v sitve.
+\[H\left[\alpha\psi^{(1)}(x) + \beta\psi^{(2)}(x)\right] = E\left[\alpha\psi^{(1)}(x) + \beta\psi^{(2)}(x)\right]\]
+\v Ce imamo torej lastne funkcije \(\psi_n\), lahko neko stanje \(\psi\) zapi\v semo kot linearno kombinacijo le-teh:
+\[\psi(x, 0) = \sum_nc_n\psi_n(x);~c_n = \int_{-\infty}^{\infty}\psi_n^*(x)\psi(x)\dif x\]
+\[\psi(x, t) = \sum_nc_ne^{-iE_nt/\hbar}\psi_n(x)\]
+\paragraph{Potencialna jama.} Izra\v cunati \v zelimo vezana lastna stanja kon\v cne potencialne jame.
+\[H = -\frac{\hbar^2}{2m}\dd{}{x} + V(x)\]
+V kon\v cni potencialni jami je
+\[V(x) = \begin{cases}
+    V_0, & x \in [-a/2, a/2] \\
+      0, & \text{sicer}
+\end{cases}\]
+\[-\frac{\hbar^2}{2m}\dd{^2\psi(x)}{x^2} + V(x)\psi(x) = E\psi(x)\]
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1]
+    \draw (-5, 0) -- (-2, 0) -- (-2, -2) -- (2, -2) -- (2, 0) -- (5, 0);
+    \draw[dashed, ->] (-5, 0) -- (5, 0) node[right] {\(x\)};
+    \draw[dashed, ->] (0, -2.5) -- (0, 1) node[right] {\(V\)};
+    \node (a) at (-2, 0.5) {\(-a/2\)};
+    \node (b) at (2, 0.5) {\(a/2\)};
+    \node (c) at (2.5, -2) {\(V_0\)};
+    \node (1) at (-4, -1) {Obmo\v cje I};
+    \node (2) at (0, -1) {Obmo\v cje II};
+    \node (1) at (4, -1) {Obmo\v cje III};
+    \end{tikzpicture}
+\end{figure}
+Vemo, da bo re\v sitev oblike
+\[\psi_I(x) = Ae^{\kappa x} + Be^{-\kappa x},~\kappa = \sqrt{-\frac{2mE}{\hbar^2}}\]
+\[\psi_{II}(x) = Ce^{ikx} + De^{-ikx},~k = \sqrt{\frac{2mE}{\hbar^2}}\]
+\[\psi_{III}(x) = Fe^{\kappa x} + Ge^{-\kappa x}\]
+Po potrebi lahko valovno funkcijo v obmo\v cjuih I in III izrazimo kot linearno kombinacjo hiperboli\v cnih funkcij (\(\sinh\) in \(\cosh\)), v obmo\v cju II pa s kotnimi funkcijami (\(\sin\) in \(cos\)).
+Ob predpostavki, da je stavnje vezano, lahko zahtevamo \(B = F = 0\). Nazadnje upo\v stevamo robne pogoje, da mora biti valovna funkcija vseskozi zvezna in zvezno odvedljiva, kar nam da sistem linearnih ena\v cb. Ta pa je re\v sljiv, \v ce je determinanta matrike koeficientov razli\v cna 0 - determinanto \(4\times4\) matrike sicer lahko izra\v cunamo, se nam pa obeta kar nekaj dela, \v se posebej, ker koeficienti niso konstantni. \\
+To smo po\v celi pri Moderni fiziki I. Zdaj se bomo problema lotili druga\v ce. Vzemimo stacionarno Schroedingerjevo ena\v cbo v eni dimenziji
+(\(H\psi(x) = E\psi(x)\)) z dodatno predpostavko, da je \(V(x) = V(-x)\). Na\v sa potencialna jama temu pogoju ustreza.
+Pri zrcaljenju \(x \mapsto -x\) se Hamiltonova funkcija ne spremeni, torej velja:
+\[H\psi(-x) = E\psi(-x)\]
+Zdaj bomo pogledali dva primera, in sicer degeneriranon stanje in nedegenerirano stanje. \\
+Nedegenerirano stanje: Veljati mora
+\(\psi(-x) = e^{i\alpha} \psi(x)\)
+Spet naredimo transformacijo \(x \mapsto -x\):
+\[\psi(x) = e^{i\alpha}\psi(-x) = e^{i\alpha}\psi(x)\]
+Od tod sledi \(e^{i\alpha} = \pm 1\), torej je \(psi\) gotovo bodisi liha, bodisi soda. \\
+\v Ce je E degenerirana, lahko podobno poka\v zemo (tega ne bomo posebej izpeljevali), da je
+\(\psi(x) + \psi(-x)\) soda in \(\psi(x) - \psi(-x)\) liha funkcija. \\
+Zdaj re\v sujemo ena\v cbo dvakrat, in sicer posebej za sode in lihe funkcije. To nam precej poenostavi ra\v cunanje (ker je dovolj zveznost in zvezno odvedljivost zagotoviti le na eni strani jame). Vzemimo najprej primer, ko naj bo \(\psi\) soda funkcija.
+\[\psi_I(x) = Ae^{\kappa x},~\psi_{II}(x) = B\cos(kx)~\psi_{III}(x) = Ae^{-\kappa x}\]
+\[\psi_{III}\left(\frac{a}{2}\right) = \psi_{II}\left(\frac{a}{2}\right) \Rightarrow Ae^{-\kappa\frac{a}{2}} = B\cos\left(k\frac{a}{2}\right)\]
+\[\psi'_{III}\left(\frac{a}{2}\right) = \psi'_{II}\left(\frac{a}{2}\right) \Rightarrow Ae^{-\kappa\frac{a}{2}} = B\sin\left(k\frac{a}{2}\right)\]
+Sledi:
+\[\kappa = k\tan\left(a\frac{a}{2}\right)\]
+Podobno storimo za liho funkcijo: spet zado\v s\v ca zahtevati zveznost in odvedljivost le na eni strani, recimo med obmo\v cjema I in II. Dobimo
+\[-\kappa = k\cot\left(k\frac{a}{2}\right)\]
+Dobili smo transcendentalni ena\v cbi za \(k\) in \(\kappa\). \v Ce ju uspemo re\v siti (poiskati njune ni\v cle), lahko iz njiju izlu\v s\v cimo lastne energije. Spomnimo se, da je
+\[\kappa = \sqrt{-\frac{2mE}{\hbar^2}}~~~\text{in}~~~k = \sqrt{\frac{2m(E+V_0)}{\hbar^2}}\]
+Ena\v cbi bomo prepisali v lep\v so obliko. \v Ce ozna\v cimo \(u \equiv ka\) in \(u_0^2 = (ka)^2 + (\kappa a)^2\), lahko zapi\v semo 
+\[-\cot\frac{u}{2} = \frac{\sqrt{u_0^2 - u^2}}{u} = \sqrt{\frac{u_0^2}{u^2} - 1}\]
+\[\tan\frac{u}{2} = \frac{\sqrt{u_0^2 - u^2}}{u} = \sqrt{\frac{u_0^2}{u^2} - 1}\] Vizualno (s skico grafov funkcij \(\displaystyle{\tan\frac{u}{2}}\), \(\displaystyle{\cot\frac{u}{2}}\) in \(\displaystyle{\sqrt{\left(\frac{u_0}{u}\right)^2 - 1}}\)) lahko ozna\v cimo prese\v cisca med grafi, ki predstavljajo vezana stanja. Ugotovimo, da je \v stevilo vezanih stanj enako
+\[N = \lfloor\frac{u_0}{\pi}\rfloor + 1\]
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.4]{graf_u.png}
+\end{figure} \\
+Ker lahko za \(u_0\) kar izberemo poljubno pozitivno \v stevilo, lahko \v stevilo lastnih stanj brez te\v zav dolo\v cimo, vedno pa imamo vsaj eno. \\
+To ne spremeni dejstva, da imamo opravka z analiti\v cno nere\v sljivima ena\v cbama. Nekaj ve\v c lahko povemo o limitnih primerih.
+Ko gre \(u_0 \to \infty\), gre \v stevilo lastnih stanj proti neskon\v cno, ravno tako se vrednosti prese\v ci\v s\v c med grafi premikajo proti vrednostim \(n\pi,~n\in\N\). Sledi:
+\[\left(\frac{n\pi}{a}\right)^2 = \frac{2m(E_n + V_0)}{\hbar^2}\]
+\[E_n = \frac{\hbar^2}{2m}\left(\frac{n\pi}{a}\right)^2 - V_0\]
+Rezultat je konsistenten z rezultati pri predmetu Moderna Fizika I (razlika je le v konstanti \(V_0\) zaradi druga\v cne izbire izhodi\v s\v ca). \\
+Poglejmo limito \(V_0 \to \infty,~a \to 0\), pri \v cemer zahtevajmo \(V_0a = \lambda = \text{konst.}\). Tedaj dobimo kar delta funkcijo: \(V(x) = -\lambda \delta(x)\). Zdaj poglejmo, kaj se zgodi v limiti \(u_0 \to 0\).
+\[\tan \frac{u}{2} = \sqrt{\frac{u_0^2}{u^2} - 1}\]
+Ozna\v cimo \(\varepsilon = u_0 - u\), torej \(u = u_0 - \varepsilon\). Ko se \(u\) manj\v sa proti 0, lahko tangens razvijemo po Taylorju do prvega \v clena.
+\[\frac{u_0 - \varepsilon}{2} = \sqrt{\left(\frac{u_0}{u_0-\varepsilon}\right)^2 - 1}\]
+Ker pri dovolj majhnih \(\varepsilon\) velja \(\varepsilon \ll \sqrt{\varepsilon}\), zanemarimo \v clen izven korena in dobimo:
+\[\frac{u_0}{2} \approx \sqrt{2\frac{\varepsilon}{u_0}}\]
+Vmes smo znotraj korena vrednost \(u_0/(u_0 - \varepsilon)\) preobrazili v \(\displaystyle{\frac{1}{1 - \varepsilon/u_0}}\) in razvili po Taylorju. \\
+Sledi \(u_0^3 = 8\varepsilon\).
+Vstavimo v ena\v cbo za \(k\) (kajti \(u = ka\)):
+\[\left(k = \frac{u}{a} = \frac{u_0 - \varepsilon}{a} =\right) \frac{u_0 - u_0^3/8}{a} = \sqrt{\frac{2m(E+V_0)}{\hbar^2}}\]
+Na obeh straneh kvadriramo, zanemarimo \v clen \(u_0^6\) in upo\v stevamo \(V_0a = \lambda\).
+Dobimo \[E_0 = -\frac{m}{2\hbar}^2\lambda^2\]
+Valovna funkcija za tako stanje je oblike
+\[\psi(x) = A e^{-\kappa_0|x|}\]
+Dolo\v cimo lahko \(\kappa_0 = m\lambda/\hbar^2\). Da funkcijo noramliziramo, ra\v cunamo
+\[1 = \int_{-\infty}^{\infty}|\psi^2(x)|\dif x = 2 \int_{0}^{\infty}A^2e^{-2\kappa_0x}\dif x\]
+Privzeli smo, da smemo za \(A\) vzeti realno vrednost. Vemo namre\v c, da lahko valovno funkcijo pomno\v zimo s poljubno konstanto \(e^{i\alpha},~\alpha \in \R\), ne da bi pri tem spremenili katero koli merljivo koli\v cino. Sledi torej:
+\[2A^2\left(-\frac{1}{2\kappa_0}e^{-2\kappa_0x}\Big|_0^\infty\right) = 1\]
+\[-\frac{1}{\kappa_0}A^2(0 - 1) = 1\]
+\[A^2 = \kappa\]
+Komentar: Opravka imamo z valovno funkcijo, ki je zvezna, ni pa zvezno odvedljiva. V naravi potencial, kakr\v snega smo ga imeli v tej limiti, ne obstaja, temve\v c imamo v primeru zelo ozke in globoke potencialne jame znotraj jame ozko obmo\v cje, v katerem je valovna funkcija oblike \(\cos x\). Ta je zvezno odvedljiva in z valovno funkcijo nimamo ve\v c te\v zav.
+\end{document}

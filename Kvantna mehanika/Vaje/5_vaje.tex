@@ -1,0 +1,95 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Harmoni\v cni oscilator.} (Teorija) Opravka imamo s Hamiltonianom oblike
+\[H = \frac{p^2}{2m} + \frac{1}{2}kx^2 = \hbar\omega(a^\dag a + \frac{1}{2})\]
+Pri tem je:
+\begin{align*}
+    \omega & = \sqrt{\frac{k}{m}} \\
+    a & \equiv \frac{1}{\sqrt{2}}\left(\frac{x}{x_0} + i\frac{p}{p_0}\right) \\
+    a^\dag & \equiv \frac{1}{\sqrt{2}}\left(\frac{x}{x_0} - i\frac{p}{p_0}\right) \\
+\end{align*}
+Dobimo slede\v ce:
+\[x = \frac{x_0}{\sqrt{2}}\left(a + a^\dag\right)\]
+\[p = \frac{p_0}{\sqrt{2}}\left(a - a^\dag\right)\]
+\[H\ket{n} = \hbar\omega\left(n + \frac{1}{2}\right)\ket{n},~~n =  1, 2, 3 ...\]
+\[a\ket{n} - \sqrt{n}\ket{n-1}\]
+\[a^\dag\ket{n} = \sqrt{n+1}\ket{n+1}\]
+\[a^\dag a\ket{n} = n\ket{n}\]
+\[[a, a^\dag] = 1\]
+\paragraph{Naloga.} Opravka imamo z valovno funkcijo \[\ket{\psi, 0} = \frac{1}{\sqrt{2}}\ket{0} + \frac{i}{\sqrt{2}}\ket{1}\]
+Zanima nas \(\avg{x, t}\), \(\avg{p, t}\), \(\delta x(t)\) in \(\delta p(t)\). \\
+Schr\" odingerjeva slika:
+\[\ket{\psi, t} = \frac{1}{\sqrt{2}}e^{-i\frac{\hbar\omega}{2\hbar}t}\ket{0} + \frac{i}{\sqrt{2}}e^{-i\frac{3\hbar\omega}{2\hbar}t}\ket{1}\]
+\[\avg{x, t} = \bra{\psi, t}x\ket{\psi, t} = \bra{\psi, t}\frac{x_0}{\sqrt{2}}\left(a + a^\dag\right)\ket{\psi, t} = \frac{x_0}{\sqrt{2}}\,2\,\mathfrak{Re}\avg{a, t}\]
+\[\avg{p, t} = \bra{\psi, t} \frac{p_0}{\sqrt{2}i}\left(a-a^\dag\right)\bra{\psi, t} = \frac{p_0}{\sqrt{2}}\,2\,\mathfrak{Im}\avg{a, t}\]
+Stvar se poenostavi na iskanje \v casoavnega razvoja \(\avg{a, t}\):
+\[\avg{a, t} = \bra{\psi, t}a\ket{\psi, t} = \bra{\psi, t}\ket{\left(\frac{1}{\sqrt{2}}e^{-i\frac{\omega t}{2}}a\ket{0} + \frac{1}{\sqrt{2}}e^{-i\frac{3\omega t}{2}}a\ket{1}\right)}\]
+Vemo: \(a\ket{0} = 0\) in \(a\ket{1} = \ket{0}\).
+\[= \left(\frac{1}{\sqrt{2}}e^{i\frac{1}{2}\omega t}\bra{0} - \frac{i}{\sqrt{2}}e^{i\frac{3}{2}\omega t}\bra{1}\right)\left(\frac{i}{2}e^{-i\frac{3}{2}\omega t}\ket{0}\right) = \frac{i}{2}e^{i\frac{1}{2}\omega t - i\frac{3}{2}\omega t} = \frac{i}{2}e^{-i \omega t} = \frac{i}{2}\cos\omega t + \frac{1}{2}\sin\omega t\]
+\v Ce pri \v casovnem razvoju vzamemo le realni in imaginarni del, so to kosinusni in sinusi, torej dejansko dobimo nihanje. \\[2mm]
+Ernfestov teorem:
+\[\dd{}{t}\avg{A, t} = \frac{i}{\hbar}\avg{[H, A], t}\]
+\[\dd{}{t}\avg{x, t} = \frac{\avg{p, t}}{m}\]
+\[\dd{}{t}\avg{p, t} = \frac{i}{\hbar}\avg{[\frac{1}{2}kx^2, p], t} = \frac{i}{\hbar}\frac{k}{2}\avg{[x^2, p], t} = \frac{i}{\hbar}\frac{k}{2}\avg{\left(x[x, p] - [p, x]x\right), t} = \frac{i}{\hbar}\frac{k}{2}\avg{ki\hbar x, t} = -k\avg{x, t}\]
+\[\dd{}{t}\avg{p, t} = -k\avg{x, t}\]
+Preverimo, ali to res velja tudi za ta sistem: Odvedemo prej izra\v cunana \v casovna razvoja za \(\avg{x, t}\) in \(\avg{p, t}\):
+\[\avg{x, t} = \frac{x_0}{\sqrt{2}}\sin\omega t\]
+\[\avg{p, t} = \frac{p_0}{\sqrt{2}}\cos\omega t\]
+\[\dd{}{t}\left(\frac{x_0}{\sqrt{2}}\sin\omega t\right) = \frac{x_0}{\sqrt{2}}\omega\cos\omega t = \frac{x_0}{\sqrt{2}}\sqrt{\frac{k}{m}}\cos\omega t = \frac{1}{\sqrt{m}}\sqrt{\frac{kx_0^2}{2}}\cos\omega t = \frac{1}{\sqrt{m}}\sqrt{\frac{p_0^2}{2m}}\cos\omega t = \frac{\avg{p, t}}{m}\cos\omega t\]
+Podobno za \(\avg{p, t}\) \\[2mm]
+Heisenbergova slika: Za\v cnemo z Ernfestovim teoremom in re\v sujemo problem:
+\[\dd{}{t}a(t) = \frac{i}{\hbar}[H, a](t) = \frac{i}{\hbar}(-\omega)a(t)\]
+Za\v cetni pogoj: \(a(0) = a_0\)
+Ena\v cbo hitro re\v simo s separacijo in dobimo
+\[a(t) = a_0\,e^{-i\omega t}\]
+Dobili smo \(\avg{a, t}\), kar lahko uporabimo v rezultatu, dobljenem v Schr\" odingerejvi sliki in si prihranimo nekaj ra\v cunanja.
+\[\avg{x, t} = \sqrt{2}x_0\,\mathfrak{Re}\avg{a, t} = \sqrt{2}x_0\,\mathfrak{Re}\avg{a_0e^{-i\omega t}, 0}\]
+\[\avg{p, t} = \sqrt{2}p_0\,\mathfrak{Im}\avg{a, t} = \sqrt{2}p_0\,\mathfrak{Im}\avg{a_0e^{-i\omega t}, 0}\]
+In tako naprej. Prednost takega zapisa je v tem, da moramo izra\v cunati le \v casovni razvoj operatorja, ostalo pa lahko izpeljemo direktno iz tega.
+\[\delta^2x(t) = \avg{x^2, t} - \avg{x, t}^2\]
+\[\delta^2x(t) = \avg{p^2, t} - \avg{p, t}^2\]
+\[\avg{x^2, t} = \frac{x_0^2}{2}\avg{(a + a^\dag)^2, t} = \frac{x_0^2}{2}\avg{a^2 + aa^\dag + a^\dag a + {a^\dag}^2, ~t}\]
+\[\avg{p^2, t} = \frac{p_0^2}{2}\avg{(a - a^\dag)^2, t} = \frac{p_0^2}{2}\avg{a^2 - aa^\dag - a^\dag a + {a^\dag}^2, ~t}\]
+Opomba: Ker je \([  a, a^\dag] = 1\), lahko izrazimo \(aa^\dag = 1 + a^\dag a\).
+\[\avg{x^2, t} = \frac{x_0}{2}\left(2\mathfrak{Re}\avg{a^2, t} + \avg{a^\dag a, t} + 1\right)\]
+\[\avg{p^2, t} = \frac{p_0}{2}\left(2\mathfrak{Re}\avg{a^2, t} - \avg{a^\dag a, t} - 1\right)\]
+Zdaj izra\v cunamo \(\avg{a^2, t}\) in \(\avg{a^\dag a, t}\). Spomnimo se:
+\[(AB)(t) = A(t)B(t)\]
+\[A^\dag(t) = \left(A(t)\right)^\dag\]
+Tako je \(a^2(t) = \left(a(t)\right)^2\) in \((a^\dag a)(t) = \left(a(t)\right)^\dag a(t)\)
+\[a^2(t) = a_0^2e^{-2i\omega t}\]
+\[(a^\dag a)(t) = \left(a_0e^{-i\omega t}\right)^\dag a_0e^{-i\omega t} = a_0^\dag e^{i\omega t} a_0 e^{-i\omega t} = a_0^\dag a_0\]
+To vstavimo v prej pridobljeni izraz in dobimo:
+\[\avg{x^2, t} = \frac{x_0^2}{2}\left(2\mathfrak{Re}\left(e^{-2i\omega t}\avg{a^2, 0}\right) + 2\avg{a_0^\dag a_0, 0}\right)\]
+\[\avg{p^2, t} = \frac{p_0^2}{2}\left(2\mathfrak{Im}\left(e^{-2i\omega t}\avg{a^2, 0}\right) - 2\avg{a_0^\dag a_0, 0}\right)\]
+Na hitro izpeljemo, da je \(\avg{a_0^\dag a_0, 0} = \frac{1}{2}\) in dobimo kon\v cni rezultat:
+\[\delta^2x(t) = x_0^2\left(1 - \frac{1}{2}\sin^2\omega t\right)\]
+\[\delta^2p(t) = p_0^2\left(1 - \frac{1}{2}\cos^2\omega t\right)\]
+\end{document}

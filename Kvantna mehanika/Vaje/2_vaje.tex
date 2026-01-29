@@ -1,0 +1,138 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Naloga:} Poi\v s\v cimo vezana stanja delca v kon\v cni, neskon\v cno ozki potencialni jami. Velja:
+\[V(x) = -\lambda \delta(x)\]
+Pri\v cakujemo, da bomo (vsaj v limiti) dobili rezultat \[\psi_0(x) = \sqrt{\kappa_0}e^{\kappa_0|x|},~~\kappa_0 = \frac{m\lambda}{\hbar^2}\]
+Vemo: \(V(-x) = V(x)\). Vemo, da bo valovna funkcija bodisi soda, bodisi liha, zato jo v obeh primerih izra\v cunajmo.
+\[\widehat{H} = -\frac{\hbar^2}{2m}\dd{^2}{x^2} - \lambda\delta(x)\]
+
+\[-\frac{\hbar^2}{2m}\dd{^2\psi(x)}{x^2}\lambda\delta(x)\psi(x) = E\psi(x)\]
+Na obeh straneh integriramo preko nekega intervala \([-a, a]\) in nato limitiramo \(a \to 0\)
+\[-\frac{\hbar^2}{2m}\dd{}{x}\psi(x)\Big|^{a}_{-a} - \lambda\psi(x)\Big|_{x=0} = E\int_{-a}^{a}\psi(x) = 0\]
+Stvar je enaka 0, dokler je funkcija omejena.
+Sledi: \[\lim_{a \to 0} -\frac{\hbar^2}{2m}\left[\psi'(a)-\psi'(-a)\right] = \lambda\psi(0)\]
+Torej odvod valovne funkcije v \(x=0\) ni zvezen. Za opis prvega odvoda valovne funkcije potrebujemo Heavyside funkcijo, kar pomeni, da funkcija sama ne more biti liha. Sledi, da je na\v s nastavek za valovno funkcijo:
+\[\psi(x) = \begin{cases}
+    A e^{-\kappa x} & x < 0 \\
+    A e^{\kappa x} & \text{sicer.}
+\end{cases}\]
+Zdaj preverimo \v se pogoj \(\lim_{x \to 0} \left[\psi'(x)-\psi'(-x)\right] = -2\kappa_0\psi(0)\)
+\[\lim_{x \to 0}\psi' = -A\kappa e^{-\kappa x} = -A\kappa\]
+\[\lim_{x \to 0}\psi' = A\kappa e^{\kappa x} = A\kappa\]
+\[\lim_{x \to 0} \left[\psi'(x)-\psi'(-x)\right] = -2\kappa = -2\kappa_0\]
+Sledi \(\kappa = \kappa_0\)
+\paragraph{Naloga:} Za neki \v stevili \(a, b \in \R,~b>a\) imamo potencial oblike \[V(x) = \begin{cases}
+    V_1 & x < a \\
+    V_2 & x > b \\
+    V_3(x) & \text{sicer}
+\end{cases}\]
+Vemo, da je lahko \(V_3(x) > E\), toprej obstaja verjetnost, da delec uide iz vezanega stanja. Zanima nas, kak\v sna ta verjetnost je. \\[2mm]
+Gostota verjetnostnega toka: \[j(x) = \frac{\hbar}{2mi}\left[\psi^*(z)\psi'(x) - \psi(x)\psi^{*}\text{}'(x)\right]\]
+Vemo, da je na obmo\v cjih \(1\) in \(2\) valovna funkcija enaka:
+\[\psi_1(x) = \frac{1}{\sqrt{V_1}} \left[A_1 e^{ik_1x}+B_1e^{-ik_1x}\right]\]
+\[\psi_2(x) = \frac{1}{\sqrt{V_2}} \left[A_2 e^{ik_1x}+B_2e^{-ik_2x}\right]\]
+Pri \v cemer je \(\displaystyle{k = \sqrt{\frac{2m(E-V)}{\hbar^2}}}\).
+Ko to vstavimo v ena\v cbo za verjetnostni tok, dobimo:
+\[j_1(x) = |A_1|^2 - |B_1|^2\]
+\[j_2(x) = |B_2|^2 - |A_2|^2\]
+Kaj lahko povemo o obmo\v cju 3? Potenciala ne poznamo, pri\v cakujemo pa, da lahko zanj zapi\v semo valovno funkcijo, ki bo
+linearna kombinacija dveh neodvisnih re\v sitev (matematiki pravijo, da to smemo).
+\[\psi_3(x) = C\varphi(x) + D\chi(x)\]
+Imamo tudi robne pogoje (kajti pri\v cakujemo, da bo na\v sa valovna funkcija zvezna in zvezno odvedljiva).
+\begin{align*}
+    \psi_1(a) & = \psi_3(a) \\
+    \psi_1'(a) & = \psi_3'(a) \\
+    \psi_2(b) & = \psi_3(b) \\
+    \psi_2'(b) & = \psi_3'(b) \\
+\end{align*}
+V igri imamo \v set konstant (\(A_1, B_1, A_2, B_2, C, D\)), pri \v cemer konstanti \(A_1\) in \(A_2\) obravnavamo kot \v ze vnaprej znani. Vemo, da lahko tako izrazimo \(C\) in \(D\), da dobimo le ena\v cbi za \(B_1\) in \(B_2\). Dobili bomo sistem
+\[\begin{bmatrix}
+    B_1 \\ B_2
+\end{bmatrix} = \begin{bmatrix}
+    r & t' \\
+    t & r'
+\end{bmatrix}\begin{bmatrix}
+    A_1 \\ A_2
+\end{bmatrix} \equiv S\begin{bmatrix}
+    A_1 \\ A_2
+\end{bmatrix}\]
+Matriki \(S\) re\v cemo sipalna matrika. Je kompleksna in njenih koeficientov zaenkrat ne bomo ra\v cunali (ne zdaj, temve\v c naslednji\v c). Vemo pa:
+\begin{align*}
+    j_1(x) & = 1 - |r|^2 \\
+    j_2(x) & = |t|^2
+\end{align*}
+Koli\v cini \(R = |r|^2\) pravimo represivnost (ali odbojnost), \(T = |t|^2\) pa transmitivnost (ali prepustnost). Pri\v cakujemo, da bo njuna vsota enaka 1 (v relativisti\v cni kvantni mehaniki to ni nujno res - delci se lahko anihilirajo ali zlijejo ali kaj podobnega, s takimi primeri se ne bomo ukvarjali).
+Se\v stejmo celoten tok, ki potuje prosti sipalcu in stran od sipalca: \\
+\begin{tabular}{r l}
+    Proti sipalcu: & \(~|A_1|^2 + |A_2|^2\) \\
+    Stran od sipalca: & \(~|B_1|^2 + |B_2|^2\)
+\end{tabular}
+\[|A_1|^2 + |A_2|^2 = (A_1^*, A_2^*)\begin{pmatrix}
+    A_1 \\ A_2
+\end{pmatrix} = A^HA\]
+\v Ce se verjetnost nikjer ne izgublja (kar bi veljalo v relativisti\v cnih primerih, mi pa to ignoriramo), velja:
+\[A^HA = B^HB\]
+\[A^HA = (SA)^H(SA)\]
+\[A^HA = A^H(S^HS)A\]
+Sledi, da je \(S^HS = I\) oziroma je \(S\) unitarna. \\[2mm]
+\v Ce je Hamiltonian realen:
+\[\psi_1^*(x) = \frac{1}{\sqrt{V_1}}\left[A_1^*e^{-ik_1x} + B_1^* e^{ik_1x}\right]\]
+\[\psi_2^*(x) = \frac{1}{\sqrt{V_2}}\left[B_2^*e^{-ik_2x} + A_2^* e^{ik_2x}\right]\]
+Spet je \(A^* = SB^*\) oziroma \(S^TA^* = B^*\).
+Sledi: \(S^T = S\), torej \(t' = t\). Ponuja se vpra\v sanje, ali Hamiltonian kdaj ni realen? Da, in sicer v primeru magnetnega polja. Iz klasi\v cne mehanike se spomnimo:
+\[H = \frac{(\vct{p} - e\vct{A})^2}{2m} + V(\vct{r})\]
+Pri prehodu v kvantnon mehaniko vektor \(\vct{A}\) ostane realen, vektor \(\vct{p}\) pa postane \(i\hbar\nabla\). Tako da realnosti Hamiltoniana ne moremo kar tako predpostaviti. \\
+Mi bomo obravnavali primer, ko je realen, in hkrati poseben primer, ko je potencial soda funkcija. To pomeni \(k_1 = k_2 = k\) in \(V_1 = V_2 = V\). Izrazimo \(\psi(-x)\):
+\[\psi_1(-x) = \frac{1}{\sqrt{V}} = B_2e^{-ikx} + A_2e^{ikx}\]
+\[\psi_2(-x) = \frac{1}{\sqrt{V}} = B_1e^{-ikx} + A_1e^{ikx}\]
+Zapi\v simo ena\v cbo v matri\v cni obliki:
+\[\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+\end{pmatrix}\begin{pmatrix}
+    B_1 \\ B_2
+\end{pmatrix} = \begin{pmatrix}
+    B_2 \\ B_1
+\end{pmatrix} = S \begin{pmatrix}
+    A_2 \\ A_1
+\end{pmatrix} = S \begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+\end{pmatrix}\begin{pmatrix}
+    A_1 \\ A_2
+\end{pmatrix}\]
+Novo matriko ozna\v cimo s \(\sigma_x\).
+\[B = \sigma_x S \sigma_x A\]
+\[\sigma_x S \sigma_x = \begin{pmatrix}
+    r' & t \\
+    t' & r
+\end{pmatrix}\]
+Sledi, da je \(r' = r\) in \(t' = t\).
+\end{document}

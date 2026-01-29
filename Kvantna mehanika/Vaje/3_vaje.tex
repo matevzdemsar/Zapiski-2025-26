@@ -1,0 +1,100 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+Zadnji\v c smo dobili \[S = \begin{pmatrix}
+    r & t \\
+    t & r
+\end{pmatrix}\]
+Iz lastnosti \(\psi_1(0)= \psi_2(0)\) in \([\psi_2'(0) - \psi_1'(0)] = -2\kappa_0\psi(0)\) izrazimo:
+\[\frac{1}{\sqrt{V}} + \frac{r}{\sqrt{V}} = \frac{t}{\sqrt{V}}\]
+\[1 + r = t\]
+Poleg tega:
+\[\psi_1' = \frac{ik}{\sqrt{V}}e^{ikx} - \frac{rik}{\sqrt{V}}e^{ikx}\]
+\[\psi_2' = \frac{tik}{\sqrt{V}}e^{ikx}\]
+To dvoje izrazimo v to\v cki 0 in dobimo:
+\[\frac{ik}{\sqrt{V}}[t-1+r] = -2\frac{\kappa_0}{\sqrt{V}}\]
+\[ik2r = -2\kappa_0(1+r)\]
+Sledi:
+\[r = \frac{-\kappa_0}{ik+\kappa_0}\]
+\[t = \frac{ik}{ik+\kappa_0}\]
+Tako lahko izrazimo \(S\) kot:
+\[S = \frac{1}{ik + \kappa_0}\begin{pmatrix}
+    -\kappa_0 & ik \\
+    ik & -\kappa_0
+\end{pmatrix}\]
+Transmitivnost: \[T = |t|^2 = \left|\frac{ik}{ik + \kappa_0}\right|^2 = ... = \frac{E}{E + \frac{\hbar^2\kappa_0^2}{2m}}\]
+Ozna\v cimo \(E_0 = \frac{\hbar^2\kappa_0^2}{2m}\). Tako je
+\[T(E) = \frac{E}{E + E_0}\]
+\[R(E) = \frac{E_0}{E + E_0}\]
+In imamo \(T(E) + R(E) = 1\), kar je tudi prav.
+\paragraph{Naloga.} Heisenbergova nedolo\v cenost pravi, da je
+\[\delta x\cdot\delta p \geq \frac{\hbar}{2}\]
+Imejmo zdaj dva hermitska, sebi adjungirana operatorja (\(A^\dag = A\) in \(B^\dag = B\)) in izra\v cunajmo \(\delta A \cdot \delta B\).
+Ker sta \(A\) in \(B\) hermitsko sebi adjungurana, sta njuni pri\v cakovani vrednosti realni.
+\[\delta^2A = \avg{(A - \avg{A})^2}\]
+\[\delta^2B = \avg{(B - \avg{B})^2}\]
+Konstruiramo nova operatorja \(\tilde{A}\) in \(\tilde{B}\):
+\[\tilde{A}^2 = (A - \avg{A})^2\]
+\[\tilde{B}^2 = (B - \avg{B})^2\]
+Sledi \[\delta^2A\delta^2B = \avg{\tilde{A}^2}\avg{\tilde{B}^2}\]
+Ker sta \(\tilde{A}\) in \(\tilde{B}\) hermitsko sebi adjungirana, je
+\(\bra{\psi}\tilde{A}^2\ket{\psi} = \avg{\tilde{A}\psi|\tilde{A}\psi}\) in \(\bra{\psi}\tilde{B}^2\ket{\psi} = \avg{\tilde{B}\psi|\tilde{B}\psi}\).
+Zaradi Cauchy-Schwarzove neenakosti velja:
+\[\avg{\tilde{A}\psi|\tilde{A}\psi}\avg{\tilde{B}\psi|\tilde{B}\psi} \geq \left|\avg{\tilde{A}\psi|\tilde{B}\psi}\right|\]
+To je (spet, zaradi hermitskih operatorjev) enako \(\avg{\psi|\tilde{A}\tilde{B}\psi}\). Naredimo pomo\v zni izra\v cun:
+\[\tilde{A}\tilde{B} = \frac{\tilde{A}\tilde{B} + \tilde{B}\tilde{A}}{2} + \frac{\tilde{A}\tilde{B} - \tilde{B}\tilde{A}}{2}\]
+Izrazu v \v stevcu prvega odlokma re\v cemo antikomutator (\(\{\tilde{A}, \tilde{B}\}\)), izrazu v \v stevcu drugega odlomka pa komutator (\([\tilde{A}, \tilde{B}]\)).
+Izra\v cunamo lahko \([\tilde{A}, \tilde{B}]^\dag = [\tilde{B}, \tilde{A}] = -[\tilde{A}, \tilde{B}]\) in \(\{\tilde{A}, \tilde{B}\} = \{\tilde{A}, \tilde{B}\}\)
+Vidimo, da je \(\{\tilde{A}, \tilde{B}\}\) hermitski operator, \([\tilde{A}, \tilde{B}]\) pa antihermitski.
+Sledi:
+\[\delta^2A\delta^2B = \left|\avg{\psi|\left(\frac{\{\tilde{A}, \tilde{B}\}}{2} + \frac{[\tilde{A}, \tilde{B}]}{2}\right)\psi}\right|^2 =\]
+\[= \avg{\psi|\frac{\{\tilde{A}, \tilde{B}\}}{2}\psi}^2 + \left|\avg{\psi|\frac{[\tilde{A}, \tilde{B}]}{2}\psi}\right|^2\]
+Obe vrednosti sta pozitivni, zato je rezultat gotovo ve\v cji od le ene od njiju. Izberemo komutator (izbira je do neke mere arbitrarna).
+\[\avg{\psi|\frac{\{\tilde{A}, \tilde{B}\}}{2}\psi}^2 + \left|\avg{\psi|\frac{[\tilde{A}, \tilde{B}]}{2}\psi}\right|^2 \geq \left|\avg{\psi|\frac{[\tilde{A}, \tilde{B}]}{2}\psi}\right|^2\]
+S pomo\v znim izra\v cunom poka\v zemo, da je \([\tilde{A}, tilde{B}] = [A, B]\).
+Sledi: \[\delta A\cdot\delta B = \left|\avg{\frac{[A, B]}{2}}\right|\]
+Primer: \(x\) in \(p = -i\hbar\dd{}{x}\).
+\[[x, p]\psi(x) = (xp - px)\psi = (-xi\hbar\dd{}{x} + \left(i\hbar\dd{}{x}\right)x)\psi(x) =\]
+\[-i\hbar\psi'(x) + i\hbar\left(\psi(x) + x\psi'(x)\right) = i\hbar\psi(x)\]
+\[\delta x \cdot \delta p \geq \left|\avg{i\hbar/2}\right|\]
+\v Ce se \v zelimo znebiti znaka \(\geq\), imamo dve zahtevi: \\[2mm]
+Da Cauchy-Schwarzova neenakost postane enakost, mora veljati \[\tilde{B}\ket{\psi} = \lambda\tilde{A}\ket{\psi}\]
+Poleg tega smo izpustili \v clen z antikomutatorjem, torej
+\[\avg{\psi|\{\tilde{A}, \tilde{B}\}\psi} = 0 = \avg{\psi|\tilde{A}\tilde{B}\psi} + \avg{\psi|\tilde{B}\tilde{A}\psi}\]
+\[= ... = (\lambda + \lambda^*)\avg{\tilde{A}\psi|\tilde{A}\psi}\]
+Torej bo enakost veljala, \v ce je \(\lambda = \mu i,~\mu\in\R\), ali pa, \v ce je \(\avg{\tilde{A}\psi|\tilde{A}\psi} = 0\) (kar pa je nek poseben primer, v katerem je \(\delta B = 0\), zato se s tem ne bomo ukvarjali).
+Katere funkcije imajo torej minimalni produkt nedolo\v cenosti \(x\) in \(p\)?
+Dobimo diferencialno ena\v cbo:
+\[\left(-ih\dd{}{x}-\avg{p}\right)\psi(x) = -\mu\left(x - \avg{x}\right)\psi(x)\]
+Re\v sujemo s separacijo:
+\[\frac{\dif\psi}{\psi} = \frac{1}{-i\hbar}\left[i\mu(x-\avg{x}) + \avg{p}\right]\dif x\]
+\[\ln\psi = \frac{1}{-ih}\left[i\mu x\avg{x} + \avg{p}\right] - i\mu\frac{x^2}{2} + C\]
+\[\psi(x) = C\,\mathrm{exp}\left(\frac{\mu}{\hbar}\avg{x}x + i\avg{p}x + \frac{\mu x^2}{2\hbar}\right)\]
+Stvar je malo podobna Gaussovemu valovnemu paketu.
+\end{document}

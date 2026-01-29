@@ -1,0 +1,116 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Spin}
+V dveh dimenzijah imamo delec s spinom \(S = 1/2\). Zapi\v semo Hamiltonian
+\[H = \frac{p^2}{2m} + \lambda\left(p_x S_y - p_y S_x\right),\quad \vct{p} = (p_x, p_y)\]
+Re\v sujemo Schr\"odingerjevo ena\v cbo
+\[H\psi = E\psi\]
+V nadaljnjih izra\v cunih nam bo koristil komutator \([H, \vct{p}]\). Izra\v cunamo ga po komponentah.
+\[[H, p_x] = \left[\frac{p_x^2}{2m} + \frac{p_y^2}{2m} + \lambda\left(p_x S_y - p_y S_x\right),~p_x\right] = 0\]
+Koli\v cini \(p_x\) in \(p_x S_y\) sta v razli\v cnih podprostorih, torej gotovo komutirata. Z ostalimi nimamo te\v zav.
+Ker komutirata, lahko lastna stanje \(H\) izrazimo z lastnimi stanji \(\vct{p}\). Za krajevni del vemo:
+\[\vct{p}\ket{\vct{k}} = \hbar\vct{k}\ket{\vct{k}}\]
+\[\vct{p} = -i\hbar\nabla\]
+Tak\v sna ena\v cba nam da re\v sitev
+\[\psi_{\vct{k}}(\vct{r}) \propto e^{i\vct{k}\cdot\vct{r}}\]
+Ker lahko re\v simo krajevni del in ker operatorja \(H\) in \(\vct{p}\) komutirata, lahko uporabimo nastavek
+\[\ket{\psi} = \ket{\vct{k}}\ket{\chi}\]
+Kjer \(\ket{\vct{k}}\) pomeni krajevni del, \(\ket{\chi}\) spinski del.
+\[\left[\frac{p_x^2}{2m} + \frac{p_y^2}{2m} + \lambda\left(p_x S_y - p_y S_x\right)\right]\ket{\vct{k}}\ket{\chi} = E\ket{\vct{k}}\ket{\chi}\]
+\[\left(\frac{p^2}{2m}\ket{\vct{k}}\right)\ket{\chi} + \lambda\left(p_x\ket{\vct{k}}\right)\left(S_y\ket{\chi}\right) - \lambda\left(p_y\ket{\vct{k}}\right)\left(S_x\ket{\chi}\right)\]
+Vstavimo lastne vrednosti krajevnega dela:
+\[\frac{\hbar^2 k^2}{2m}\ket{\vct{k}}\ket{\chi} + \lambda\hbar k_x\ket{\vct{k}} S_y\ket{\chi} - \lambda\hbar k_y\ket{\vct{k}} S_x\ket{\chi} = E\ket{\vct{k}}\ket{\chi}\]
+Pokraj\v samo \(\vct{k}\):
+\[\frac{\hbar^2 k^2}{2m}\ket{\chi} + \lambda\hbar k_x S_y\ket{\chi} - \lambda\hbar k_y S_x\ket{\chi} = E\ket{\chi}\]
+Dobili smo dvidimenzionalen problem v spinskem prostoru. Za \(S = 1/2\) imamo dve mo\v znosti. Ozna\v cimo:
+\[S = \frac{1}{2}\qquad\begin{matrix}
+    \ket{\frac{1}{2},\,+\frac{1}{2}} = \ket{\uparrow} \\
+    \ket{\frac{1}{2},\,-\frac{1}{2}} = \ket{\downarrow} \\
+\end{matrix} \qquad \begin{matrix}
+    S_x = \frac{S_+ + S_-}{2} \\
+    S_y = \frac{S_+ - S_-}{2i}
+\end{matrix}\]
+Veljajo slede\v ce zveze:
+\begin{align*}
+    S_+\ket{\uparrow} & = 0 \\
+    S_+\ket{\downarrow} & = \hbar\ket{\uparrow} \\
+    S_-\ket{\uparrow} & = \hbar\ket{\downarrow} \\
+    S_-\ket{\downarrow} & = 0
+\end{align*}
+Tako izpeljemo zveze za \(S_x\) in \(S_y\):
+\begin{align*}
+    S_x\ket{\uparrow} & = \frac{\hbar}{2}\ket{\downarrow} \\
+    S_x\ket{\downarrow} & = \frac{\hbar}{2}\ket{\uparrow} \\
+    S_y\ket{\uparrow} & = \frac{\hbar}{2i}\ket{\downarrow} \\
+    S_y\ket{\downarrow} & = \frac{\hbar}{2}\ket{\uparrow} \\
+\end{align*}
+Za nastavek \(\ket{\chi}\) uporabimo linearno kombinacijo:
+\[\ket{\chi} = \alpha\ket{\uparrow} +\beta\ket{\downarrow}\]
+\[\frac{\hbar^2k^2}{2m}\left(\alpha\ket{\uparrow} + \beta\ket{\downarrow}\right) + \lambda k_x\frac{\hbar^2}{2i}\left(-\alpha\ket{\downarrow} + \beta\ket{\uparrow}\right) - \lambda k_y \frac{\hbar}{2i}\left(\alpha\ket{\downarrow} + \beta\ket{\uparrow}\right) = E\left(\alpha\ket{\uparrow} + \beta\ket{\downarrow}\right)\]
+Iz ujemanja koeficientov dobimo dve linearni ena\v cbi:
+\begin{equation}
+    \frac{\hbar^2k^2}{2m}\alpha + \lambda\hbar\beta\left(k_x\frac{\hbar}{2i} - k_y\frac{\hbar}{2}\right) = E\alpha
+\end{equation}
+\begin{equation}
+    \frac{\hbar^2k^2}{2m}\beta + \lambda\hbar\alpha\left(-k_x\frac{\hbar}{2i} - k_y\frac{\hbar}{2}\right) = E\beta
+\end{equation}
+Sistem prepi\v semo v problem lastnih vrednosti:
+\[\begin{bmatrix}
+    \frac{\hbar^2k^2}{2m} & \frac{\lambda\hbar^2}{2}\left(\frac{k_x}{i} - k_y\right) \\
+    \frac{\lambda\hbar^2}{2}\left(-\frac{k_x}{i} - k_y\right) & \frac{\hbar^2k^2}{2m}
+\end{bmatrix}\begin{bmatrix}
+    \alpha \\ \beta
+\end{bmatrix} = E\begin{bmatrix}
+    \alpha \\ \beta
+\end{bmatrix}\]
+\[\begin{vmatrix}
+    \frac{\hbar^2k^2}{2m} - E & \frac{\lambda\hbar^2}{2}\left(\frac{k_x}{i} - k_y\right) \\
+    \frac{\lambda\hbar^2}{2}\left(-\frac{k_x}{i} - k_y\right) & \frac{\hbar^2k^2}{2m} - E   
+\end{vmatrix} = 0 = \left(\frac{\hbar^2k^2}{2m} - E\right) + \frac{\lambda^2\hbar^4}{4}\left(-k^2\right)\]
+\[= \left(\frac{\hbar^2k^2}{2m} - E - \frac{\lambda\hbar^2k}{2}\right)\left(\frac{\hbar^2k^2}{2m} - E + \frac{\lambda\hbar^2k}{2}\right)\]
+Dobili smo dve lastni vrednosti \(E_1\) in \(E_2\):
+\[E_1 = \frac{\hbar^2k^2}{2m} - \frac{\lambda\hbar^2k}{2}\]
+\[E_2 = \frac{\hbar^2k^2}{2m} + \frac{\lambda\hbar^2k}{2}\]
+Da izra\v cunamo lastni funkciji, nam bo koristila menjava koordinatnega sistema:
+\[k_x + ik_y = ke^{i\varphi}\]
+\[\frac{k_x}{i} - k_y = \frac{k}{i}\,e^{-i\varphi}\]
+\[-\frac{k_x}{i} - k_y = -\frac{k}{i}\,e^{i\varphi}\]
+Tako za \(E_1\) dobimo:
+\[\lambda\hbar^2\left(\frac{\hbar}{2}\alpha + \frac{\hbar}{2i}\,e^{-i\varphi}\beta\right) = 0 \quad\rightarrow \beta = -i\alpha e^{-i\varphi}\]
+Nato dobimo \(\alpha\) iz normalizacije \(|\alpha|^2 + |\beta|^2 = 1\): dobimo \(2|\alpha|^2 = 1\)
+\[\chi_1 = \frac{1}{\sqrt{2}}\left(\ket{\uparrow} -ie^{i\varphi}\ket{\downarrow}\right)\]
+Podobno:
+\[\chi_2 = \frac{1}{\sqrt{2}}\left(\ket{\uparrow} +ie^{i\varphi}\ket{\downarrow}\right)\]
+Bolj splo\v sno, za sfero:
+\[\alpha\ket{\uparrow} + \beta\ket{\downarrow} = \cos\frac{\vartheta}{2} \pm \sin\frac{\vartheta}{2}e^{i\varphi}\ket{\downarrow}\]
+V na\v sem primeru je \(\vartheta = \pi/2\)
+\end{document}

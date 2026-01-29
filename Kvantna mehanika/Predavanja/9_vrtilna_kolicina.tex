@@ -1,0 +1,178 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Se\v stevanje vrtilnih koli\v cin} Imamo delce s spinom \(1/2\). Primer: elektron s spinom \(s_1 = 1/2\), proton s spinom \(s_2 = 1/2\). \(l = 0\), torej imamo vodik v osnovnem stanju.
+\[\vct{S_i}^2\ket{s_i m_i} = s_i(s_i + 1) \hbar^2 \ket{s_i m_i},~~i=1,2\]
+\[S_{iz}\ket{s_i m_i} = m_i\hbar \ket{s_i m_i}\]
+\[[S_{i\alpha}, S_{j\beta}] = i\hbar \delta_{ij}\varepsilon_{\alpha\beta\gamma}S_{i\gamma}\]
+\[\vct{S_i} = \frac{\hbar}{2}\vct{\sigma_i} = \hbar^2\left(\sigma_{xi}, \sigma_{yi}, \sigma_{zi}\right)\]
+Uporabili smo Pavlijevo matriko \(\sigma\).
+\paragraph{Tenzorski produkt.} Spin zapi\v semo v obliki matrike s tenzorskim produktom:
+\[\vct{S} = \vct{S_1} + \vct{S_2} \to \vct{S} = \vct{S_1} \otimes I_2 + I_1 \otimes \vct{S_2}\]
+Kjer smo z \(I\) ozna\v cili identiteto. Vpeljemo bazo \(\ket{m_1} \otimes \ket{m_2} = \ket{m_1m_2}\). Po tej bazi razvijemo \(S_z\):
+\[S_{z} = S_{1z} \otimes I_2 + I_1 \otimes S_{2z}\]
+\[S_z\ket{m_1m_2} = (S_{1z} \otimes I_2 + I_1 \otimes S_{2z})\ket{m_1} \otimes \ket{m_2} = S_{1z} \otimes I_2 \ket{m_1} \otimes \ket{m_2} + I_1 \otimes S_{2z} \ket{m_1} \otimes \ket{m_2}\]
+Operatorja z indeksom \(1\) (\(S_{1z}\) in \(I_1\)) delujeta na \(\ket{m_1}\), operatorja z indeksom \(2\) (\(S_{2z}\) in \(I_2\)) pa na \(\ket{m_2}\).
+Vemo, da je \(S_{iz}\ket{m_i} = m_i\hbar\ket{m_i}\). Sledi
+\[S_z\ket{m_1 m_2} (m_1 + m_2)\hbar\ket{m_1m_2}\]
+Zdaj poglejmo \([S_\alpha, S_\beta]\), torej komutator dveh komponent vsote spinov:
+\[[S_\alpha, S_\beta] = [S_{1\alpha} \otimes I_2 + I_1 \otimes S_{2\alpha}, S_{1\beta} \otimes I_2 + I_1 \otimes S_{2\beta}] =\]
+\[= [S_{1\alpha}, S_{1\beta}] \otimes I_2 + I_1 \otimes [S_{2\alpha}, S_{2\beta}] = i\hbar\varepsilon_{\alpha\beta\gamma}S_{1\gamma} + i\hbar\varepsilon_{\alpha\beta\gamma}S_{2\gamma}\]
+Se pravi je \([S_\alpha, S_\beta] = i\hbar\varepsilon_{\alpha\beta\gamma}S_{\gamma}\). Komutator vsote spinov je torej enak, kot bi bil pri posameznih spinih. \\[2mm]
+Oglejmo si bazo \(sm\): \[S^2\ket{sm} = s(s+1)\hbar^2\ket{sm}\]
+\[S_z \ket{sm} = m\hbar \ket{sm}\]
+\v Se vedno je \(S = S_1 \otimes I_2 + I_1 \otimes S_2\).
+\[\ket{\frac{1}{2} m_1} \otimes \ket{\frac{1}{2} m_2} = \ket{m_1} \otimes \ket{m_2} = \ket{m_1 m_2}\]
+Ozna\v cimo:
+\begin{align*}
+    \ket{m_1 m_2} = \ket{\frac{1}{2} \frac{1}{2}} & = \ket{\uparrow \uparrow} = \ket{\uparrow} \otimes \ket{\uparrow} \\
+    & \ket{\downarrow \uparrow} = \ket{\downarrow} \otimes \ket{\uparrow} \\
+    & \ket{\uparrow \downarrow} = \ket{\uparrow} \otimes \ket{\downarrow} \\
+    & \ket{\downarrow \downarrow} = \ket{\downarrow} \otimes \ket{\downarrow} \\
+\end{align*}
+Vektorje \(\ket{sm}\) zapi\v semo v tej bazi:
+\[\ket{sm} = \sum_{m_1,\,m_2} c_{m_1,\,m_2}\ket{\frac{1}{2}m_1}\otimes\ket{\frac{1}{2}m_2} = \sum_{m_1,\,m_2}K_{m_1,\,m_2}\ket{m_1 m_2}\]
+Kaj je lahko \(s\)?
+\[m = m_1 + m_2 = \begin{cases}
+    1 & s = 1 \quad (\text{ozna\v cimo }\ket{11}) \\
+    0 & s = 0 \text{ ali } 1 \quad (\ket{00},~\ket{10} )\\
+    -1 & s = 1 \quad (\ket{1, -1})
+\end{cases}\]
+\[-s \leq m \leq s\]
+
+Za\v celi bomo s stanjem \(s = 1\), \(m = 1\).
+\[S^2\ket{sm} = 1(1 + 1)\hbar^2\ket{sm}\]
+Izra\v cunajmo vrednost \(\ket{sm}\). Vemo \(s = 1, \, m = 1\)
+\[\ket{sm} = \ket{11} = \ket{\frac{1}{2}\frac{1}{2}} \otimes I_2 + I_1 \otimes \ket{\frac{1}{2}\frac{1}{2}}\]
+To je zna\v cilna lena notacija fizikov. Prvi \(\ket{\frac{1}{2}\frac{1}{2}}\) predstavlja \(m_1\), drugi pa \(m_2\). \\[2mm]
+Kaj pomenijo stanja \(\ket{11}, \ket{10},\) ipd.? \\
+O\v citno je\(\ket{1 1}\) pomeni \(\ket{\uparrow \uparrow}\), torej je v tem primeru
+\[\ket{sm} = \ket{\uparrow} \otimes \ket{\uparrow}\]
+Stanje \(\ket{10}\): Poglejmo si, kaj naredi operator \(S_-\), definiran kot:
+\[S_-\ket{sm} = \hbar\sqrt{s(s+1) - m(m-1)}\ket{s, m-1}\]
+Operator zni\v za projekcijo spina, \v se vedno pa moramo upo\v stevati \(-s \leq m \leq s\). Za na\v s primer je
+\[S_-\ket{1 1} \sqrt{2}\hbar\ket{10}\]
+Hkrati vemo, da je 
+\[\left(S_{1-} \otimes I_2 + I_1 \otimes S_{2-}\right) \ket{\uparrow} \otimes \ket{\uparrow} = S_{1-} \otimes I_2 \ket{\uparrow \uparrow} + I_1 \otimes S_{2-} \ket{\uparrow \uparrow}\]
+\(S_{1-}\) deluje na prvo projekcijo, \(S_{2-}\) pa na drugo. Sledi:
+\[S_-\ket{11} = \left(S_{1-} \otimes I_2 + I_1 \otimes S_{2-}\right) \ket{\uparrow} \otimes \ket{\uparrow} = \hbar \ket{\downarrow \uparrow} + \hbar \ket{\uparrow \downarrow}\]
+Dobili smo \[\sqrt{2}\hbar\ket{10} = \hbar\ket{\downarrow\uparrow} + \hbar\ket{\uparrow\downarrow}\]
+oziroma
+\[\ket{10} = \frac{1}{\sqrt{2}}\left(\ket{\uparrow\downarrow} + \ket{\downarrow\uparrow}\right)\]
+Nato je spet o\v citno, da je \(\ket{1, -1} = \ket{\downarrow\downarrow}\) \\[2mm]
+Za primer \(s=1\) smo dobili tripletna stanja:
+\[\begin{array}{c l}
+    m = 1: & \ket{\uparrow\uparrow} \\[2mm]
+    m = 0: & \frac{1}{\sqrt{2}}\left(\ket{\uparrow\downarrow} + \ket{\uparrow\downarrow}\right) \\[2mm]
+    m = -1: & \ket{\downarrow\downarrow} \\[2mm]
+\end{array}\]
+Za \(s=0\) mora veljati \(S^2\ket{00} = 0\), torej je \(\ket{sm} = \ket{00} = c_1\ket{\uparrow\downarrow} + c_2\ket{\downarrow\uparrow}\).
+Poglejmo \(\avg{10|00}\):
+\[\avg{10|00} = 0 = \frac{1}{\sqrt{2}}\left(\bra{\uparrow\downarrow} + \bra{\downarrow\uparrow}\right)\left(c_1\ket{\uparrow\downarrow} + c_2\ket{\downarrow\uparrow}\right)\]
+Seveda je \(\avg{\uparrow\downarrow|\uparrow\downarrow} = 1\), \(\avg{\downarrow\uparrow|\downarrow\uparrow} = 1\) in \(\avg{\downarrow\uparrow|\uparrow\downarrow} = 0\). Da bo rezultat enak \(0\), mora veljati:
+\[\ket{00} = \frac{1}{\sqrt{2}}\left(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\right)\]
+\paragraph{Heisenbergova sklopitev.} Imamo dva dipola z nekima vrtilnima koli\v cinama (spinoma) \(\vct{S}\). Heisenbergovo sklopitev ozna\v cimo s \(H\) in velja:
+\[H = J_0 \vct{S_1}\cdot\vct{S_2}\]
+Konstanta \(J_0\) predstavlja "mo\v c" sklopitve. \v Ce ozna\v cimo \(\vct{S} = \vct{S_1} + \vct{S_2}\), lahko ra\v cunamo:
+\[\vct{S}^2 = \vct{S_1}^2 + 2\vct{S_1}\cdot\vct{S_2} + \vct{S_2}^2 = \frac{3}{4}\hbar^2 + 2\vct{S_1}\cdot\vct{S_2} + \frac{3}{4}\hbar^2 = \frac{3}{2}\hbar^2 + \frac{2H}{J_0}\]
+Zdaj lahko \(H\) izrazimo lep\v se, in sicer:
+\[H = \frac{J_0}{2}\left(S^2 - \frac{3}{2}\hbar\right)\]
+Lahko izra\v cunamo energijo sklopitve:
+\[E_s = \begin{cases}
+    J_0 \hbar^2 \frac{1}{4} & s=1~\text{triplet} \\
+    -J_0\hbar^2 \frac{3}{4} & s=0~\text{singlet}
+\end{cases}\]
+Razlika med \(E_1\) in \(E_0\) je torej ravno \(J_0\hbar^2\), kar v primeru vodika pomeni sevanje z valovno dol\v zino \(\sim 21\,\mathrm{cm}\). To je zelo zna\v cilna (in natan\v cno izmerjena) valovna dol\v zina, ki je zelo uporabna pri vsem, kar ima zveze z astronomijo.
+\paragraph{Clebsch-Gordanovi koeficienti.} Namesto spinov imamo zdaj vrtilni koli\v cini \(\vct{J_1}\) in \(\vct{J_2}\), ozna\v cimo \(\vct{J} = \vct{J_1} + \vct{J_2}\). Vsaki vrtilni koli\v cini pripi\v semo \v se vrednost \(J_{iz}\), ki predstavlja njeno projekcijo na \(z\) os.
+\[\text{Baza: }~\ket{j_1m_1} \otimes \ket{j_2m_2} = \ket{j_1m_1j_2m_2}\]
+Alternativna izbira baze:
+\[\ket{j_1j_2\,jm} = \sum_{m_1=-j_1}^{j_1}\sum_{m_2=-j_2}^{j_2}\ket{j_1m_1}\ket{j_2m_2}\avg{j_1m_1j_2m_2|jm}\]
+Koeficientom \(\avg{j_1m_1j_2m_2|jm}\) pravimo Clebsch-Gordanovi koeficienti. \\[2mm]
+Primer: Imamo atom vodika, katerega jedro na vrtilno koli\v cino ne vpliva. Tako je \(j_1 = 1\) oziroma \(\vct{J_1} = \vct{L}\) in \(j_2 = s = \frac{1}{2}\) oziroma \(\vct{J_2} = \vct{S}\). Tako je
+\[\vct{J} = \vct{L} + \vct{S}\]
+Zanima nas \(\psi_{jm}\).
+\[\vct{J} = \vct{L} \otimes I_2 + I_l \otimes \vct{S}\]
+Lastne funkcije tega operatorja bodo oblike \(Y_l^m\chi_{ml}\). \\
+\v Ce imamo \(l = 1\) in \(s = \frac{1}{2}\), imamo za lastna stanja slede\v ce mo\v znosti:
+\begin{itemize}
+    \item \(j = \frac{3}{2}, \, m = \frac{3}{2}\): \(\ket{l s j m} = \ket{1 \frac{1}{2} \frac{3}{2} \frac{3}{2}} = \ket{11}\ket{\uparrow} = \ket{\overline{\psi}}\) \\
+    \item Stanje \(j = \frac{3}{2} \, m = \frac{1}{2}\) dobimo tako, da ne stanju \(j = \frac{3}{2}, \, m = \frac{3}{2}\) uporabimo operator \(J_-\) in primerjamo rezultate. Dobili bomo koeficiente za ta stanja.
+\end{itemize}
+\paragraph{Tabela C-G.} Obravnavajmo na primer, ko je spinski del enak \(l \times s = \frac{1}{2} \times \frac{1}{2}\). Primer dela tabele:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c c|c c|}
+        \hline
+        && \(j\) & \(j\) \\
+        \hline
+        && 1 & 0 \\
+        \(m_1\) & \(m_2\) & 0 & 0 \\
+        \hline
+        1/2 & -1/2 & 1/2 & 1/2 \\
+        \hline
+        -1/2 & 1/2 & 1/2 & -1/2 \\
+        \hline
+    \end{tabular}
+    \caption{\v Ce \v zelimo npr. poiskati koeficiente za bazni vektor \(\ket{-\frac{1}{2}\,\frac{1}{2}}\) v stanju \(\ket{sm} = \ket{10}\), poi\v s\v cemo prses\v ci\v s\v ce 3. stolpca \((10)\) in 4. vrtice \((-\frac{1}{2}\,\frac{1}{2})\). Ta je \(\frac{1}{2}\). Prebrano vrednost nato \v se korenimo (\v ko bi bila negativna, bi minus zgolj prepisali in korenili absolutno vrednost.)}
+\end{table}
+\newpage
+Primer \(l \times s = 1 \times \frac{1}{2}\).
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c c|c c|}
+        \hline
+        && \(j\) & \(j\) \\
+        \hline
+        && \(\frac{3}{2}\) & \(\frac{1}{2}\) \\
+        \(m_1\) & \(m_2\) & \(\frac{1}{2}\) & \(\frac{1}{2}\) \\
+        \hline
+        1 & -1/2 & 1/3 & 2/3 \\
+        \hline
+        0 & 1/2 & 2/3 & -1/3 \\
+        \hline
+    \end{tabular}
+    \caption{\v Ce i\v s\v cemo na primer koeficiente za stanje \(\frac{1}{2}\,\frac{1}{2}\), iz tabele preberemo:}
+\end{table} \\
+\[\psi_{jm} = c_1 Y^{m_1}_{1} \ket{m_2} + c_2 Y^{m_1}_1\ket{m_2} = \sqrt{\frac{2}{3}}Y^{1}_{1}\begin{pmatrix}
+        0 \\ 1
+    \end{pmatrix} - \sqrt{\frac{1}{3}} Y^0_1\begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix}\]
+\paragraph{Teorija motenj (perturbacij).} Perturbirano Hamiltonovo funkcijo zapi\v semo kot:
+\[H = H_0 + H_1\]
+\v Clen \(H_0\) je neperturbiran Hamiltonian z razvojem po lastnih funkcijah
+\[H_0\ket{n^0} = E_n^{(0)}\ket{n^0}\]
+\(H_1\) zapi\v semo kot \(\lambda\widehat{V}\) in pogledamo limito \(\lambda \to 0\). Tako, kot pri majhnih nihanjih v klasi\v cni mehaniki. \\
+Naredimo \v se eno predpostavko, in sicer, da je motnja neodvisna od \v casa (temve\v c samo od kraja). Tedaj govorimo o Rayleigh-Schr\"odingerjevi perturbaciji. I\v s\v cemo lastne vrednosti \(\ket{n}\). Razvijemo:
+\[E_n = E_n^{(0)} + \lambda E_n^{(1)} + \lambda^2 E_n^{(2)} + ...\]
+Obi\v cajno ne vzamemo veliko \v clenov, in sicer iz dveh razlogov. Prvi\v c, ker nam olaj\v sa ra\v cunanje. Drugi\v c, ker je elektri\v cno polje znotraj atoma veliko mo\v cnej\v se od perturbacij, ki jim lahko izpostavimo doti\v cni atom. \\
+Predpostavka:
+\[\avg{n^0|n} = \avg{n^0|n^0} + \lambda\avg{n^0|n^1} + \lambda^2\avg{n^0|n^2} + ...\]
+\v Ce zahtevamo, da je \(\avg{n^0|n} \equiv 1\), dobimo zahtevo \(\avg{n^0|n^i} = 0\) za \(i \neq 0\).
+\end{document}

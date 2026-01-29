@@ -1,0 +1,168 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Dvodimenzionalni harmonski oscilator}
+Imamo Hamiltonian, ki ima optencial podan s spremenljivkama \(x\) in \(y\).
+\[H = \frac{p^2}{2m} + \frac{1}{2}k_xx^2 + \frac{1}{2}k_yy^2\]
+Tokrat je gibalna koli\v cina vektor, \(p^2\) pa je vsota kvadratov njegovih komponent, torej
+\[p^2 = p_x^2 + p_y^2 = -i\hbar\nabla^2 = -i\hbar\left(\pd{^2}{x^2} + \pd{^2}{y^2}\right)\]
+Tako lahko tudi Hamiltonian razdelimo na dva dela:
+\[H = H_x + H_y = \left(\frac{p_x^2}{2m} + \frac{1}{2}k_xx^2\right) + \left(\frac{p_y^2}{2m} + \frac{1}{2}k_yy^2\right)\]
+I\v s\v cemo re\v sitve stacionarne Schr\"odingerjeve ena\v cbe \[\widehat{H}\psi_n(x, y) = E_n(x, y)\]
+Zdaj naredimo separacijo spremenljivk: \(\psi(x, y) = \varphi(x)\chi(y)\)
+\[H_x\varphi_m(x) = E_m^{(x)}\varphi_n(x)\]
+\[H_y\chi_n(y) = E_n^{(y)}\chi_n(y)\]
+Ali druga\v ce:
+\[H\varphi_m(x)\chi_n(y) = (E_m^{(x)} + E_n^{(y)})\varphi_m(x)\chi_n(y)\]
+V Diracovem zapisu:
+\[H\ket{m}_x \ket{n}_y = (E_m^{(x)} + E_n^{(y)})\ket{m}_x \ket{n}_y\]
+Ozna\v cimo \(\ket{mn} = \ket{m}_x\ket{n}_y\) (gre v bistvu za indedksiranje po matriki).
+\[H\ket{mn} = (E_m^{(x)} + E_n^{(y)})\ket{mn}\]
+Ker v eni dimenziji poznamo re\v sitev LHO:
+\[H_x\ket{m}_x = \hbar\omega_x\left(m + \frac{1}{2}\right)\ket{m}_x, \qquad \omega_x = \sqrt{\frac{k_x}{m}}\]
+\[H_y\ket{n}_y = \hbar\omega_y\left(n + \frac{1}{2}\right)\ket{n}_y, \qquad \omega_y = \sqrt{\frac{k_y}{m}}\]
+Tako je celotna lastna energija harmonskega oscilatorja enaka
+\[H\ket{mn} = \left[\hbar\omega_x\left(m + \frac{1}{2}\right) + \hbar\omega_y\left(n + \frac{1}{2}\right)\right]\ket{mn}\]
+\subsection{"Enosmerni" harmonski oscilator}
+Predpostavili smo, da sta \(k_x\) in \(k_y\) oba ve\v cja od \(0\), sicer sta verdnosti \(\omega_x\) in \(\omega_y\) imaginarni. \v Ce je \(k_x = 0\) ali \(k_y = 0\), pa dobimo v tisti smeri Hamiltomian \[H_i = \frac{p_i}{2m},\]
+katerega re\v sitve so ravni valovi. V tem primeru dobimo, npr. za \(k_y = 0\):
+\[H\ket{m_x\,q_y} = \left[\hbar\omega_x\left(m + \frac{1}{2}\right) = \frac{\hbar^2 q_y^2}{2m}\right] \ket{m_x\,q_y}\]
+\subsection{Izotropni harmonski oscilator}
+Drugi zanimiv primer je izotropni harmonski oscilator, pri katerem je \(k_x = k_y = k\).
+\[H\ket{n_x n_y} = \hbar\omega\left(n_x + n_y + 1\right)\ket{n_x n_y}\]
+Opazimo, da ima prvo vzbujeno stanje dve mo\v zni lastni funkciji, in sicer \(\ket{0,\,1}\) in \(\ket{1,\,0}\), torej pride do degeneracije. Poka\v zimo, da ti stanji tvorita bazo vseh funkcij z energijo \(2\hbar\omega\).
+\[H(\alpha\ket{0,\,1} + \beta\ket{1,\,0}) = \alpha H\ket{0,\,1} + \beta H\ket{1,\,0} = 2\hbar\omega\left(\alpha\ket{0,\,1} + \beta\ket{1,\,0}\right)\]
+Sledi, da je linearna kombinacija teh lastnih funkcij tudi lastna funkcija z isto energijo. \\[2mm]
+\v Ce zapi\v semo Schr\"odingerjevo ena\v cbo za dvodimenzionalni izotropni LHO, opazimo, da jo lahko zapi\v semo v polarnih koordinatah:
+\[H = \frac{p^2}{2m} + \frac{1}{2}k(x^2 + y^2) = \frac{p^2}{2m} + V(r)\]
+Tak operator komutira z operatorjem \(z\)-komponente vrtilne koli\v cine \(L_z\), zapisanega kot
+\[L_z = xp_y - yp_x = -i\hbar\pd{}{\varphi}\]
+\[\left[H, L_z\right] = 0\]
+Ker operatorja komutirata, lahko poi\v s\v cemo lastne funkcije za oba hkrati, in sicer so lastne funkcije \(L_z\) linearne kombinacije lastnih funkcij \(H\). Poglejmo si to na primeru prvega vzbujenega stanja, ki je dvakrat degenerirano.
+\[L_z\ket{\psi} = \lambda\ket{\psi}\]
+\[-i\hbar\pd{}{\varphi}\ket{\psi} = \lambda\ket{\psi}\]
+To re\v sujemo kot diferencialno ena\v cbo prvega reda.
+\[\psi(\varphi) = C\,e^{i\frac{\lambda}{\hbar}\varphi}\]
+Robni pogoj je periodi\v cnost s periodo \(2\pi\), torej mora veljati
+\[\frac{\lambda}{\hbar} = m,\quad m \in \Z\]
+Iz normalizacije pa dobimo zahtevo za \(C\):
+\[\int_{0}^{2\pi}|\psi(x)|^2\dif\varphi = 2\pi C^2 = 1\]
+\[\psi(\varphi) = \frac{1}{\sqrt{2\pi}}e^{im\varphi},\quad m\in \Z\]
+Zdaj obravnavamo linearno kombinacijo \(\psi_{01}\) in \(\psi_{10}\):
+\[\psi(x, y) = \alpha\psi_{01}(x, y) = \beta\psi_{10}(x, y)\]
+Zapi\v semo lo\v ceno:
+\[\psi_{01}(x, y) = \psi_0(x)\psi_1(y)\]
+\[\psi_{10}(x, y) = \psi_1(x)\psi_0(y)\]
+\(\psi_0\) je ravni val: \[\psi_0(x) = \frac{1}{\sqrt[4]{\pi x_0^2}}\,e^{-\frac{x^2}{2x_0^2}}\]
+I\v s\v cemo \v se \(\psi_1\). Vemo: \[a^+\ket{0} = \ket{1}\]
+\[\frac{1}{\sqrt{2}}\left(\frac{x}{x_0} -i\frac{p_x}{p_0}\right)\,\psi_0(x) = \psi_1(x)\]
+Pri \v cemer je \[p_x = -i\hbar\dd{}{x},\qquad p_0 = \frac{\hbar}{x_0}\]
+\[\psi_1(x) = \frac{1}{\sqrt{2\pi x_0^2}}\left(\frac{x}{x_0}\,e^{-\frac{x^2}{2x_0^2}} - i\frac{x_0}{\hbar}\left(-i\hbar\dd{}{x}\,e^{-\frac{x^2}{2x_0^2}}\right)\right)\]
+\[=\frac{1}{\sqrt{4\pi x_0^2}}\left[\frac{x}{x_0} + \frac{x}{x_0}\right]\,e^{-\frac{x^2}{2x_0^2}} = \sqrt{2}\frac{x}{x_0}\psi_0(x)\]
+Zdaj zelo lahko dobimo \(\psi_{01}\) in \(\psi_{10}\):
+\[\psi_{01} = \sqrt{\frac{2}{\pi y_0^2}}\frac{y}{y_0}\,e^{-\frac{1}{y_0^2}(x^2 + y^2)}\]
+\[\psi_{10} = \sqrt{\frac{2}{\pi x_0^2}}\frac{x}{x_0}\,e^{-\frac{1}{x_0^2}(x^2 + y^2)}\]
+V polarnih koordinatah to izrazimo kot produkt radialne funkcije in kotne funkcije:
+\[\psi_{10} = \sqrt{\frac{2}{\pi x_0^2}}\frac{r\cos\varphi}{x_0}\,\exp\left(-\frac{r^2}{2 x_0^2}\right) = \cos\varphi\,f(r)\]
+\[\psi_{01} = \sqrt{\frac{2}{\pi y_0^2}}\frac{r\sin\varphi}{y_0}\,\exp\left(-\frac{r^2}{2 y_0^2}\right) = \sin\varphi\,f(r)\]
+Zdaj se vrnimo na prej\v snjo zahtevo:
+\[\psi(\varphi) = e^{-im\varphi},\qquad m \in \Z\]
+Zaradi Eulerjeve formule lahko izrazimo
+\[\ket{m = +1} = \frac{1}{\sqrt{2}}\,\left(1\cdot\ket{1,\,0} + i\cdot\ket{0,\,1}\right)\]
+\[\ket{m = -1} = \frac{1}{\sqrt{2}}\,\left(1\cdot\ket{1,\,0} - i\cdot\ket{0,\,1}\right)\]
+Druga\v cen postopek iskanja lastnih funkcij bi bil, da stvar zapi\v semo kot sistem linearnih ena\v cb:
+\[\ket{\psi} = \alpha\ket{0,\,1} + \beta\ket{1,\,0}\]
+\[L_z\ket{\psi} = \lambda\ket{\psi}\]
+\[\alpha L_z\ket{1,\,0} + \beta L_z\ket{0,\,1} = \lambda\left(\alpha\ket{1,\,0} + \beta\ket{0,\,1}\right)\]
+Ena\v cbo najprej pomno\v zimo z \(\bra{1,\,0}\), da dobimo prvo ena\v cbo, nato pa z \(\bra{0,\,1}\), da dobimo drugo ena\v cbo:
+\begin{equation}
+    \bra{1,\,0}\alpha L_z\ket{1,\,0} + \bra{1,\,0}\beta L_z\ket{0,\,1} = \lambda\alpha
+\end{equation}
+\begin{equation}
+    \bra{0,\,1}\alpha L_z\ket{1,\,0} + \bra{0,\,1}\beta L_z\ket{0,\,1} = \lambda\beta
+\end{equation}
+\v Ce ena\v cbo prepi\v semo v matri\v cni obliki, gre za problem lastnih vrednosti
+\[\begin{bmatrix}
+    \bra{1,\,0}L_z\ket{1,\,0} & \bra{1,\,0}L_z\ket{0,\,1} \\
+    \bra{0,\,1}L_z\ket{1,\,0} & \bra{0,\,1}L_z\ket{0,\,1}
+\end{bmatrix}\begin{bmatrix}
+    \alpha \\ \beta
+\end{bmatrix} = \lambda\begin{bmatrix}
+    \alpha \\ \beta
+\end{bmatrix}\]
+Matri\v cne elemente izra\v cunamo tako, da \(L_z\) zapi\v semo z \(a\) in \(a^\dag\):
+\[H = \hbar\omega\left(a^\dag_x a_x + \frac{1}{2}\right) + \hbar\omega\left(a^\dag_y a_y + \frac{1}{2}\right)\]
+Po zdgledu enodimenzionalnega LHO zapi\v semo:
+\begin{align*}
+    x & = \frac{x_0}{\sqrt{2}}\left(a_x + a_x^\dag\right) & y & = \frac{x_0}{\sqrt{2}}\left(a_y + a_y^\dag\right) \\[2mm]
+    p_x & = \frac{p_0}{i\sqrt{2}}\left(a_x - a_x^\dag\right) & p_y & = \frac{p_0}{i\sqrt{2}}\left(a_y - a_y^\dag\right) \\[2mm]
+    x_0 & = \sqrt{\frac{\hbar}{m\omega}} & p_0 & = \frac{\hbar}{x_0}
+\end{align*}
+Iz lastnosti parcialnih odvodov, da je \[\pd{}{x}\left(\pd{f}{y}\right) = \pd{}{y}\left(\pd{f}{x}\right),\]
+sledi:
+\[[a_x,\,a_y] = [a_x,\,a_y^\dag] = [a_x^\dag,\,a_y] = [a_x^\dag,\,a_y^\dag] = 0\]
+To nam koristi, ko sestavimo \(L_z\): veliko \v clenov se namre\v c med seboj od\v steje.
+\[L_z = xp_y - yp_x = \frac{x_0}{\sqrt{2}}\frac{p_0}{\sqrt{2}i}\left(a_x + a_x^\dag\right)\left(a_y - a_y^\dag\right) - \frac{x_0}{\sqrt{2}}\frac{p_0}{\sqrt{2}i}\left(a_y + a_y^\dag\right)\left(a_x - a_x^\dag\right) = \]
+\[= \frac{\hbar}{2i}\left[\left(a_x a_y - a_x a_y^\dag + a_x^\dag a_y - a_x^\dag a_y^\dag\right) - \left(a_y a_x - a_y a_x^\dag + a_y^\dag a_x - a_y^\dag a_x^\dag\right)\right] = \]
+\[= \frac{\hbar}{2i}\left[\left(a_x a_y - a_y a_x\right) + \left(- a_x a_y^\dag - a_y^\dag a_x\right) + \left(a_x^\dag a_y + a_y a_x^\dag\right) - \left(- a_x^\dag a_y^\dag + a_y^\dag a_x^\dag\right)\right] = \]
+\[= \frac{\hbar}{2i}\left[-2 a_x a_y^\dag + 2 a_x^\dag a_y\right] = \frac{\hbar}{i}\left(a_x^\dag a_y - a_x a_y^\dag\right)\]
+Zdaj lahko izra\v cunamo matri\v cne elemente:
+\[a_x^\dag a_y\ket{1,\,0} = a_x^\dag a_y \ket{1}_x \ket{0}_y = \left(a_x^\dag\ket{1}_x\right)\left(a_y^\dag\ket{0}\right)\]
+Vemo, da je \(a^\dag\ket{n} = \sqrt{n + 1}\ket{n + 1}\) in \(a\ket{0} = 0\), torej dobimo:
+\[a_x^\dag a_y\ket{1,\,0} = \sqrt{2}\ket{2} \cdot 0 = 0\]
+Ker je \[a_x a_y^\dag \ket{1,\,0} = \ket{0,\,1},\]
+je prvi element matrike:
+\[\bra{1,\,0}L_z\ket{1,\,0} = \frac{\hbar}{i}\bra{1,\,0}\left(a_x^\dag a_y - a_x a_y^\dag\right)\ket{1,\,0} = \]
+\[ = \frac{\hbar}{i}\bra{1,\,0}\left(0 - \ket{0,\,1}\right) = -\frac{\hbar}{i}\avg{1,\,0\,|\,0,\,1} = 0\]
+zaradi ortogonalnosti. Podobno naredimo za ostale kombinacije:
+\[\bra{0,\,1}L_z\ket{1,\,0} = -\frac{\hbar}{i}\avg{0,\,1\,|\,0,\,1} = i\hbar\]
+\[\bra{1,\,0}L_z\ket{0,\,1} = \frac{\hbar}{i}\avg{1,\,0\,|\,1,\,0} = -i\hbar\]
+\[\bra{0,\,1}L_z\ket{0,\,1} = \frac{\hbar}{i}\avg{0,\,1\,|\,1,\,0} =0\]
+Na\v s problem diagonaliozacije postane
+\[\begin{bmatrix}
+    0 & i\hbar \\
+    -i\hbar & 0
+\end{bmatrix}\begin{bmatrix}
+    \alpha \\ \beta
+\end{bmatrix} = \lambda\begin{bmatrix}
+    \alpha \\ \beta
+\end{bmatrix}\]
+\[\det\begin{bmatrix}
+    -\lambda & i\hbar \\
+    -i\hbar & -\lambda
+\end{bmatrix} = \lambda^2 - \hbar^2 = 0\]
+Sledi \(\lambda = \pm \hbar\). Za lastni vektor dobimo zahtevo \(\alpha = \pm i\beta\), nato pa upo\v stevamo normalizacijo \(|\alpha|^2 + |\beta|^2 = 1\) in dobimo:
+\[\lambda = \hbar: ~ v_1 = \left(-\frac{i}{\sqrt{2}},~\frac{1}{\sqrt{2}}\right) \qquad \lambda = -\hbar: ~ v_2 = \left(\frac{i}{\sqrt{2}},~\frac{1}{\sqrt{2}}\right)\]
+\[\ket{m = +1} = \frac{1}{\sqrt{2}}\left(-i\ket{1,\,0} + \ket{0,\,1}\right)\]
+\[\ket{m = -1} = \frac{1}{\sqrt{2}}\left(i\ket{1,\,0} - \ket{0,\,1}\right)\]
+Dobili smo enak rezultat kot prej, ki pa je zamaknjen za fazo \(-i\). Rezultat je torej matemati\v cno druga\v cen, fizikalno pa ta fazni zamik ne vpliva na nobeno merljivo koli\v cino.
+
+\end{document}

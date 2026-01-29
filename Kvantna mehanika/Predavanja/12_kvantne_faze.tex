@@ -1,0 +1,126 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+Verjetnost prehoda med dvema stanjema kot rezultat perturbacije opi\v semo z matriko:
+\[P_{km}(t) = \frac{|V_{km}|^2}{\hbar^2} \pi\delta_t\left(\frac{1}{2\hbar}(E_k - E_m)\right)\,t\]
+Kar bi lahko napisali kot \(\bra{k}V\ket{m}\). Ko gre \(t\) proti \(\infty\), gre razlika energij proti \(0\). \\
+Verjetnost, da se zgodi kar koli, je vsota vseh teh verjetnosti, torej:
+\[P = \sum_{k \neq m}\P_{km}\]
+To aproksimiramo z integralom:
+\[P = \sum_m \int_{-\infty}^{\infty} P_{km}(t)\rho(E_k)\dif E_k\]
+Ko gre \(t \to \infty\):
+\[P \to \sum_m \int_{-\infty}^{\infty} \frac{|V_{km}|^2}{\hbar^2} 2\pi\hbar\delta(E_k - E_m)\rho(E_k)\dif E_k\]
+\paragraph{Fermijevo zlato pravilo.} Imamo kon\v cna stanja, gostoto energij aproksimiramo z odvodom:
+\[\rho_k = \dd{N_k}{E_k}\frac{1}{N_k} = \dd{P}{E_k}\]
+\[P = \frac{2\pi}{\hbar}|V_{km}|^2\rho(E_m)t\]
+Ferijevo zlato pravilo pa je odvod tega:
+\[w = \dd{P}{t} = \frac{2\pi}{\hbar}|V_{km}|^2\rho(E_m)\]
+Nekaj lastnosti matrike \(P\):
+\begin{itemize}
+    \item \(P_{mm} = |c_m|^2 \approx 1 - \lambda^2\)
+    \item \(P_{km} \ll 1\)
+    \item \(V_{km}\) ni zelo odvisno od \(E_k\)
+\end{itemize}
+Primer: Radioaktivni razpad: Imamo \(N\) delcev; velja
+\[w = \dd{P}{t} = \text{konst.}\]
+\[\dif N = -N\dif P = -Nw\dif t\]
+Ta izra\v cun nam omogo\v ca, da hitro izra\v cunamo \(N(t)\) kot
+\[N(t) = N_0 e^{-wt}\]
+\paragraph{Adiabatne spremembe in kvantne faze.} Imejmo potencialno jamo \v sirine \(L\), ki jo raztegnemo (\(L \to L(t)\)).
+Ne raztegujemo prehitro - kajti hipne spremembe niso adiabatne - temve\v c dovolj po\v casi,
+da se ima verjetnostna gostota \v cas razporediti po prostoru.
+Mislimo si, da je Hamiltonian odvisen od nekih parametrov, ki so odvisni od \v casa:
+\[\vct{Q} = (q_1, q_2, ... q_n) = (\text{na primer})~(L(t), V_0(t), ...)\]
+Navino bi to vstavili v Schr\"odingerjevo ena\v cbo:
+\[H(\vct{Q})\ket{\psi_n(\vct{Q})} = E_n(\vct{Q})\ket{\psi_n(\vct{Q})}\]
+Kajti tedaj bi imeli \v casovni razvoj
+\[\psi_n^0(\vct{r}, t) = \avg{\vct{r}|\psi_n(\vct{Q}(t))} \left(= A\sin(k(t)r)e^{-i\hbar^2k^2(t)t/\hbar}\right)\]
+in posledico
+\[i\hbar\pd{}{t}\ket{\psi_n^0(\vct{r}, t)} = H(\vct{Q})\ket{\psi_n^0(\vct{r}, t)}\]
+To pa v splo\v snem ne velja. Poseben primer imamo, ko se \(\vct{Q}\) s \v casom dovolj po\v casi spreminja.
+Kaj je mi\v sljeno z "dovolj po\v casi", ni \v cisto jasno definirano, v primeru \v sirjenja potencialne jame
+imamo obi\v cajno zahtevo
+\[\frac{1}{L}\dd{L}{t} \ll \frac{\Delta E_n}{\hbar}\]
+Tedaj imamo nastavek
+\[\psi_n(\vct{r}, t) = e^{i\phi_n(t)}\psi^0_n(\vct{r}, t) = e^{i\phi_n(t)}\avg{\vct{r}|\psi_n(\vct{Q}(t))}\]
+\(\psi^0_n\) je lastna funkcija, ki je lastna funkcija v tistem trenutku. Lahko predpostavimo, da so normirane.
+S tem nastavkom gremo v Schr\"odingerjevo ena\v cbo in i\v s\v cemo \(\phi_n\).
+\[i\hbar\left(i\dd{\phi_n}{t}e^{i\phi_n}\ket{\psi_n^0} + e^{i\phi_n}\pd{}{t}\ket{\psi_n^0}\right) = E_n e^{i\phi_n} \ket{\psi_n^0}\]
+Pokraj\v samo \(\ket{\psi_n^0}\) in na obeh straneh skalarno mno\v zimo s \(\bra{\psi_n^0}\):
+\[i\hbar\left(i\dd{\phi_n}{t}\avg{\psi_n^0|\psi_n^0} + \avg{\psi_n^0|\pd{}{t}\psi_n^0}\right) = E_n\avg{\psi_n^0|\psi_n^0}\]
+Ostane:
+\[i\hbar\left(i\dd{\phi_n}{t} + \avg{\psi_n^0|\pd{}{t}\psi_n^0}\right) = E_n\]
+Nastavili bomo \(\phi_n =\gamma_n + \theta_n\). Lastnosti teh funkcij bomo zahtevali pozneje.
+\[i\hbar\left(i\dd{\gamma}{t} + \avg{\psi_n^0|\pd{}{t}\psi_n^0}\right) = E_n + \hbar\dd{\theta_n}{t}\]
+Lahko nastavimo tak \(\theta_n\), da bo izraz na desni enak \(0\):
+\[\dd{\theta_n}{t} = -\frac{E_n(t)}{\hbar}\]
+\[\theta_n = -\frac{1}{\hbar}\int_0^t E_n(t')\dif t'\]
+Zdaj moramo posikati \v se \(\gamma_n\). Ker bomo ra\v cunali odvod \(\psi_n^0\),
+bomo tako kot pri klasi\v cni mehaniki uporabili koordinate, ki nam najbolj ustrezajo: \(q_i\),
+torej komponente vektorja \(\vct{Q}\).
+\[\pd{}{t}\psi_n^0 = \sum_i\left(\pd{\psi_n^0}{q_i}\right)\dot{q_i} = \nabla_{\vct{Q}}\psi_n^0 \dot{\vct{Q}}\]
+Od Schr\"odingerjeve ena\v cbe nam je ostalo
+\[\dd{\gamma_n}{t} = i\avg{\psi_n^0|\pd{}{t}\psi_n^0}\]
+Vstavimo odvod \(\psi_n^0\) in integriramo:
+\[\gamma_n(t) = \int_{0}^{t} i\avg{\psi_n^0|\nabla_{\vct{Q}}\psi_n^0}\dot{\vct{Q}}(t')\dif t'\]
+\v Ce si zamislimo, da vektor \(\vct{Q}\) prepotuje pot po faznem prostoru, lahko pi\v semo tudi:
+\[\gamma_n(t) = \int_{\vct{Q}(0)}^{\vct{Q}(t)} i\avg{\psi_n^0|\nabla_{\vct{Q}}\psi_n^0}\dif\vct{Q}\]
+Oglejmo si kon\v cni rezultat \(\phi_n\):
+\[\phi_n = -\frac{1}{\hbar}\int_0^t E_n(t')\dif t' + \gamma_n(t) = \int_{\vct{Q}(0)}^{\vct{Q}(t)} i\avg{\psi_n^0|\nabla_{\vct{Q}}\psi_n^0}\dif\vct{Q}\]
+Prvemu \v clenu (prej \(\theta_n\)) pravimo dinami\v cna faza, saj gre za integral po \v casu. To smo v bistvu imeli \v ze prej.
+Drugi \v clen (prej \(\gamma_n\)) je geometrijska faza, saj integriramo po poti v faznem prostoru. \\
+\paragraph{Semiklasi\v cni pribli\v zek.} Imenovan tudi metoda WKB (Entzel-Kramers-Brillouin). Metoda je uporabna, ko obravnavamo te\v zke delce, na primer ione.
+Za\v cnemo z nastavkom
+\[\psi = e^{iS(\vct{r}, t)/\hbar}\]
+Ko to vstavimo v Schr\"odingerjevo ena\v cbo, dobimo:
+\[-\pd{S}{t}\psi = \left(\frac{1}{2m}(\nabla S)^2 - i\frac{\hbar}{2m}\nabla^2 S\right)\psi\]
+Prvi \v clen, \(-\pd{S}{t}\psi = \frac{1}{2m}(\nabla S)^2\), v klasi\v cni mehaniki velja za Hamilton-Jacobijevo ena\v cbo, re\v sitev katere je \v casovni integral Lagrangeove funkcije. Ima lastnost \(\nabla S = \vct{v}\).
+Ker imamo trudi drugi \v clen, problem re\v sujemo druga\v ce. Pristop bo malo nenavaden: \(S\) razvijemo po potencah \(\hbar\):
+\[S = S_0 + \hbar S_1 + \hbar^2 S_2 + ...\]
+\[\hbar^0:~~~-\pd{S_0}{t} = \frac{1}{2m}\left((\nabla S_0)^2 + V(\vct{r}, t)\right)\]
+\[\hbar^1:~~~-\pd{S_0}{t} = \frac{1}{2m}\left(2\nabla S_0 \cdot \nabla S_1 - i\nabla^2 S_0\right)\]
+Z nadaljnjimi redi se ne bomo ukvarjali.
+Za primer si vzemimo stacionarno stanje v eni dimenziji:
+\[\Psi(x, t) = e^{-i\frac{Et}{\hbar}}e^{i\frac{S(t)}{\hbar}\hbar}\]
+Velja: \[-i\frac{Et}{\hbar} = i\frac{S_0}{\hbar}\]
+\[\hbar^0:~~~E = \frac{1}{2m}\left(\dd{S_0}{x}\right)^2 + V(x)\]
+\[\dd{S_0}{x} = \pm \sqrt{(E-V(x))2m}\]
+Koren je ravno enak gibalni koli\v cini v odvisnosti od kraja, se pravi:
+\[S_0(x) = \pm\int_{x_0}^{x}p(x')\dif x'\]
+
+Se pravi v semiklasi\v cnem prigli\v zku dobimo velovno funkcijo:
+\[\Psi_{WKB}(x, t) = \frac{C}{\sqrt{p(x)}}e^{i\frac{Et}{\hbar}}e^{\pm\frac{i}{\hbar}\int_{x_0}^{x}p(x')\dif x'}\]
+Mimogrede:
+\[\hbar^1:~~~0 = \frac{1}{2m}\left(2\dd{S_1}{x}\dd{S_0}{x} -i\dd{^2S_0}{x}\right)\]
+Vstavimo \(S_0\) in dobimo
+\[S_1(x) = i\ln\left(\frac{p(x)}{p(x_0)}\right)\]
+Ta pribli\v zek je dober, ko se potencial relativno po\v casi spreminja (npr. pri razpadu \(\alpha\)), ali pa ko imamo opravka s te\v zkimi ioni.
+\end{document}

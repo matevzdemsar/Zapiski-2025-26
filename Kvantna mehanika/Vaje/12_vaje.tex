@@ -1,0 +1,121 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Teorija motnje}
+\paragraph{Anharmonski oscilator.}
+V Hamiltonian harmonskega oscilatorja dodamo motnjo, na primer
+\[H = \frac{p^2}{2m} = \frac{1}{2}kx^2 + \lambda x^4\]
+Hamiltonian nemotenega oscilatorja ozna\v cimo s \(H_0\):
+\[H_0\ket{n}^{0} = E_n^0\ket{n}^0,\qquad E_n^0 = \hbar\omega\left(n + \frac{1}{2}\right)\]
+V prvem redu popravka je \[E_n = E_n^0 + {}^0\bra{n}H'\ket{n}^0\]
+Po dogovoru lastne funkcije nemotenega oscilatorja ozna\v cimo kar z \(\ket{n}^0 = \ket{n}\). Zdaj si oglejmo motnjo:
+\[\bra{n} \lambda x^4 \ket{n} = \lambda\avg{x^2n\,|\,x^2n}\]
+Operator \(x^2\) zapi\v semo z operatorjema \(a\) in \(a^\dag\).
+\[x = \frac{x_0}{\sqrt{2}}\left(a^\dag + a\right)\]
+\[x^2 = \frac{x_0^2}{2}\left(a^\dag + a\right)^2\]
+\[= \frac{x_0^2}{2}\left({a^\dag}^2 + a^\dag a + a a^\dag + a^2\right)\]
+Vemo, da je komutator teh operatorjev \[[a^\dag,\,a] = 1\]. Sledi:
+\[x^2 = \frac{x_0^2}{2}\left({a^\dag}^2 + 1 + 2a^\dag a + a^2\right)\]
+\[\ket{x^2n} = \frac{x_0^2}{2}\left({a^\dag}^2\ket{n} + 1\ket{n} + 2a^\dag a\ket{n} + a^2\ket{1}\right)\]
+\[= \frac{x_0^2}{2}\left(\sqrt{(n+1)(n+2)}\ket{n+2} + \ket{n} + 2n\ket{n} + \sqrt{(n(n-1))}\ket{n-2}\right)\]
+\[\lambda\avg{x^2n\,|\,x^2n} = \lambda \frac{x_0^4}{4}\left((n+1)(n+2) + (2n+1)^2 + n(n-1)\right)\]
+\[= \dots = \frac{3}{8}\lambda x_0^4 \left(n^2 + n + \frac{1}{2}\right)\]
+\[E_n = \hbar\omega\left(n + \frac{1}{2}\right) + \frac{3}{8}\lambda x_0^4\left(n^2 + n + \frac{1}{2}\right)\]
+\paragraph{Vodikov atom v elektri\v cnem polju.} Elektri\v cno polje ka\v ze v smeri \(z\). Tako imamo Hamiltonian
+\[H = \frac{p^2}{2m} - \frac{e^2}{4\pi\varepsilon_0 r} - e\varepsilon z\]
+Izra\v cunati bomo morali matriko skalarnih produktov stanj \(\ket{lm}\):
+\[\begin{matrix}
+    & \begin{matrix}
+        \ket{0,\,0} & \ket{1,\,1} & \ket{1,\,0} & \ket{1,\,-1}
+    \end{matrix} \\
+    \begin{matrix}
+        \bra{0,\,0} \\ \bra{1,\,1} \\ \bra{1,\,0} \\ \ket{1,\,-1}
+    \end{matrix} & \begin{bmatrix}
+        0 & 0 & u & 0 \\
+        0 & 0 & 0 & 0 \\
+        u^* & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 \\
+    \end{bmatrix}
+\end{matrix}\]
+V pomo\v c zapi\v semo nekaj fundamentalnih dejstev: \\[2mm]
+1.)
+\[[H',\,L_z] = 0,\quad [H,\,L_z] = 0 ~ \rightarrow ~ \bra{lm} H' \ket{l'm'} = 0 \text{ za } m' \neq m\]
+2.) \v Ce ozna\v cimo operator \(P: \vct{r} \mapsto -\vct{r}\):
+\[[H_0,\,P] = \{H',\,P\} = 0\]
+3.) V sferi\v cnih koordinatah bo imela \(\psi\) obliko \(\psi_{nlm}(\vct{r}) = R_{nl}(r) Y_{lm}(\vartheta, \varphi)\).
+\[PY_{lm}(\vartheta, \varphi) = (-1)^lY_{lm}(\vartheta, \varphi)\]
+Da so po diagonali ni\v cle, sledi iz teh dejstev:
+\[\bra{lm}\{H',\,P\}\ket{l'm'} = \bra{lm}H'P + PH'\ket{l'm'} =\]
+\[\bra{lm}PH'\ket{l'm'} + \bra{lm}H'P\ket{l'm'} = \left((-1)^{l'} + (-1)^{l}\right)\bra{lm} H' \ket{l'm'}\]
+\v Ce je \(l = l'\), je \(\bra{lm}H'\ket{l'm'} = 0\), torej imamo na diagonali ni\v cle.
+Izra\v cunati moramo \v se \(u\) in \(u^*\):
+\[u = \bra{0,\,0}H'\ket{1,\,0} = \int R_{20}^*(r)Y_{00}^*(\vartheta, \varphi) \left(-e\varepsilon z\right) R_{21}(r) Y_{10}(\vartheta, \varphi)\dif^3\vct{r}\]
+Uporabimo:
+\begin{align*}
+    R_{20}^* & = \frac{2}{(2r_B)^{3/2}}\left(1 - \frac{r}{2r_B}\right)\,e^{-r/2r_B} \\
+    Y_{00}^* & = \frac{1}{\sqrt{4\pi}} \\
+    R_{21}   & = \frac{1}{\sqrt{3}}\frac{1}{(2r_B)^{3/2}}\frac{r}{r_B}\,e^{-r/2r_B} \\
+    Y_{10}   & = \sqrt{\frac{3}{4\pi}}\cos\vartheta \\
+    z & = r\cos\vartheta
+\end{align*}
+\[u = -\frac{e\varepsilon}{(2r_B)^3}\frac{2}{4\pi}\int_0^\infty r^2\left(1 - \frac{r}{2r_B}\right)\frac{r^2}{r_B}\,e^{-r/r_B}\dif r\int_0^{2\pi}\dif\varphi\int_{-1}^{1}\cos^2\vartheta\dif(\cos\vartheta)\]
+\[= -\frac{e\varepsilon}{(2r_B)^3}\frac{2}{4\pi}\int_0^\infty \frac{r^2}{r_B^2}\left(1 - \frac{1}{2}\frac{r}{r_B}\right)\frac{r^2}{r_B^2}\,e^{-r/r_B}r_B^2\dif\left(\frac{r}{r_B}\right)\,2\pi\,\frac{2}{3}\]
+\[= -\frac{e\varepsilon}{12r_B}\int_0^\infty u^4\left(1 - \frac{u}{2}\right)e^{-u}\dif u = -\frac{e\varepsilon}{12 r_B}\left(\Gamma(3) - \frac{1}{2}\Gamma(4)\right)\]
+\[= -\frac{e\varepsilon}{12 r_B}(24 - 60) = 3e\varepsilon/r_B\]
+Zdaj imamo matri\v cne elemente matrike skalarnih produktov. Vidimo, da imamo takoj lastni vrednosti \(\lambda_{12} = 0\) in pripadajo\v ca lastna vektorja \(\ket{1,\,1}\) in \(\ket{1,\,-1}\).
+I\v s\v cemo \v se lastne vrednosti matrike
+\[\begin{bmatrix}
+    0 & u \\
+    u & 0
+\end{bmatrix}\]
+Dobimo \(\lambda_{34} = \pm u\). Posebej i\v s\v cemo lastne vektorje za vsako mo\v znost.
+\begin{enumerate}
+    \item \(\lambda = -u\): \[\begin{bmatrix}
+        u & u \\ u & u
+    \end{bmatrix}\begin{bmatrix}
+        \alpha \\ \beta
+    \end{bmatrix} = \begin{bmatrix}
+        0 \\ 0
+    \end{bmatrix}\quad\Rightarrow\quad \begin{matrix}
+        \alpha = -\beta \\[2mm]
+        \begin{pmatrix}
+            \alpha \\ -\alpha
+        \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix}
+            1 \\ -1
+        \end{pmatrix}
+    \end{matrix}\]
+    Torej je lastno stanje \(\frac{1}{\sqrt{2}}\left(\ket{0,\,0} - \ket{1,\,0}\right) \equiv \ket{-}\)
+    \item \(\lambda = u\): Po popolnoma enakem postopku dobimo lastno stanje \(\frac{1}{\sqrt{2}}\left(\ket{0,\,0} + \ket{1,\,0}\right) \equiv \ket{+}\)
+\end{enumerate}
+Ozna\v cili smo lastna vektorja \(\ket{-}\) in \(\ket{+}\), izra\v cunamo lahko npr.
+\[\bra{-}z\ket{-} = ... = 3r_B\]
+\[\bra{+}z\ket{+} = ... = -3r_B\]
+\end{document}

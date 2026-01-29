@@ -1,0 +1,102 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Delec v magnetnem polju}
+Opazujemo "precesijo" delca okoli osi magnetnega polja. Na\v s Hamiltomian je
+\[H = -\vct{\mu}\cdot\vct{B} = \frac{\mu_B}{\hbar}\vct{L}\cdot\vct{B}\]
+Spomnimo se, da ima \(\vct{L}\) dve lastni vrednosti: \(l \in \N\) in \(m = -l,...,l\). Poleg tega vemo:
+\[L^2\ket{lm} = \hbar^2\,l(l+1)\ket{lm}\]
+\[L_z\ket{lm} = \hbar m \ket{lm}\]
+Obravnavamo \(l = 1\), kjer imamo tri mo\v znosti za \(\ket{lm}\):
+\[\ket{lm} = \begin{cases}
+    \ket{1,\,1} \\ \ket{1,\,0} \\ \ket{1,\,-1}
+\end{cases}\]
+\(m = 1: \quad L_z\ket{1,\,1} = \hbar\ket{1,\,1}\). Ker \(L_z\) predstavlja komponento polja v smeti \(z\), to pomeni:
+\[\vct{L}\cdot\widehat{e}_z\ket{1,\,1} = \hbar\ket{1,\,1}\]
+Na osnovi tega izberemo za\v cetni pogoj:
+\[\vct{L}\cdot\widehat{n}\ket{\psi,\,0} = \hbar\ket{\psi,\,0}\]
+Ozna\v cimo \[\vct{L} = \begin{bmatrix}
+    L_x \\ L_y \\ L_z
+\end{bmatrix}~,\qquad \widehat{n} = \begin{bmatrix}
+    \sin\vartheta\cos\varphi \\
+    \sin\vartheta\cos\varphi \\
+    \cos\vartheta
+\end{bmatrix}\]
+Zanima nas \v casovni razvoj \(\ket{\psi, t}\). \\[2mm]
+Ker opazujemo precesijo, lahko na za\v cetku uporabimo \(\varphi = 0\). Pri \(l = 1\) ravno tako lahko zapi\v semo za\v cetno stanje kot linearno kombinacijo
+\[\ket{\psi,\,0} = \alpha\ket{1,\,1} + \beta\ket{1,\,0} + \gamma\ket{1,\,-1}\]
+Pri \(\varphi = 0\) je na\v s za\v cetni pogoj
+\[\vct{L}\cdot\widehat{n} = L_x\sin\vartheta + L_z\cos\vartheta\]
+\[\vct{L} \cdot \widehat{n}\ket{\psi,\,0} = \left(L_x\sin\vartheta + L_z\cos\vartheta\right)\left(\alpha\ket{1,\,1} + \beta\ket{1,\,0} + \gamma\ket{1,\,-1}\right) = \]
+\[= \hbar\left(\alpha\ket{1,\,1} + \beta\ket{1,\,0} + \gamma\ket{1,\,-1}\right)\]
+Gre za problem lastnih vrednosti, kjer je ena od njih (\(\hbar\)) \v ze dolo\v cena z za\v cetnim pogojem.
+Vpeljemo (kot \(a\) in \(a^\dag\) pri LHO):
+\[L_\pm = L_x \pm iL_y\]
+\[L_x = \frac{L_+ + L_-}{2}\] 
+\[L_y = \frac{L_+ - L_-}{2i}\]
+\[L_\pm\ket{lm} = \hbar\sqrt{l(l+1) - m(m+1)}\,\ket{l,\,m \pm 1}\]
+Zdaj lahko izra\v cunamo vse kombinacije \(L_x\ket{lm}\), ki jih bomo potrebovali v matri\v cnih elementih.
+\[L_x\ket{1,\,1} = \frac{L_+ + L_-}{2}\ket{1,\,1} = \frac{\hbar}{2}\left(\sqrt{2 - 2}\ket{1,\,2} + \sqrt{2 - 0}\ket{1,\,0}\right)\]
+Stanje \(\ket{1,\,2}\) ne obstaja, sicer pa smo tako ali tako pred njim dobili koeficient \(0\).
+\[L_x\ket{1,\,0} = \frac{L_+ + L_-}{2}\ket{1,\,0} = \frac{\hbar}{2}\left(\sqrt{2 - 0}\ket{1,\,1} + \sqrt{2 - 0}\ket{1,\,-1}\right)\]
+\[L_x\ket{1,\,-1} = \frac{L_+ + L_-}{2}\ket{1,\,-1} = \frac{\hbar}{2}\left(\sqrt{2 - 0}\ket{1,\,0} + \sqrt{2 - 2}\ket{1,\,-2}\right)\]
+Spet smo pred prepovedanim stanjem \(\ket{1,\,-2}\) dobili koeficient \(0\), kar je dobro.
+Na\v se vrednosti \(L_x\ket{lm}\) in \(L_z\ket{lm}\) so:
+\begin{align*}
+    L_x\ket{1,\,1} & = \frac{\hbar}{\sqrt{2}}\ket{1,\,0} & L_z\ket{1,\,1} & = \hbar\ket{1,\,1} \\
+    L_x\ket{1,\,0} & = \frac{\hbar}{\sqrt{2}}\left(\ket{1,\,1} + \ket{1,\,-1}\right) & L_z\ket{1,\,0} & = 0 \\
+    L_x\ket{1,\,-1} & = \frac{\hbar}{\sqrt{2}}\ket{1,\,0} & L_z\ket{1,\,-1} & = -\hbar\ket{1,\,-1}
+\end{align*}
+To vstavimo v za\v cetni pogoj:
+\[\left(L_x\sin\vartheta + L_z\cos\vartheta\right)\left(\alpha\ket{1,\,1} + \beta\ket{1,\,0} + \gamma\ket{1,\,-1}\right) = \hbar\left(\alpha\ket{1,\,1} + \beta\ket{1,\,0} + \gamma\ket{1,\,-1}\right)\]
+\[\sin\vartheta\frac{\hbar}{\sqrt{2}}\left(\alpha\ket{1,\,0} + \beta\left(\ket{1,\,1} + \ket{1,\,-1}\right) + \gamma\ket{1,\,0}\right) +\]
+\[+ \cos\vartheta\,\hbar\left(\alpha\ket{1,\,1} - \gamma\ket{1,\,-1}\right) = \hbar\left(\alpha\ket{1,\,1} + \beta\ket{1,\,0} + \gamma\ket{1,\,-1}\right)\]
+Ena\v cimo \v clene z \(\ket{1,\,1}\), \(\ket{1,\,0}\) in \(\ket{1,\,-1}\), da dobimo sistem ena\v cb za \(\alpha, \beta\) in \(\gamma\).
+\begin{align*}
+    \ket{1,\,0}: \qquad & \sin\vartheta \frac{\hbar}{\sqrt{2}}(\alpha + \gamma) = \hbar\beta \\
+    \ket{1,\,1}: \qquad & \sin\vartheta \frac{\hbar}{\sqrt{2}}\beta + \cos\vartheta\,\hbar\alpha = \hbar\alpha \\
+    \ket{1,\,-1}: \qquad & \sin\vartheta\frac{\hbar}{\sqrt{2}}\beta - \cos\vartheta\,\hbar\gamma = \hbar\gamma \\
+\end{align*}
+Re\v sevanje sistema:
+\[\alpha = \frac{\frac{1}{\sqrt{2}}\sin\vartheta}{1 - \cos\vartheta}\,\beta = \frac{\sqrt{2}\,\sin(\vartheta/2)\cos(\vartheta/2)}{2\sin^2(\vartheta/2)}\,\beta = \frac{\sqrt{2}}{2}\cot\frac{\vartheta}{2}\,\beta\]
+\[\gamma = \frac{\frac{1}{\sqrt{2}}\sin\vartheta}{1 + \cos\vartheta}\,\beta = \frac{\sqrt{2}\,\sin(\vartheta/2)\cos(\vartheta/2)}{2\cos^2(\vartheta/2)}\,\beta = \frac{\sqrt{2}}{2}\tan\frac{\vartheta}{2}\,\beta\]
+\[\ket{\psi,\,0} = \frac{\sqrt{2}}{2}\tan\frac{\vartheta}{2}\,\beta\ket{1,\,1} + 1\,\beta\ket{1,\,0} + \frac{\sqrt{2}}{2}\cot\frac{\vartheta}{2}\,\beta\ket{1,\,-1}\]
+\(\beta\) izra\v cunamo iz normalizacije:
+\[\left(\frac{1}{2}\tan^2\frac{\vartheta}{2} + 1 + \frac{1}{2}\cot^2\frac{\vartheta}{2}\right)\,|\beta^2| = 1\]
+\[\dots = \frac{|\beta^2|}{2\sin^2\vartheta\cos^2\vartheta} = 1\]
+\[\beta = \sqrt{2}\,\sin\frac{\vartheta}{2}\cos\frac{\vartheta}{2}\]
+Zdaj znane \v clene \(\alpha, \beta\) in \(\gamma\) vstavimo v za\v cetno stanje:
+\[\ket{\psi,\,0} = \cos^2\frac{\vartheta}{2}\ket{1,\,1} + \sqrt{2}\sin\frac{\vartheta}{2}\cos\frac{\vartheta}{2}\ket{1,\,0} + \sin^2\frac{\vartheta}{2}\ket{1,\,-1}\]
+Zdaj zapi\v semo \v casovni razvoj Hamiltoniana. Koordinatni sistem nastavimo tako, da je \(\vct{B} = \left(0, 0, B\right)\) in tako poskrbimo, da imata \(H\) in \(L_z\) iste lastne vrednosti in lastne funkcije.
+\[H\ket{1,\,1} = \lambda B\hbar\ket{1,\,1} \qquad H\ket{1,\,0} = 0\ket{1,\,0} \qquad H\ket{1,\,-1} = \lambda B\hbar\ket{1,\,-1}\]
+Kje je \(\lambda = \mu_B / \hbar\). Zdaj lahko \(\psi\) razvijemo po lastnih funkcijah in tako dobimo \v casovni razvoj \(\ket{\psi,\,t}\).
+\[\ket{\psi,\,t} = \cos^2\frac{\vartheta}{2}\,e^{-i\lambda B t}\ket{1,\,1} + \sqrt{2}\cos\frac{\vartheta}{2}\sin\frac{\vartheta}{2}\,\ket{1,\,0} + \sin^2\frac{\vartheta}{2}\,e^{i\lambda B t}\ket{1,\,-1}\]
+\end{document}
