@@ -1,0 +1,85 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Difuzijska ena\v cba.} Imamo ena\v cbo oblike
+\[\pd{T}{t} = D \pd{^2T}{x^2}\]
+Naredimo slede\v co transformacijo:
+\[x \mapsto qx\]
+\[t \mapsto q^2t\]
+Iskana funkcija \(T\) postane
+\[T(x, t) = T\left(\frac{x}{\sqrt{t}}, 1\right) = f(s)\]
+Ozna\v cili smo \(s = x/\sqrt{t}\). Velja \(\dif s/\dif x = 1/\sqrt{t}\) in \(dif s / \dif t = x/(2t\sqrt{t})\). Na\v sa ena\v cba postane
+\[f'\cdot\left(-\frac{s}{2t}\right) = f''\cdot\frac{D}{t}\]
+Pokraj\v samo \(t\) in naredimo separacijo:
+\[\frac{f''}{f'} = -\frac{s}{2D}\qquad /\scriptstyle{\int\dif s}\]
+\[\ln(f') = -\frac{s^2}{4D} + C\]
+\[f(s) = C\int_0^{s} e^{-\zeta^2/4D}\dif \zeta + C'\]
+Izbira za\v cetnih pogojev nam omogo\v ci izra\v cun koeficientov \(C\) in \(C'\). \\[2mm]
+Npr. za \(T_1(x, t=0) = sgn(x)\) (signum funkcija):
+\[T_1(x, t) = \frac{1}{\pi D}\int_0^{x/\sqrt{t}}e^{-s^2/4D}\dif s = \mathrm{erf}\left(\frac{x}{\sqrt{4Dt}}\right)\]
+Za \(T_2(x, t=0) = \delta(x)\) (Diracova delta funkcija):
+\[T_2(x, t) = \frac{1}{4\pi Dt}\,e^{-x^2/4Dt}\]
+Gre ravno za odvod \(\mathrm{erf}\) funkcije:
+\[T_2(x, t) = \frac{1}{2}\pd{}{x}T_1(x, t)\]
+Tudi superpozicija \(T_2\) je re\v sitev:
+\[T(x, t) = \int_{-\infty}^{\infty} g(x_0)T_2(x-x_0, t) \dif x_0\]
+Gre pravzaprav za konvolucijo. To pomeni tudi, da je Greenova funkcija problema (fundamentalna re\v sitev):
+\[G(x, x_0, t) = \frac{1}{\sqrt{4\pi Dt}}e^{-(x-x_0)^2/4Dt}\Theta(t)\]
+\(\Theta(t)\) je Heavisideova funkcija. \v Ce to vstavimo v originalno ena\v cbo, dobimo:
+\[\left(\pd{}{t} - D\pd{^2}{x^2}\right)\,G(x, x_0, t) = \delta(x-x_0)\,\delta(t)\]
+\paragraph{Robni pogoji.} Mislimo si, da se nahajamo na poltraku. Recimo, da imamo za\v cetni pogoj
+\[T(x, t=0) = h(x)\]
+in robni pogoj
+\[T(x=0, t) = 0\]
+Uporabimo t. i. Duhamelov princip:
+Zamislimo si, da je na\v s robni pogoj preprost: \(h(x) = 1\). Zapi\v semo \(T(x, t) = [1 - T_1(x, t)]\Theta(t) = \omega(x, t)\). (Gre za \(\mathrm{erf}\), ki smo jo "premaknili" na pravo mesto.) \\
+Za splo\v sni robnega pogoja dobimo ena\v cbo
+\[h(t) = h(0) + \int h(\tau)\Theta(\tau)\dif \tau\]
+Gre za konvolucijo med \(h\) in \(\omega\):
+\[T(x, t) = \int_0^t h(\tau)\,\pd{}{t}\omega(x, t-\tau)\dif \tau\]
+\paragraph{Separacija.} Re\v sujemo difuzijsko diferencialno ena\v cbo v dveh dimenzijah:
+\[\pd{T}{t} = \nabla^2T\]
+Z za\v cetnim pogojem \(T(\vct{r}, 0) = f(\vct{r})\). In robnim pogojem \(T=0\) na kvadratu s stranico \(L\). \\
+\v Ce je ena\v cba homogena, uporabimo separacijo:
+\[T(x, y, t) = \varphi(x, y)u(t) = X(x)Y(y)u(t)\]
+\[\frac{\dot{u}}{u} = \frac{\nabla^2\varphi}{\varphi} = \frac{X''}{X} = \frac{Y''}{Y} = -\lambda\]
+Oglejmo si, kako izbira \(\lambda\) vpliva na re\v sitev. \\
+\begin{itemize}
+    \item \(\lambda = 0\): \(u(t) = \text{konst.}\) in \(\varphi(x, y) = 0\). Primerna re\v sitev za \(f(\vct{r}) = 0\).
+    \item \(\lambda < 0\): \(u(t) = Ae^{|\lambda|t}\) in \(A = \alpha\cosh(x) + \beta\sinh(x)\). Ta funkcija ima najve\v c eno ni\v clo, torej ne more zadostiti robnemu pogoju.
+    \item \(\lambda > 0\): \(u(t) = Ae^{-\lambda t}\) in
+    \[X_n = \sqrt{\frac{2}{L}}\sin\left(\frac{n\pi x}{L}\right),\qquad n = 1, 2,\dots\]
+    \[Y_n = \sqrt{\frac{2}{L}}\sin\left(\frac{(n+1/2)\pi y}{L}\right)\]
+    \[\lambda_{n, m} = \left(\frac{\pi}{L}\right)^2\left[n^2 + \left(n+\frac{1}{2}\right)^2\right]\]
+    \[\varphi_{n, m} = X_nY_m\]
+\end{itemize}
+Splo\v sna re\v sitev je superpozicija re\v sitev pri \(\lambda > 0\):
+\[T(x, t) = \sum_{n, m} c_{nm}\varphi_{nm}e^{-\lambda_{nm}t}\]
+Koeficiente \(c_{nm}\) dobimo s skalarnim produktom iz za\v cetnih pogojev.
+\end{document}

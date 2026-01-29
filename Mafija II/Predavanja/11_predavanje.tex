@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Greenova funkcija - nadaljevanje}
+\subsection{Numeri\v cni pristopi}
+Imamo operator \[\mathcal{L} = \dd{^2}{x^2}\,\qquad x \in [0, 1],~u(0) = u(1) = 0\]
+Primer je o\v citno analiti\v cno re\v sljiv, imamo lastne vrednosti \(-\lambda_n = n^2\pi^2\) in lastne funkcije \(\sim \sin(n\pi)\).
+Greenova funkcija je zlepek dveh daljic, ki se zlepi v \(x_0\), razlika med naklonoma daljic je enaka \(1\).
+To je vse znano, zato bomo lahko primerjali z numeri\v cnii re\v sitvami.
+\[\mathcal{L}u = u'' \to \frac{u_{i-1} - 2u_{i} + u_{i+1}}{h^2},\]
+kjer je \(h\) dol\v zina intervala, na katere diskretno razdelimo interval \([0, 1]\)
+\[\mathcal{L} = \frac{1}{h^2}\begin{bmatrix}
+    -2 & 1 &&& \\
+    1 & -2 & 1 && \\
+    & 1 & \ddots && \\
+    &&& \ddots & 1 \\
+    &&& 1 & -2
+\end{bmatrix}\]
+Nato numeri\v cno poi\v s\v cemo lastne vrednosti matrike. To lahko po\v cnemu tudi z gr\v simi operatorji,
+zato je metoda uporabna, ko problem ni analiti\v cno re\v sljiv, moramo pa paziti, da imamo dovolj fino diskretizacijo obmo\v cja.
+\v Ce re\v sujemo nehomogen sistem \(\mathcal{L}u = f(x)\), lahko re\v sitev razumemo kot sistem linearnih ena\v cb, oziroma
+\[\vct{u} = \mathcal{L}^{-1}\vct{f}\]
+\subsection{Sipanje}
+Imejmo linearni \(\mathcal{L}\) (lahko Laplaceov, Helmholtzov, etc.), homogeno ena\v cbo \[\mathcal{L}u = 0\]
+in Greenovo funkcijo \(G_\infty\) za obmo\v cje \(\mathcal{D}\), na katerem re\v sujemo ena\v cbo.
+\[\mathcal{L}G_\infty(\vct{r}, \vct{r_0}) = \delta(\vct{r} - \vct{r_0})\]
+\subsubsection{Notranji problem}
+Za notranjost obmo\v cja \(\mathcal{D}\) z Greenovo funkcijo dobimo
+\[u(\vct{r}) = \int_{\partial\mathcal{D}}\left[u(\vct{r_B})\pd{G_\infty}{n_B}(\vct{r}, \vct{r_B}) - \pd{u(\vct{r_B})}{n_B}G_\infty(\vct{r}, \vct{r_B})\right]\dif S_B\]
+Vrednosti \(u(\vct{r_B})\) in \(\partial_{n_B}u(\vct{r_B})\) v splo\v snem nista neodvisni: eno si lahko izmislimo, drugo pa moremo izraziti le z re\v sitvijo ena\v cbe - ki jo \v se ra\v cunamo.
+Prej te te\v zave nismo imeli, saj je bila na robu obmo\v cja Greenova funkcija ali pa njen odvod enaka \(0\).
+\paragraph{Opomba.} \v Ce integriramo \(u(\vct{r})\), ko \(\vct{r}\) le\v zi na robu, moramo pred integral dodati faktor \(1/2\).
+\subsubsection{Zunanji problem}
+\v Zelimo ugotoviti, kako Greenova funkcija opi\v se re\v sitev zunaj nekega objekta. Za rob obmo\v cja definiramo \(n_\infty\) in \(S_\infty\), za rob objekta pa \(n_1\) in \(\S_1\).
+\[u(\vct{r}) = \int_{S_\infty}\left[u\pd{G_\infty}{n_\infty} - \pd{u}{n_\infty}\right]\dif S_\infty + \int_{S_1}\left[u\pd{G_\infty}{n_\infty} - \pd{u}{n_\infty}G_\infty\right]\dif S_\infty\]
+\v Ce v limiti \(|\vct{r}| \to \infty\) \(u\) pada proti \(0\), lahko prvi integral ena\v cimo z 0. Gre namre\v c za integral funkcije \(\sim r^{-2}\).
+\paragraph{Primer.} Imamo ravni val oblike \(u_i = \exp(ikz)\), ki se siplje na barieri. Ozna\v cimo vpadno valovanje \(u_i\) in sipano valovanje \(u_s\).
+\[u = u_i + u_s\]
+Vemo, da gre \(u_s\) v neskon\v cnosti proti \(0\) (fizikalna razlaga bi bila, da se skupna energija ne sme pove\v cevati).
+Prvi \v clen v izrzu za \(u(\vct{r})\) bi dal nazaj ravno \(u_i\), torej mora drugi \v clen predstavljati sipano valovanje.
+\[u(\vct{r}) = e^{ikz} + \int\left[\pd{u(\vct{r_B})}{n_B}G_\infty(\vct{r}, \vct{r_B}) - \pd{G_\infty(\vct{r}, \vct{r_B})}{n_B}u(\vct{r_B})\right]\dif S_B\]
+Spet smo dobili integral, ki je re\v sljiv le, \v ce je eden od produktov v integralu enak \(0\). Za akusti\v cno sipanje na trdni steni na primer vemo, da je
+\[\pd{u(\vct{r_B})}{n_B} = 0\]
+in problem postane re\v sljiv.
+\subsection{Sipanje na trdni sferi}
+Velja robni pogoj \[\pd{u}{n_B} = 0\]
+Valovna ena\v cba za npr. zvok je
+\[\frac{1}{c^2}\pd{^2\varphi}{t^2} = \nabla^2\varphi\]
+Obi\v cajno tak\v sno ena\v cbo re\v sujemo z nastavkom
+\[\varphi = u(\vct{r})e^{-i\omega t}\]
+Za krajevni del dobimo Helmholtzovo ena\v cbo 
+\[\nabla^2 u + k^2u = 0\]
+Ker obravnavamo sipanje, spet razdelimo
+\[u = u_i + u_s\]
+Lastne funkcije v sferi\v cnih koordinatah so sferi\v cni harmoniki in sferi\v cne Besselove ali Hanklove funkcije. Mi bomo vzeli Hanklove:
+\[u_s = \Sum{l}c_l P_l(\cos\vartheta)h_l^{(1)}(kr)\]
+\[e^{ikz} = u_i = \Sum{l}c_l (2l + 1)i^{l}P_l(\cos\vartheta)j_l(kr)\]
+Zdaj odvajamo:
+\[\pd{u}{n_{r=R}} = \Sum{l}\left[(2l+1)i^lP_l(\cos\vartheta)\,kj_l'(kR) + c_l\,k{h_l^{(1)}}'(kR)\right]\]
+Dobili smo funkcijo, ki je odvisna le od \(\vartheta\), poleg tega mora biti to enako \(0\). Izrazimo lakho \(c_l\):
+\[c_l = -(2l + 1)i^l\,\frac{j'_l(kR)}{h_l^{(1)}}'(kR)\]
+\[u(\vct{r}) = \Sum{l}(2l + 1)i^{l}\frac{j_l'(kR)}{{h_l^{1}}'(kR)}P_l(\cos\vartheta)h_l^{(1)}(kr)\]
+Ogledamo si lahko limito dolgih valov: \(kR \to 0\)
+Vodilna reda sta \(c_0, c_1 \sim (kR)^3\)
+\[u_s \sim \frac{(kR)^3}{3}\frac{e^{ikr}}{kr}\left(1 - \frac{3}{2}\cos\vartheta\right)\]
+Ogledamo si sipalni presek:
+\[\dd{\sigma}{\Omega} = r^2\frac{|u_s|^2}{|u|^2}\]
+V limiti dolgih valov je
+\[\dd{\sigma}{\Omega} \sim k^4 \sim \frac{1}{\lambda^4}\]
+\subsection{Integralska formulacija Greenove funkcije}
+Imamo problem \[\mathcal{L} - \lambda V(\vct{r})u(\vct{r})\]
+z nekimi robnimi pogoji. \(\lambda\) tu ne pomeni lastne vrednosti, temve\v c zgolj neko konstantno.
+Predpostavimo, da poznamo \(G_0\) za \(\mathcal{L}\). Kot vemo, lahko re\v sitev \(u(\vct{r})\) zapi\v semo kot konvolucijo \(G_0\) in
+\(\lambda V(\vct{r})\):
+\[u(\vct{r}) = h(\vct{r}) + \lambda\int_{\mathcal{D}}G_0(\vct{r}, \vct{r_0})V(\vct{r_0})u(\vct{r_0})\dif^3\vct{r_0}\]
+Tej ena\v cbi pravimo Fredholmova integralska ena\v cba. Ozna\v cili smo \(h(\vct{r})\), ki je re\v sitev ena\v cbe \[\mathcal{L}h = 0\]
+in zadosti robnim pogojem.
+\end{document}

@@ -1,0 +1,90 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\renewcommand{\L}{\mathcal{L}}
+
+\begin{document}
+\section{Sturm-Luviellov problem} Imamo linearni operator \(\mathcal{L}\) (na primer odvod). Na prostoru kompleksnih funkcij definiramo skalarni produkt kot:
+\[\avg{u, v} = \int_{a}^{b}u^*(x)v(x)\dif x\]
+Adjungirani operator definiramo kot
+\[\avg{u, \L} = \avg{\L^\dag u, v}\]
+Operator je sebi adjungiran, \v ce velja:
+\[\L^\dag = \L,~~~D(\L) = D(\L^\dag)\]
+Operator in adjungiran operator morata torej imeti enaki domeni. \v Ce to drugo ne velja, temve\v c je \(D(\L) < D(\L^\dag)\), pa je operator hermitski.
+\paragraph{Primer.} Neskon\v cna potencialna jama \v sirine \(1\). Imamo operator \[\widehat{p} = -i\hbar\dd{}{x}\]
+\v Ce s \(\kappa\) ozna\v cimo prostor vseh valovnih funkcij (ki je Hilbertov), domeno tega operatorja zapi\v semo kot:
+\[D(\widehat{p}) = \left\{\psi|\dd{}{x}\psi \in \kappa,~\psi(0) = \psi(1) = 0\right\}\]
+\[\avg{\psi, \widehat{p}\varphi} = \int_{0}^{1}\psi^(x)(-*\hbar)\varphi'\dif x = \]
+Uporabimo per partes:
+\[= -i\hbar(\psi^*\varphi) + i\hbar\int_{0}^{1}{\psi^*}'\varphi\dif x = i\hbar\int_{0}^{1}{\psi^*}'\varphi\dif x\]
+Ker smo pri per partesu \v clen, ki je vklju\v ceval robne pogoje, ena\v cili z \(0\), nam pri opisu domene \(\widehat{p}^\dag\) ni treba zahtevati. Sledi, da je
+\[D(\widehat{p}^\dag) = \left\{\psi|\dd{}{x}\psi \in \kappa\right\} \neq D(\widehat{p})\]
+Sledi, da \(\widehat{p}\) ni sebi adjungiran, temve\v c le simetri\v cen. Operator \(\widehat{p}\) pa lahko dopolnimo do sebia adjungiranega operatorja tako, da mu dodamo predfaktor \(e^{i\alpha}\).
+\paragraph{Sturm-Luviellov problem.} Imamo operator
+\[\L(u) = \left(p(x)u'(x)\right)' - q(x)u(x),~~~\L u + \lambda w(x) u(x) = 0\]
+\(p, q\) in \(w\) so realne funkcije, \(w\) je povsod ve\v cja ali enaka 0. \\[2mm]
+Oglejmo si, \v cemu je enak izraz
+\[u^*\L v - (\L u)^* v = u^*\left[(pv')' - qv\right] - (p{u^*}')'v + qu^*v =\]
+\[\left(u^*(pv')' - (p{u^*}')'v = pu^*v' - p{u^*}'v\right)'\]
+\[\avg{u, \L v} - \avg{\L u, v} = \int_{a}^{b}\left[u^*\L v - (\L u)^* v\right]\dif x = \int_{a}^{b}\dd{}{x}\left(u^*(pv')' - (p{u^*}')'v\right)\dif x = \left(pu^*v' - p{u^*}'v\right)\Big|_a^b\]
+To ni nujno enako 0. \(\L\) je sebi adjungiran, \v ce:
+\[\alpha_a u(a) + \beta_a u(a) = 0\]
+\[\alpha_b u(b) + \beta_b u(b) = 0\]
+Ali pa, \v ce je \(u(a) = u(b)\)
+Posebni primeri: \\[2mm]
+Dirichlet:
+\[u(a) = u(b) = 0\]
+Neuman:
+\[u'(a) = u'(b) = 0\]
+Regularni Sturm-Luviellov problem: lastne vrednosti operatorja \(\L\) so nedegenerirane.
+\paragraph{Lastnosti in posledice.} \textit{} \\
+\(*\) Ortogonalnost lastnih funkcij: naj bosta \(u, v\) lastni funkciji.
+\[0 = \avg{u, \L v} - \avg{\L u, v} = \avg{u, -\lambda_v w v} - \avg{-\lambda_u w u, v} =\]
+\[\left(\lambda_u^* - \lambda_v\right)\int wu^*v\dif x\]
+\v Ce je \(u = v\):
+\[\lambda_u \in \R\]
+\v Ce je \(\lambda_u \neq \lambda_v\):
+\[\avg{u, v}_w = 0\]
+\(\avg{u, v}_w\) ozna\v cuje skalarni produkt z ute\v zjo \(w\). \\[2mm]
+\(*\) Kompletnost: Vsako funkcijo se da razviti po lastnih funkcijah \(\L\):
+\[f(x) = \sum_n c_n u_n(x)\]
+\[c_n = \avg{u_n, f}_w\]
+Za to vrsto velja:
+\begin{itemize}
+    \item Konvergira.
+    \item Enakost funkciji \(f\) v smislu mer ali integralov.
+    \item Kon\v cna vsota \[\sum_{n=0}^{N} c_n u_n(x)\] je najbolj\v si pribli\v zek \(f(x)\) v smislu minimuma
+    \[\int\left(f(x) - \sum_{n=0}^{N} c_n u_n(x)\right)^2w(x)\dif x\]
+\end{itemize}
+\(*\) Variacijska formulacija:
+\[S = \int\left(pu'^2 + qu^2\right)\dif x\]
+Lastne funkcije \(f\) so ekstremi \(S\) ob vezi \(\int w|u|^2\dif x = 1\). Lahko izra\v cunamo Lagrangeove multiplikatorje in imamo
+\(S(u_n) = \lambda_n\). \\[2mm]
+\(*\) Problem \(\L u = fu'' + gu + hu,~g \neq f'\) se prevede na standardno obliko, \v ce ga pomno\v zimo z 
+\[\frac{1}{f}\,\exp\left(\int\frac{g}{f}\dif x\right)\]
+\paragraph{}\end{document}

@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Greenove funkcije}
+Imejmo linearni operator \(\mathcal{L}_l\) in diferencialno ena\v cbo
+\[\mathcal{L}_{\vct{r}}u(\vct{r}) = f(\vct{r})\]
+Greenova funkcija je funkcija z lastnostjo
+\[\mathcal{L}_{\vct{r}}G(\vct{r}, \vct{r_0}) = \delta(\vct{r} - \vct{r_0})\]
+\v Ce poznamo to funkcijo, je re\v sitev diferencialne ena\v cbe
+\[u(\vct{r}) = \int G(\vct{r}, \vct{r_0})f(\vct{r_0}\dif^3\vct{r_0})\]
+Formalno je \(u = \mathcal{L}_{\vct{r}}^{-1}f\) (\v ce operator \(\mathcal{L}\) zapi\v semo kot matriko),
+torej bi lahko rekli, da je Greenova funkcija integralsko jedro inverza \(\mathcal{L}_{\vct{r}}\).
+V kartezi\v cnih koordinatah zapi\v semo:
+\[\delta(\vct{r}, \vct{r_0}) = \delta(x - x_0)\delta(y - y_0)\delta(z - z_0)\]
+V polarnih (2D) ali sferi\v cnih (3D) pa:
+\[2D:\quad\delta(\vct{r}) = \frac{\delta(r)}{2\pi r}\]
+\[3D:\quad\delta(\vct{r}) = \frac{\delta(r)}{4\pi r^2}\]
+Poznamo \v ze Greenovo funkcijo za difuzijsko ena\v cbo v eni dimenziji:
+\[\left(\pd{}{t} - D\nabla_x^2\right)G = \delta(x - x_0)\delta(t)\]
+\[G(x, x_0, t) = \frac{1}{\sqrt{4\pi Dt}}\,e^{-(x - x_0)^2/4Dt}\]
+Re\v sitev iz za\v cetnih pogojev dobimo s konvolucijo
+\[u(x, t) = \int_{-\infty}^{\infty}G(x, x_0, t)u(x_0, 0)\dif x_0\]
+Poznamo tudi Greenovo funkcijo za Poissonovo ena\v cbo:
+\[G(\vct{r}, \vct{r_0}) = -\frac{1}{4\pi}\frac{1}{|\vct{r} - \vct{r_0}|}\]
+Da re\v simo nehomogeno ena\v cbo \[\nabla^2\varphi = f,\]
+dobimo re\v sitev iz integrala
+\[\varphi(\vct{r}) = \int G(\vct{r}, \vct{r_0}) f(\vct{r_0})\dif^3\vct{r_0}\]
+\subsection{Helmholtzova ena\v cba v neskon\v cnem prostoru}
+Obravnavamo operator \(\mathcal{L} = \nabla^2 + q(\vct{r})\)
+\[\nabla^2G + k^2 G = \delta(\vct{r} - \vct{r_0})\]
+\subsubsection{2D prostor}
+\begin{itemize}
+    \item \(k^2 = 0\): V bistvu i\v s\v cemo re\v sitev re\v sitev Laplaceove ena\v cbe, ki ima singularnost. Tej zahtevi ustreza logaritemska funkcija.
+    \[G(\vct{r}, \vct{r_0}) = A\ln|\vct{r} - \vct{r_0}|\]
+    Ko Laplaceovo ena\v cbo integriramo po prostoru, dobimo:
+    \[\int\nabla^2 G \dif^3\vct{r} = \int\delta\dif^3\vct{r}\]
+    Integral prevedemo na integral po povr\v sini.
+    \[\int\pd{G}{n}\dif S = 1 = \lim_{r \to \infty} A \cdot 2\pi r\frac{1}{r} \Rightarrow A = \frac{1}{2\pi}\]
+    Sledi:
+    \[G(\vct{r}, \vct{r_0}) = \frac{1}{2\pi}\ln|\vct{r} - \vct{r_0}|\]
+    \item \(k^2 > 0\): Singularna re\v sitev za tak robni pogoj je \(Y_0(kr)\) ali Hanklovi funkciji \(H_0^{(1)}(kr)\) in \(H_0^{(2)}(kr)\). Obi\v cajno gre za nekak\v sno valovanje,
+    in obravnavamo lahko tri razli\v cne primere: \v ce valovanje potuje navzven, imamo Greenovo funkcijo \[G(\vct{r}, \vct{r_0}) = -\frac{1}{4}H_0^{(1)}(k|\vct{r} - \vct{r_0}|)\]
+    \v Ce valovanje potuje navznoter, imamo \[g(\vct{r}, \vct{r_0}) = \frac{1}{4}H_0^{(2)}k(|\vct{r} - \vct{r_0}|)\]
+    \v Ce gre za stoje\v ce valovanje, pa je Greenova funkcija za neskon\v cen 2D prostor
+    \[G(\vct{r}, \vct{r_0}) = \frac{1}{4}Y_0(k|\vct{r} - \vct{r_0}|)\]
+    \item \(k^2 < 0\): singularna re\v sitev je modificirane Besselova funkcija \(K_0\). Velja torej
+    \[G(\vct{r}, \vct{r_0}) = -\frac{1}{2\pi}K_0(k|\vct{r} - \vct{r_0}|)\]
+\end{itemize}
+\subsubsection{3D prostor}
+\begin{itemize}
+    \item Za \(k^2 = 0\) \v ze vemo:
+    \[G(\vct{r}, \vct{r_0}) = -\frac{1}{4\pi}\frac{1}{|\vct{r} - \vct{r_0}|}\]
+    Po navadi se pojavi pri re\v sevanju Poissonove ena\v cbe
+    \item \(k^2 > 0\): Obi\v cajno gre za nekak\v sno valovanje ali sipanje. Lo\v cimo primera, ko gre za potujo\v ce ali stoje\v ce valovanje. Za potujo\v ce valovanje:
+    \[G = \frac{1}{4\pi r}e^{\pm ikr}\]
+    Za stoje\v ce valovanje: \[G = -\frac{\cos(kr)}{2\pi r}\]
+    \item \(k^2 < 0\):
+    \[G = -\frac{e^{-kr}}{4\pi r}\]
+    Tak\v sno Greenovo funkcijo bi potrebovali za npr. obravnavo difuzije radiaoktivnega elementa, ko \v stevilo atomov eksponentno pojema.
+\end{itemize}
+\paragraph{Primer:} Greenova funkcija za harmonski oscilator.
+\[\mathcal{L} = \left(\dd{^2}{t^2} = \omega^2\right)\]
+Vzemimo primer, ko oscilator na za\v cetku miruje. I\v s\v cemo funkcijo \(G\), za katero velja
+\[\mathcal{L}G(t, t_0) = \delta(t - t_0)\]
+Pri za\v cetnem pogoju, da oscilator na za\v cetku (do \v casa \(t_0\)) miruje, nato pa zaradi nekak\v snega vzbujanja za\v cne nihati.
+Ker oscilator do \(t_0\) miruje, nato pa niha, \v zelimo pa, da je Greenova funkcija zvezna, se nam ponuja Greenova funkcija
+\[G(t, t_0) = \frac{\sin(\omega[t - t_0])}{\omega}H(t - t_0)\]
+Zdaj lahko s to Greenovo funkcijo izra\v cunamo \(u(t)\) za vsakr\v sno nehomogenost ali robni pogoj, opisan z ena\v cbo
+\[\mathcal{L}u = f\]
+\[u(t) = u(0)G'(t, 0) + u'(0)G(t, 0) + \int_{0}^{\infty}G(t, t_0)f(t_0)\dif t_0\]
+\subsection{Kon\v cno obmo\v cje}
+Za obmo\v cje \(\mathcal{D}\) in Dirichletov robni pogoj potrebujemo tak\v sno \(G(\vct{r}, \vct{r_0})\), da je \[G(\vct{r_B}, \vct{r_0} = 0)\text{ za }\forall\vct{r_B}\in\partial\mathcal{D}\]
+Zapi\v semo \[G = G_{\infty} + g\]
+\(G_\infty\) je Greenova funkcija za neskon\v cno obmo\v cje, \(g\) pa je re\v sitev homogene ena\v cbe \[\mathcal{L}g = 0\] z robnim pogojem
+\(g(\partial\mathcal{D}) = -G_\infty(\partial\mathcal{D})\). Ena\v cba je homogena, vendar ima lahko zahteven robni pogoj. Ko dobimo \(G\), pa lahko izra\v cunamo \(u(\vct{r})\) po slede\v cem postopku:
+Greenova zveza:
+\[\int_{\mathcal{D}}\left(u\mathcal{L}v - v\mathcal{L}u\right)\dif V = \int_{\partial\mathcal{D}}\left(u\pd{v}{n} - v\pd{u}{n}\right)\dif S\]
+V tem primeru uporabimo \(G\) in \(u\):
+\[\int_{\mathcal{D}}\left(u\nabla^2G - G\nabla^2 u\right) = \int_{\mathcal{D}}\left(u\delta(\vct{r} - \vct{r_0}) - G\nabla^2u\right)\dif V = \int_{\partial D}\left(u(\vct{r})\pd{G}{n} - G\pd{u}{n}\right)\dif S\]
+Zahtevali smo, da je \(G\big|_{\partial\mathcal{D}} = 0\):
+\[u(\vct{r_0}) - \int G(\vct{r},\vct{r_0})f(\vct{r})\dif^3\vct{r} = \int_{\partial\mathcal{D}}u(\vct{r_B})\pd{G(\vct{r_B}, \vct{r_0})}{n_B}\dif S_B\]
+Zamenjamo spremenljivki \(\vct{r}\) in \(\vct{r_0}\) - to smemo, saj je Greenova funkcija simetri\v cna:
+\[u(\vct{r}) = \int G(\vct{r}, \vct{r_0})f(\vct{r_0})\dif^3\vct{r} + \int u(\vct{r_B})\pd{G(\vct{r}, \vct{r_B})}{n_B}\dif S_B\]
+To je re\v sitev nehomogene ena\v cbe s predpisanim \(u(\vct{r_B})\). Za to pa smo potrebovali Greenovo funkcijo, ki je na robu domene \(\mathcal{D} = 0\) - Diricletov problem.
+\paragraph{Primer.} Polneskon\v cni prostor v 2D
+\[\nabla^2u  = f\]
+Robni pogoj: \(u(\vct{r_B}) = h(y, x=0) = h(y)\)
+\[\nabla^2G = \delta(\vct{r} - \vct{r_0}),\qquad\vct{r_0} = (x_0, y_0)\]
+\[G_\infty = \frac{1}{2\pi}\ln|\vct{r} - \vct{r_0}|\]
+I\v s\v cemo:
+\[\nabla^2g = 0,\qquad g(0, y) = -G_\infty\]
+Kadar so meje obmo\v cja premice ali kro\v znice, lahko uporabimo zrcaljenje. Vemo namre\v c, da bo prezrcaljena re\v sitev ravno tako zado\v s\v cala obema pogojema. Ozna\v cimo \(\vct{r_*} = (-x_0, y_0)\):
+\[g = -\frac{1}{2\pi}\ln|\vct{r} - \vct{r_*}|\]
+Tako je skupna Greenova funkcija enaka
+\[G(\vct{r}, \vct{r_0}) = \frac{1}{2\pi}\ln\frac{|\vct{r} - \vct{r_0}|}{|\vct{r} - \vct{r_*}|}\]
+\end{document}

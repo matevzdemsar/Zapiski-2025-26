@@ -1,0 +1,78 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Kon\v cna struna.} Valovno ena\v cbo re\v sujemo s separacijo:
+\[c^2X''T = XT''\]
+\[c^2\frac{X''}{X} = \frac{T''}{T} = -\omega^2\]
+\v Casovni del:
+\[T_n(t) = \alpha_n\cos(\omega_n t) + \beta_n \sin(\omega_n t)\]
+Prostorski del:
+\[X_n(x) = \zeta_n \cos(k x) + \eta_n \sin(k x)\]
+Imamo robna pogoja: \(X(0) = X(L) = 0\). Sledi:
+\[\zeta_n = 0,~k = n\pi/L,~n \in \N\]
+Re\v sitev lahko \v se normiramo:
+\[X_n(x) = \sqrt{\frac{2}{L}} \sin\left(\frac{n\pi}{L}x\right)\]
+Kaj pa, ko je nihanje vzbujano?
+\[u_{tt} = c^2u_{xx} + f(x, t)\]
+Robni pogoja pogoja: \(u(0, t) = u(L, t) = 0\) \\
+Za\v cetna pogoja: \(u(x, 0) = \varphi(x)\) in \(\dot{u}(x, 0) = \psi(x)\) \\
+Vzamemo nastavek:
+\[u(x, t) = \sum_{n} c_n(t)X_n(x)\]
+\[f(x, t) = \sum_{n} f_n(t)X_n(x)\]
+\[\sum_n\ddot{c_n}X_n = \sum_n -\omega_n^2c_nX_n + \varphi_nX_n\]
+\[\ddot{c}_n = \omega_nc_n = f_n(t)\]
+Imamo sistem \(n\) med seboj neodvisnih navadnih diferencialno ena\v cbo (za razliko od prej, ko smo imeli eno parcialno).
+Za\v cetna pogoja sta \(c_n(0) =\varphi_n\) in \(\dot{c}_n(0) = \psi_n\) \\
+Za homogeni del dobimo re\v sitev: \[c_n(t) = \varphi_n\cos(\omega_n t) + \frac{\psi_n}{\omega_n}\sin(\omega_n t)\]
+za partikularni del pa:
+\[c_n(t) = \frac{1}{\omega_n}\int_{0}^{t}\sin\left(\omega_n(t_0 - \tau)\right)f_n(\tau)\dif \tau\]
+Lahko se primeri tudi, da je robni pogoj nehomogen, ena\v cba pa homogena:
+\[u(0, t) = \eta_1(t)\]
+\[u(L, t) = \eta_2(t)\]
+\[u_{tt} - c^2u_{xx} = 0\]
+Zamislimo si, da je na\v sa funkcija \(u\) vsota funkcij \(u_1\) in \(u_2\). Za \(u_1\) naj velja prvi robni pogoj, za \(u_2\) pa drugi robni pogoj.
+Tako postane na\v s robni pogoj homogen, ena\v cba pa nehomogena.
+\paragraph{Opna.} Opno opisuje ena\v cba
+\[\dif F = \gamma \dif s\]
+Vsota zunanjih sil mora biti torej enaka (pri predpostavki, da v oni ni lukenj):
+\[F_z = \int_{\partial\mathcal{D}} ... \dif s = \iint_{D} z(x, y) \cdot ... \dif x \dif y\]
+Z uporabo Stokesovega izreka izra\v cunajmo spremembo gibalne koli\v cine:
+\[\Delta G = \int_{t_1}^{t_2} \iint_{\mathcal{D}} Z_{tt}(x, y, \tau) h\rho \dif x \dif y \dif \tau = \int_{t_1}^{t_2} F_z\dif\tau + \int_{t_1}^{t_2}\iint_{\mathcal{D}} p \dif x \dif y \dif \tau\]
+Sledi: 
+\[z_{tt} = c^2\nabla^2z + \frac{p}{\rho h},~c^2 = \frac{\gamma}{\rho h}\]
+\(h\) ozna\v cuje debelino opne, ostale oznake so verjetno dovolj jasne.
+\paragraph{Druge relevantne ena\v cbe}
+Nihanje vzdol\v z palice: \[\frac{F}{S} = E\dd{u}{x}\]
+\[c^2 u_{xx} = u_{tt},~ c^2 = \frac{E}{\rho}\]
+Zvok: Uporabili bomo Navier-Stokesovo ena\v cbo in kontinuitetno ena\v cbo.
+\[\rho\left(\pd{\vct{v}}{t} + (\vct{v} \cdot \nabla)\vct{v} = -\nabla p + \eta\nabla^2\vct{v} + \vct{f}\right)\]
+\[\pd{\rho}{t} + \nabla\cdot(\rho\vct{v}) = 0\]
+Dobili smo nelinearen sistem nehomogenih diferencialnih ena\v cb. Da ga lahko re\v simo, potrebujemo nekaj predpostavk. Zahtevali bomo, da je \[\frac{v}{c} \ll 1\]
+Tako se bomo znebili nelinearnih \v clenov.
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\langle {#1} |}
+\newcommand{\ket}[1]{| {#1} \rangle}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\paragraph{Diskretna sila na homogeno sredstvo}
+Denimo, da sila deluje na to\v cko \(x_0\) v smeri pravokotno na vrv. Valovna ena\v cba:
+\[u_{tt} = c^2 u_{xx} + \frac{F_y}{\mu}\delta(x-x_0)\]
+Vzamemo limito integrala \(\int_{x_0 - \varepsilon}^{x_0 + \varepsilon}\dif x\), ko gre \(\varepsilon\) proti 0. Zaradi lastnosti integrala bo ta limita seveda 0.
+\[0 = c^2 u_x \Big|^{x_0^+}_{x_0^-} + \frac{F_x}{\mu}\]
+Sledi \(F u_x\big|_{x \to x_0} = -F_y\)
+\paragraph{Diskretna masa} Izra\v cun je podoben, za maso uporabimo drugi Newtonov zakon.
+\[mu_{tt}(x_0) = Fu_x\Big|_{x_0^-}^{x_0^+}\]
+\paragraph{Struna iz dveh delov}
+Imamo dva dela struna, v katerih ima valovanje razli\v cno hitrost \v sirjenja (ozna\v cimo \(c_1\) in \(c_2\)).
+Ozna\v cimo tudi, da se \(c\) spremeni pri \(x=0\).
+\[u_1 = u_(x - c_1t) + u_r(x + c_1t)\]
+\[u_2 = u_t(x - c_2t)\]
+Z indeksom \(i\) tu ozna\v cimo za\v cetni val, z indeksom \(r\) odbiti val, z indeksom \(t\) pa prepu\v s\v ceni val (ne \v casovnega odvoda).
+Robni pogoj pri \(x=0\):
+\[u_(0, t) = u_t(0, t)~~\text{(zveznost)}\]
+\[u_{x}(0, t) = u_{tx}(0, t)~~\text{(zvezna odvedljivost)}\]
+V \(x=0\) z integriranjem robnega pogoja o zvezni odvedljivosti dobimo:
+\[-\frac{1}{c_1}u_(-c_1t) + \frac{1}{c_1}u_r(c_1t) = -\frac{1}{c_2}u_t(-c_2t)\]
+Iz tega lahko spet izrazimo
+\[u_r(s) = \frac{c_2-c_1}{c_2 + c_1}u_i(-s)\]
+\[u_t(s) = \frac{2c_2}{c_2 + c_1}u_i(s\frac{c_1}{c_2})\]
+Ozna\v cimo \(\displaystyle{R = \frac{c_2 - c_1}{c_2 + c_1}}\) (odbojnost) in \(\displaystyle{T = \frac{2c_2}{c_1 + c_2}}\) (prepustnost).
+Zakon o ohranitvi energije je oblike \(R^2 + T^2\frac{c_1}{c_2} = 1\)
+\end{document}

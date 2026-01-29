@@ -1,0 +1,157 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Cilindri\v cne koordinate - nadaljevanje}
+\paragraph{Primer.} Besselobve funkcije z necelimi indeksi. Imejmo na primer odsek cilindra, ki bodi v \(z\) smeri neskon\v cen (translacijska invariantnost pomeni, da obravnavamo le odvisnost od \(r\) in \(\varphi\)). Robni pogoj je Dirichletov, torej \(u(\partial D) = 0\).
+Spet re\v sujemo s separacijo, za\v cnimo s kotno smerjo.
+\[\phi(\varphi) \sim \sin\left(\frac{m\pi}{\varphi_0}\phi\right),~m = 1, 2, ...\]
+Ozna\v cimo \(\mu = m\pi/\varphi_0 \in \R\). Za \(r\) torej dobimo:
+\[r^2R'' + rR' + [r^2\lambda - \mu^2]R\]
+Ta ena\v cba ni v Sturm-Liouvillovi obliki, jo pa lahko na obeh straneh delimo z \(r\) in dobimo Sturm-Liouvillov problem z ute\v zjo \(w = r\). Pri re\v sitvi imamo slede\v ce primere:
+\begin{itemize}
+    \item \(\lambda = 0\): Nimamo nobene re\v sitve, ki zado\v s\v cajo Dirichletovemu robnemu pogoju.
+    \item \(\lambda < 0\): Na\v se re\v sitve bi bile modoficirane Besselove funkcije, ki ne zado\v s\v cajo robnim pogojem.
+    \item \(\lambda > 0\): Re\v sitve so Besselove funkcije \(J_\mu(\xi_{\mu, n} r/R_0)\), kjer je \(\mu \in \R\), \(n = 1, 2, ...\). Lastne vrednosti pa so \(\lambda = (\xi_{\mu, n}/R_0)^2\).
+    Funkcije \(\phi_m\) so ortogonalne za razli\v cne \(m\), 
+\end{itemize}
+\subsection{Laplaceova ena\v cba}
+\[\nabla^2 u = 0\]
+Imejmo valj in robna pogoja \(u = f(r, \varphi)\) na zgornji ploskvi, \(u = h(r, \varphi)\) na spodnji ploskvi in \(u = 0\) na pla\v s\v cu valja.
+Re\v sujemo s separacijo, v smeri \(\varphi\) dobimo \(\phi(\varphi) = \exp(im\varphi),~m = 0, 1, 2, ...\). V radialni smeri imamo spet Besselove funkcije \(J_m(\xi_{m, n}r/R_0)\). \\[2mm]
+V \(z\) smeri smo imeli pri Helmholtzovi ena\v cbi mo\v znosti kotnih ali hiperboli\v cnih funkcij. Upo\v stevamo tudi lastnost
+\[\nabla^2_rJ_m = -\frac{\xi}{R_0}J_m\]
+Tako je v smeri \(z\) re\v sitev linearna kombinacija funkcij
+\[\left\{\begin{matrix}
+    \sinh\left(\frac{\xi_{m, n}}{R_0}z\right) \\ \cosh\left(\frac{\xi_{m, n}}{R_0}z\right)
+\end{matrix}\right\}\]
+Dolo\v citi moramo koeficiente za lastne funkcije \(Z(z)\). Definiramo naslednji funkciji:
+\[v(z) = \sinh\left(\xi_{m, n}\frac{z}{R_0}\right)\cosh\left(\xi_{m, n}\frac{0}{R_0}\right) - \sinh\left(\xi_{m, n}\frac{0}{R_0}\right)\cosh\left(\xi_{m, n}\frac{z}{R_0}\right)\]
+\[w(z) = \sinh\left(\xi_{m, n}\frac{z}{R_0}\right)\cosh\left(\xi_{m, n}\frac{H}{R_0}\right) - \sinh\left(\xi_{m, n}\frac{H}{R_0}\right)\cosh\left(\xi_{m, n}\frac{z}{R_0}\right)\]
+Funkciji sta sestavljeni tako, da je \(v(0) = 0\) in \(w(H) = 0\). Tako je kon\v cna re\v sitev
+\[u = \sum_{m, n}\left(\alpha_{m,n}v(z) + \beta_{m,n}w(z)\right)\,J_m\left(\xi_{m, n}\frac{r}{R_0}\right)\,e^{im\varphi}\]
+koeficiente \(\alpha_{m,n}\) dobimo z razvojem funkcije \(f\), koeficiente \(\beta_{m,n}\) pa z razvojem funkcije \(h\).
+\section{Sferi\v cne koordinate}
+Obravnavali bomo Helmholtzovo ena\v cbo, pri Laplaceovi je stvar podobna.
+\[\nabla^2u + \lambda u = 0\]
+Zapi\v simo Laplaceov operator v sferi\v cnih koordinatah:
+\[\nabla^2 u = \frac{1}{r^2}\pd{}{r}\left(r^2\pd{u}{r}\right) - \frac{L^2}{r^2}r\]
+Definirali smo operator \(L\), in sicer tako, da je
+\[\vct{L} = \vct{r} \times \vct{p},~~~ \vct{p} = -i \nabla\]
+Ali druga\v ce:
+\[L^2 = \vct{L} \cdot \vct{L} = -\frac{1}{\sin\vartheta}\pd{}{\vartheta}\left(\sin\vartheta\pd{}{\vartheta}\right) - \frac{1}{\sin\vartheta}\pd{^2}{\varphi^2}\]
+Re\v sujemo kar s separacijo, najprej kotni del, ki ima lastne funkcije \(Y(\varphi, vartheta)\). po vzoru kvantne mehanike pi\v semo problem lastnih vrednosti kot
+\[L^2Y(\vartheta, \varphi) = l(l+1)Y(\vartheta, \varphi)\]
+Spet uporabimo separacijo:
+\[Y(\vartheta, \varphi) = \phi(\varphi)\cdot\theta(\vartheta)\]
+V smeri \(\varphi\):
+\[\frac{\phi''}{\phi} = -m^2\]
+\[\phi = \left\{\begin{matrix}
+    \sin(m\varphi) \\ \cos(m\varphi)
+\end{matrix}\right\}~,\qquad \begin{matrix}
+    L_z = -i\pd{}{\varphi} \\ L_z^2\phi = m^2\phi
+\end{matrix}\]
+V smeri \(\vartheta\): Vzamemo spremenljivko \(t = \cos\vartheta\) in jo vstavimo v definicijo \(L^2\).
+\[\dd{}{t}\left[(1-t^2)\dd{}{t}\right]\theta + \left[l(l+1) - \frac{m^2}{1-t^2}\right]\theta = 0\]
+Gre za diferencialno ena\v cbo, imenovano Legendrova diferencialna ena\v cba z znanimi re\v sitvami
+\[\theta = \left\{\begin{matrix}
+    P_l^m \\ Q_l^m
+\end{matrix}\right\}\]
+Funkcijam \(P^l_m\) in \(Q_l^m\) pravimo pridru\v zene Legendrove funkcije. Parametra \(m\) in \(l\) sta odvisna od oblike problema.
+\v Ce imamo opravka s celo sfero, se izka\v ze, da so dovoljene vrednosti \(m\) in \(l\) ravno cela \v stevila. Sama ena\v cba o tem ni\v cesar ne pove.
+Pri kvantni mehaniki zahteve o \(m\) in \(l\) izpeljemo z algebrajskim postopkom: definiramo operatorja \(L_\pm = L_x \pm L_y\)
+in opazimo, da nam operator zve\v ca ali zmanj\v sa \(m\) za \(\pm 1\). Nato zahtevamo, da imamo pri neki vrednosti \(m\) kon\v cno vrednost mo\v znosti za \(l\),
+kar je mogo\v ce le, \v ce sta \(m\) in \(l\) celi ali polceli \v stevili. Vzrok za to je v zahtevi po konvergenci lastnih funkcij, ki pa je mogo\v ca, \v ce je \(L\) sebi adjungiran operator.
+\subsection{Sferi\v cni harmoniki}
+Za kotni del Helmholtzove ena\v cbe v sferi\v cnih koordinatah smo dobili lastne funkcije
+\[Y_{lm}(\vartheta, \varphi) \sim P_l^m(\cos\vartheta)\,e^{im\varphi}\]
+ki so ortonormirane:
+\[\int Y_{lm}^* Y_{l'm'}\dif\varphi\sin\vartheta\dif\vartheta = \delta_{m, m'}\delta_{l, l'}\]
+\paragraph{Opomba.} Funkcije \(Q_l^m\) imajo za cele indekse logaritemske singularnosti, zato obi\v cajno niso primerne kot re\v sitve. Kot primer:
+\[Q_0 = \frac{1}{2}\ln\frac{1 + t}{1 - t},\qquad Q_1 = \frac{t}{2}\ln\frac{1 + t}{1 - t} - 1\]
+Raidalni del:
+\[\frac{1}{r}\dd{}{r}\left(r^2 R'\right) + \lambda R - \frac{l(l+1)}{r^2}R = 0\]
+Naredimo substitucijo \(R(r) = Z(r)/\sqrt{r}\)
+\[r^2Z'' + rZ' + \left[\lambda r^2 - \left(l + \frac{1}{2}\right)^2\right]Z = 0\]
+To je Besselova diferencialna ena\v cba, katere re\v sitve so Bessli s polcelimi indeksi (\v ce je \(l\) celo \v stevilo, o \v cemer smo \v ze govorili).
+Spet lo\v cimo primere:
+\begin{itemize}
+    \item \(\lambda = 0\): V resnici gre za Laplaceovo ena\v cbo. \[R = \left\{\begin{matrix}
+        r^l \\ r^{-(l+1)}
+    \end{matrix}\right\}\]
+    Za celotno Laplaceovo ena\v cbo je re\v sitev oblike
+    \[u(\vct{r}) = \sum_{l, m} c_{l, m} Y_{l, m}(\vartheta, \varphi)\left\{\begin{matrix}
+        r^l \\ r^{-(l+1)}
+    \end{matrix}\right\}\]
+    \item \(\lambda < 0\): Re\v sitev zapi\v semo z modificirani sferi\v cnimi Besselovimi funukcijami (ozna\v cimo \(-\lambda = k^2\)): \[R = \left\{\begin{matrix}
+        i_l(kr) \\ k_l(kr)
+    \end{matrix}\right\}\]
+    Funkcije \(i_l\) in \(k_l\) so eksponentne narave: \(i_l\) padajo, \(k_l\) nara\v s\v cajo, ni\v cel pa nimajo ne ene, ne druge.
+    \item \(\lambda > 0\): Re\v sitev zapi\v semo s sferi\v cnimi Besselovimi funkcijami:
+    \[R = \left\{\begin{matrix}
+        j_l(kr) \\ y_l(kr)
+    \end{matrix}\right\}\]
+    Sferi\v cne Besseflove funkcije so definirane kot
+    \[j_l(x) = \sqrt{\frac{\pi}{2x}}\,J_{l + 1/2}(x),\qquad j_0 = \frac{\sin x}{x}\]
+    \[y_l(x) = \sqrt{\frac{\pi}{2x}}\,Y_{l + 1/2}(x),\qquad y_0 = -\frac{\cos x}{x}\]
+    V limiti \(x \to 0\) spet velja \(y_l \to x^{-(l+1)}\).
+\end{itemize}
+\subsection{Lastnosti Legendrovih funkcij}
+Sferni harmoniki so navedeni kot
+\[Y_{lm}(t = \cos\vartheta, \varphi) = \sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^m(t)\,e^{im\varphi}\]
+Za sferne harmonike velja, da so ortogonalni in normirani:
+\[\int_{-1}^{1}\int_{0}^{2\pi} Y_{lm}^* Y_{l'm'}^*\dif \varphi\dif t = \delta_{ll'}\delta_{mm'}\]
+Gre v bistvu za to, da so \(P_l^m \perp P_{l'}^m\).
+\paragraph{Definicija.} Legendrove funkcije so definirane kot
+\[P_l^m = (-1)^m (1 - t^2)^{m/2} dd{^m}{t^m}P_l(t)\]
+\(P_l(t)\) so Legendrovi polinomi, npr. \(P_0 = 1\), \(P_1 = t\), \dots
+\paragraph{Legendrovi polinomi.}
+Takoj vidimo, da velja \(P_l^m = 0\), \v ce je \(m > l\). Legendrovi polinomi so definirani kot
+\[P_l = \frac{1}{2^l l!}\dd{^l}{t^l}\left[(t^2 - 1)^l\right]\]
+So ortogonalni, velja:
+\[\int_{-1}^{1}P_lP_{l'}\dif t = \frac{2}{2l + 1}\delta_{ll'}\]
+Imamo tudi rekurzivno zvezo
+\[(2l+1) t P_l = (l+1)P_{l+1} + lP_{l-1}\]
+\paragraph{Generatrisa.} Legendrove funkcije so koeficienti razvoja funkcije
+\[\frac{1}{\sqrt{1 - 2xt + x^2}} = \Sum{l}P_l(t)x^l\]
+To lahko s pridom uporabimo, npr.
+\[\frac{1}{|\vct{r_1} - \vct{r_2}|} = \frac{1}{\max(r_1, r_2)}\sum_{l=0}^{\infty}\left(\frac{\min(r_1, r_2)}{\max(r_1, r_2)}\right)^lP_l(\cos\alpha)\]
+\subsection{Legendrove funkcije z necelimi indeksi}
+Spomnimo se, da so Legendrove funkcije lastne funkcije kotnega dela ena\v cbe \[\nabla^2u + \lambda u = 0\]
+Za \(m = 0\) zaradi rotacijske simatrije velja:
+\begin{align*}
+    P_\nu(1) & = 1\qquad\forall \nu \\
+    P_\nu(-1) & = \infty\qquad\forall\nu\notin\Z \\
+    Q_\nu(1) & = \infty\qquad\forall\nu \\
+    Q_\nu(-1) & = \infty\qquad\forall\nu\notin\frac{1}{2}\Z
+\end{align*}
+Da na\v se re\v sitve ustrezajo Dirichletovim robim pogojem, smemo torej uporabljali le cele \(\nu\) in funkcije \(P\).
+To pa velja le, \v ce re\v sujemo ena\v cbo na celi krogli. \v Ce gre za odsek krogle, lahko dobimo poljubne vrednosti \(\nu\), malo tako kot pri odsekih valja.
+\end{document}

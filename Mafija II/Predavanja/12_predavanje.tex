@@ -1,0 +1,72 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{esint}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\newcommand{\vct}[1]{\overrightarrow{#1}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d} {#1}}{\mathrm{d} {#2}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\fn}[3]{{#1}\colon {#2} \rightarrow {#3}}
+\newcommand{\avg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\Sum}[2][0]{\sum_{{#2} = {#1}}^{\infty}}
+\newcommand{\Lim}[1]{\lim_{{#1} \rightarrow \infty}}
+\newcommand{\Binom}[2]{\begin{pmatrix} {#1} \cr {#2} \end{pmatrix}}
+\newcommand{\duline}[1]{\underline{\underline{#1}}}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\ket}[1]{\left| {#1} \right\rangle}
+\newcommand{\rot}{\vct{\nabla}\times}
+\newcommand{\dvg}{\vct{\nabla}\cdot}
+\renewcommand{\figurename}{Slika}
+
+\begin{document}
+\section{Integralska formulacija Greenove funkcije}
+Od prej imamo Fredholmovo integralsko ena\v cbo:
+\[u(\vct{r}) = h(\vct{r}) + \lambda\int_{\mathcal{D}}G_0(\vct{r}, \vct{r_0})V(\vct{r_0})u(\vct{r_0})\dif^3\vct{r_0}\]
+\paragraph{Primer.} Sskanje vezanih lastnih stanj v 1D (\(E < 0\)):
+\[-\frac{\hbar^2}{2m}\dd{^2}{x^2} + V(x)u = Eu\]
+\[\left(\dd{^2}{x^2} - \kappa^2\right)u = -\frac{2m}{\hbar}V(x)u,\qquad \kappa^2 = -\frac{2mE}{\hbar}\]
+Dobili smo operator \(\mathcal{L} = \dd{^2}{x^2} - \kappa^2\). Gre za Helmholtzov operator, za katerega smo napisali 2D in 3D Greenove funkcije. V 1D se zadeve lotimo tako, da
+poi\v s\v cemo funkcijo, ki ima v nekem \(x_0\) singularnost, drugje pa re\v si homogeno ena\v cbo za deni operator. V tem primeru so re\v sitve homogene ena\v cbe eksponentne funkcije,
+torej je
+\[G_0(x, x_0) = -\frac{1}{2\kappa}\,e^{-\kappa|x - x_0|}\]
+Tako najdemo tudi funkcijo \(h\):
+\[h = c_1e^{-\kappa x} + c_2 e^{\kappa x}\]
+Zaradi lastnosti re\v sitve \(u(|x| \to \infty) = 0\) je \(c_1 = c_2 = 0\).
+Tako dobimo pogoj, ki mu morajo zado\v s\v cati lastne funkcije \(u\):
+\[u(x) = -\int_{-\infty}^{\infty}\frac{h}{\hbar^2\kappa}\,e^{-\kappa|x - x_0|}V(x_0)u(x_0)\dif x_0\]
+\paragraph{Opomba.} \v Ce je \(V(x) \sim \delta(x)\), je lastna funcija ravno \(\exp(-\kappa|x - x_0|)\) in imamo samo eno vezano stanje.
+\subsection{Sipalni problem}
+\paragraph{Primer.} Sipanje v kvantni mehaniki, 3D. Imamo vpadni val \(\exp(i\vct{k_0}\cdot\vct{r})\) na nek potencial \(V(\vct{r})\).
+\[(\nabla^2 + k_0^2)u = \frac{2m}{\hbar^2}V(\vct{r})u(\vct{r})\]
+Pri tem je \(k_0^2 = 2mE/\hbar^2\). Za Helmholtzov problem v 3D imamo Greenovo funkcijo
+\[G_0(\vct{r}, \vct{r_0}) = -\frac{e^{ikr_0}}{4\pi r}\]
+Poi\v s\v cimo \v se funkcijo \(h\) kot re\v sitev ena\v cbe \[\mathcal{L}h = 0\]
+Ker moramo poskrbeti za robni pogoj v \(r \to \infty\), izberemo kar vpadni val \(\exp(i\vct{k}\cdot\vct{r})\).
+Re\v sitev mora torej izpolnjevati pogoj
+\[u(\vct{r}) = e^{-i\vct{k}\cdot\vct{r}} - \frac{2m}{\hbar^2}\frac{e^{i\vct{k}\cdot(\vct{r} - \vct{r_0})}}{4\pi|\vct{r} - \vct{r_0}|}V(\vct{r_0})u(\vct{r_0})\dif^3\vct{r}\]
+Tej ena\v cbi se re\v ce tudi Lippmann-Schwingerjeva ena\v cba. \v Ce je \(V\) \v sibek (oziroma \(\lambda \ll 1\)), lahko napi\v semo preturbacijsko vrsto za Fredholovo ena\v cbo: \\[2mm]
+Ni\v cti red:
+\[u_0(\vct{r}) = h(\vct{r})\]
+Prvi red:
+\[u_1(\vct{r}) = \lambda\int G_0(\vct{r}, \vct{r_1})V(\vct{r_1})h(\vct{r_1})\dif^3\vct{r_1}\]
+Drugi red:
+\[u_2(\vct{r}) = u_1(\vct{r}) + \lambda^2\int G_0(\vct{r}, \vct{r_0}) G_0(\vct{r_1}, \vct{r_2})V(\vct{r_1})V(\vct{r_2})\dif^3\vct{r_1}\dif^3\vct{r_2}\]
+Tretji red: (namesto \(h\) vstavimo \(u_1\) in o\v cedimo, kar se o\v cediti da). Dobljeni vrsti pravimo tudi Neumannova ali Bornova vrsta. \\[2mm]
+Definiramo linearni operator \[K_0(u) = \int_{\mathcal{D}}G_0(\vct{r}, \vct{r_0})V(\vct{r_0})u(\vct{r_0})\dif^3\vct{r_0}\]
+Tako lahko Friedholmovo ena\v cbo predstavimo kot
+\[u = h + \lambda K_0 u\]
+\[\left(I - \lambda K_0\right)u = h\]
+\[u = \left(1 - \lambda K_0\right)^{-1}h\]
+Neumannova (Bornova) vrsta je nekak\v cen Taylorjev razvoj operatorja \((I - \lambda K_0)^{-1}\).
+\paragraph{Opomba.} Kak\v sen je konvergen\v cni radij take vrste? Je kon\v cen, obstaja pa tudi bolj\v sa vrsta, ki vedno konvergira, imenovana Firedholmova vrsta. Mi je ne bomo potrebovali.
+\end{document}
